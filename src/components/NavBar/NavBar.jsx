@@ -6,12 +6,14 @@ const NavBar = () => {
     <nav className="bg-[#003FBC]">
 {/* ------------------- Logo Part -------------------------------------- */}
 
+
+
       <Logoimg />
 
 {/* ------------------- nav Links Part --------------------------------- */}
 
-      <div className="links-container">
-        <ul>
+      <div className="links-container hidden md:block ">
+        <ul className="flex item-center gap-8 text-white">
           {NavBarMenu.map((item) => {
             return (
               <li key={item.id}>
