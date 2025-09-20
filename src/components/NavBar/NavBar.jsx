@@ -1,5 +1,7 @@
 import { Logoimg } from "../Logo/logo";
 import { NavBarMenu } from "../../mockData/data.js";
+import { FaSearch } from "react-icons/fa";
+
 
 const NavBar = () => {
   return (
@@ -7,6 +9,7 @@ const NavBar = () => {
 {/* ------------------- Logo Part -------------------------------------- */}
 
 
+<div className="navbar-items-container flex items-center justify-between  ">
 
       <Logoimg />
 
@@ -24,7 +27,18 @@ const NavBar = () => {
         </ul>
       </div>
 
-{/* ------------------- nav Links Part --------------------------------- */}
+{/* ------------------- Search icon Part --------------------------------- */}
+    
+    <button className="text-2xl rounded-full hover:bg-[#F1BD09] p-2 ">
+
+          <FaSearch />
+
+    </button>
+
+
+</div>
+
+
 
 
 
