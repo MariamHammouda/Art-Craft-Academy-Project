@@ -1,25 +1,32 @@
-// arrow functional componenets
-// why { NavBarMenu }  with curlu braces , what does that mean ?
-import React from "react";
-import { NavBarMenu } from "../../mockData/data";
-import { FaSearch } from "react-icons/fa";
-import Logo from "../../../../Art-Craft-Academy/src/Components/Logo/Logo";
+import { Logoimg } from "../Logo/logo";
+import { NavBarMenu } from "../../mockData/data.js";
 
 const NavBar = () => {
   return (
-    <>
-      <nav>
-        <div className="container">
-          {/* logo part -------- */}
+    <nav className="bg-[#003FBC]">
+{/* ------------------- Logo Part -------------------------------------- */}
 
-          <Logo />
+      <Logoimg />
 
-          {/* navbar links part -------- */}
-          {/*  login & registeration buttons part -------- */}
-          {/* Sidebar part "Hamburger Menu"-------- */}
-        </div>
-      </nav>
-    </>
+{/* ------------------- nav Links Part --------------------------------- */}
+
+      <div className="links-container">
+        <ul>
+          {NavBarMenu.map((item) => {
+            return (
+              <li key={item.id}>
+                <a key={item.link}>{item.title}</a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+{/* ------------------- nav Links Part --------------------------------- */}
+
+
+
+    </nav>
   );
 };
 
