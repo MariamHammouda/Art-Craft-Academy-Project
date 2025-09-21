@@ -38,3 +38,37 @@ export default HeroSection;
 
 
 
+// import React from "react";
+// import HeroImage from "../HeroImage/HeroImage";
+// import { Button } from "../Button/Button.jsx";
+
+// const HeroSection = () => {
+//   return (
+//     <section className="bg-gray-50 py-20">
+//       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center">
+        
+//         {/* Left side (text) */}
+//         <div className="flex-1 text-center md:text-left">
+//           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+//             Discover Your Creative Side 🎨
+//           </h1>
+//           <p className="text-lg text-gray-600 mb-6">
+//             Learn arts and crafts from professionals. Build your skills, unleash your imagination, and create something amazing.
+//           </p>
+//          <Button
+//              onClick={() => console.log("Learn more clicked")}
+//                className="px-8 py-3 bg-[#003FBC] text-white border-2 border-[#003FBC] rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] hover:border-[#FCD11A] transition duration-300 font-semibold"
+//              >
+//                Learn more
+//              </Button>
+//         </div>
+
+//            <div className="flex justify-center items-center">
+//             <HeroImage />
+//            </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default HeroSection;
