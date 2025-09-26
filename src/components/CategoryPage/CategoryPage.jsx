@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import VideoThumbCard from "../Videos/VideoThumbCard.jsx";
+import VideoCard from "../Videos/VideoCard.jsx";
 import { categoriesData } from "../../mockData/categoriesData.js";
 import { videosData } from "../../mockData/videosData.js";
 
@@ -82,7 +82,12 @@ const CategoryPage = () => {
           {[...resolvedVideos]
             .sort((a, b) => (b.id ?? 0) - (a.id ?? 0))
             .map((video) => (
-            <VideoThumbCard key={video.id} url={video.url} title={video.title} />
+              <VideoCard
+                key={video.id}
+                url={video.url}
+                title={video.title}
+                categoryTitle={video.categoryTitle}
+              />
           ))}
         </div>
       </div>

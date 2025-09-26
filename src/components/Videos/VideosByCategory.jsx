@@ -9,10 +9,11 @@ export const VideosByCategory = () => {
 
   // Group videos by category
   const videosByCategory = videosData.reduce((acc, video) => {
-    if (!acc[video.categoryId]) {
-      acc[video.categoryId] = [];
+    const key = Number(video.categoryId);
+    if (!acc[key]) {
+      acc[key] = [];
     }
-    acc[video.categoryId].push(video);
+    acc[key].push(video);
     return acc;
   }, {});
 
