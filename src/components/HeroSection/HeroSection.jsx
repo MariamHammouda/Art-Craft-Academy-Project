@@ -17,7 +17,7 @@ const HeroSection = () => {
                 <img 
                   src={Artlogo} 
                   alt="Academy of Art and Craft Logo" 
-                  className="h-24 sm:h-32 md:h-40 lg:h-48 xl:h-56 w-auto object-contain drop-shadow-lg"
+                  className="h-40 sm:h-48 md:h-56 lg:h-64 xl:h-72 2xl:h-80 w-auto object-contain drop-shadow-lg"
                 />
               </div>
               
@@ -34,7 +34,7 @@ const HeroSection = () => {
               </div>
               
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              {/* <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button
                   onClick={() => console.log("Start Learning clicked")}
                   className="px-8 py-4 bg-[#FCD11A] text-[#003FBC] border-2 border-[#FCD11A] rounded-lg hover:bg-white hover:text-[#003FBC] hover:border-white transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl"
@@ -47,7 +47,7 @@ const HeroSection = () => {
                 >
                   Browse Courses
                 </Button>
-              </div>
+              </div> */}
             </div>
             
             {/* Image Slider Column */}

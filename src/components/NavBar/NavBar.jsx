@@ -50,7 +50,7 @@ const NavBar = () => {
                     <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
                       <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
                     </div>
-                    <span className="text-sm font-semibold">{item.title}</span>
+                    <span className="text-base font-semibold">{item.title}</span>
                   </button>
                 ) : (
                   <Link 
@@ -60,7 +60,7 @@ const NavBar = () => {
                     <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
                       <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
                     </div>
-                    <span className="text-sm font-semibold">{item.title}</span>
+                    <span className="text-base font-semibold">{item.title}</span>
                   </Link>
                 )}
               </li>
