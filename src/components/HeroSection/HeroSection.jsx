@@ -1,5 +1,5 @@
 import React from "react";
-import HeroImage from "../HeroImage/HeroImage";
+import HeroSlider from "../HeroImage/HeroSlider";
 import { Button } from "../Button/Button.jsx";
 
 const HeroSection = () => {
@@ -26,7 +26,7 @@ const HeroSection = () => {
           
           {/* ---------------- image section -------------------- */}
           <div className="flex justify-center items-center">
-            <HeroImage />
+            <HeroSlider />
           </div>
         </div>
       </div>
