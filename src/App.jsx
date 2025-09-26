@@ -4,6 +4,8 @@ import NavBar from './components/NavBar/NavBar'
 import HeroSection from './components/HeroSection/HeroSection'
 import CategoriesBar from "./components/Categories/CategoriesBar"
 import { VideosByCategory } from "./components/Videos/VideosByCategory"
+import LatestVideos from './components/Videos/LatestVideos'
+import FeaturedStories from './components/Stories/FeaturedStories'
 import CategoryPage from './components/CategoryPage/CategoryPage'
 import CoursesPage from './components/Pages/CoursesPage'
 import ShopPage from './components/Pages/ShopPage'
@@ -18,6 +20,8 @@ function App() {
           <Route path="/" element={
             <>
               <HeroSection/>
+              <LatestVideos />
+              <FeaturedStories />
               <CategoriesBar />
               <VideosByCategory />
             </>
