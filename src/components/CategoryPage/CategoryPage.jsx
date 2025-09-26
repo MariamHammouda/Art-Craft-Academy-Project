@@ -1,17 +1,32 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import VideoCard from "../Videos/VideoCard.jsx";
 import { categoriesData } from "../../mockData/categoriesData.js";
+import { videosData } from "../../mockData/videosData.js";
 
 const CategoryPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { categoryTitle, videos } = location.state || {};
+  const { id: idParam } = useParams();
+  const { categoryTitle: stateTitle, videos: stateVideos } = location.state || {};
+
+  const resolvedCategory = (() => {
+    if (stateTitle) return categoriesData.find(c => c.title === stateTitle);
+    const idNum = Number(idParam);
+    return categoriesData.find(c => c.id === idNum);
+  })();
+
+  const resolvedVideos = stateVideos && stateVideos.length
+    ? stateVideos
+    : (() => {
+        if (!resolvedCategory) return [];
+        return videosData.filter(v => v.categoryId === resolvedCategory.id);
+      })();
 
   // Find category data for styling
-  const categoryData = categoriesData.find(cat => cat.title === categoryTitle);
+  const categoryData = resolvedCategory;
 
-  if (!categoryTitle || !videos) {
+  if (!categoryData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -41,33 +56,38 @@ const CategoryPage = () => {
             </button>
           </div>
           
-          <div className="flex items-center gap-6">
-            {categoryData && (
+          <div className="text-center max-w-3xl mx-auto">
+            <div className="flex items-center justify-center gap-4 mb-3">
               <div
-                className="w-20 h-20 rounded-full shadow-lg flex items-center justify-center"
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow flex items-center justify-center"
                 style={{ backgroundColor: categoryData.color }}
               >
-                <img src={categoryData.icon} alt={categoryTitle} className="w-10 h-10" />
+                <img src={categoryData.icon} alt={categoryData.title} className="w-8 h-8" />
               </div>
-            )}
-            <div>
-              <h1 className="text-4xl font-bold text-gray-800">{categoryTitle}</h1>
-              <p className="text-gray-600 mt-2">{videos.length} videos available</p>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight">
+                {categoryData.title}
+              </h1>
             </div>
+            <p className="text-gray-600 text-lg">
+              Explore creative {categoryData.title.toLowerCase()} tutorials
+              <span className="hidden sm:inline"> for all ages!</span>
+            </p>
           </div>
         </div>
       </div>
 
       {/* Videos Grid */}
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {videos.map((video) => (
-            <VideoCard 
-              key={video.id} 
-              url={video.url} 
-              title={video.title}
-              categoryTitle={video.categoryTitle}
-            />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[...resolvedVideos]
+            .sort((a, b) => (b.id ?? 0) - (a.id ?? 0))
+            .map((video) => (
+              <VideoCard
+                key={video.id}
+                url={video.url}
+                title={video.title}
+                categoryTitle={video.categoryTitle}
+              />
           ))}
         </div>
       </div>

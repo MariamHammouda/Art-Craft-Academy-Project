@@ -11,6 +11,7 @@ import CategoryPage from './components/CategoryPage/CategoryPage'
 import CoursesPage from './components/Pages/CoursesPage'
 import ShopPage from './components/Pages/ShopPage'
 import AboutPage from './components/Pages/AboutPage'
+import Footer from './components/Footer/Footer'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/about" element={<AboutPage />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   )
