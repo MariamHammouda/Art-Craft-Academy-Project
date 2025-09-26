@@ -5,6 +5,9 @@ import HeroSection from './components/HeroSection/HeroSection'
 import CategoriesBar from "./components/Categories/CategoriesBar"
 import { VideosByCategory } from "./components/Videos/VideosByCategory"
 import CategoryPage from './components/CategoryPage/CategoryPage'
+import CoursesPage from './components/Pages/CoursesPage'
+import ShopPage from './components/Pages/ShopPage'
+import AboutPage from './components/Pages/AboutPage'
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
             </>
           } />
           <Route path="/category/:id" element={<CategoryPage />} />
+          <Route path="/courses" element={<CoursesPage />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </div>
     </Router>

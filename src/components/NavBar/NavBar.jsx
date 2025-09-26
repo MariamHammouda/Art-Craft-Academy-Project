@@ -1,7 +1,8 @@
 import { Logoimg } from "../Logo/logo";
 import { NavBarMenu } from "../../mockData/data.js";
 import { FaSearch } from "react-icons/fa";
-import { Button } from "../Button/Button.jsx"
+import { Button } from "../Button/Button.jsx";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -18,8 +19,10 @@ const NavBar = () => {
             <ul className="hidden md:flex items-center gap-8 text-white">
               {NavBarMenu.map((item) => {
                 return (
-                  <li className="hover:text-[#FCD11A]" key={item.id}>
-                    <a key={item.link}>{item.title}</a>
+                  <li className="hover:text-[#FCD11A] transition-colors" key={item.id}>
+                    <Link to={item.link} className="block">
+                      {item.title}
+                    </Link>
                   </li>
                 );
               })}
