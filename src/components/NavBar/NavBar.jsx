@@ -1,11 +1,13 @@
-import { NavBarMenu } from "../../mockData/data.js";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../Button/Button.jsx";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import Artlogo from "../../assets/images/hero-images/Artlogo.png";
 import CustomIcon from "../../assets/images/icon.ico";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 const NavBar = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,59 +36,101 @@ const NavBar = () => {
     <nav className="bg-[#59ACBE] shadow-lg">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between relative">
-          
 
 
           {/* Navigation Links - Center */}
-        <div className="absolute left-1/2 transform -translate-x-1/2">
-          <ul className="hidden md:flex items-center gap-8 text-white">
-            {NavBarMenu.map((item) => (
-              <li key={item.id}>
-                {item.link.includes('#') ? (
-                  <button 
-                    onClick={() => handleNavClick(item.link)} 
-                    className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
-                  >
-                    <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
-                      <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
-                    </div>
-                    <span className="text-base font-semibold">{item.title}</span>
-                  </button>
-                ) : (
-                  <Link 
-                    to={item.link} 
-                    className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
-                  >
-                    <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
-                      <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
-                    </div>
-                    <span className="text-base font-semibold">{item.title}</span>
-                  </Link>
-                )}
+          <div className="absolute left-1/2 transform -translate-x-1/2">
+            <ul className="hidden md:flex items-center gap-8 text-white">
+              <li>
+                <Link 
+                  to="/" 
+                  className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
+                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                  </div>
+                  <span className="text-base font-semibold">{t('nav.home')}</span>
+                </Link>
               </li>
-            ))}
-          </ul>
-        </div>
+              <li>
+                <button 
+                  onClick={() => handleNavClick('/#categories')} 
+                  className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
+                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                  </div>
+                  <span className="text-base font-semibold">{t('nav.categories')}</span>
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handleNavClick('/#video-categories')} 
+                  className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
+                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                  </div>
+                  <span className="text-base font-semibold">{t('nav.videos')}</span>
+                </button>
+              </li>
+              <li>
+                <Link 
+                  to="/courses" 
+                  className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
+                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                  </div>
+                  <span className="text-base font-semibold">{t('nav.courses')}</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/shop" 
+                  className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
+                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                  </div>
+                  <span className="text-base font-semibold">{t('nav.shop')}</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/about" 
+                  className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
+                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                  </div>
+                  <span className="text-base font-semibold">{t('nav.about')}</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-        {/* Search Icon & Buttons - End */}
-        <div className="flex items-center gap-4 flex-shrink-0 ml-auto">
-          <button className="text-2xl text-white rounded-full hover:bg-[#F1BD09] p-2">
-            <FaSearch />
-          </button>
+          {/* Search Icon, Language Switcher & Buttons - End */}
+          <div className="flex items-center gap-4 flex-shrink-0 ml-auto">
+            <button className="text-2xl text-white rounded-full hover:bg-[#F1BD09] p-2" title={t('common.search')}>
+              <FaSearch />
+            </button>
 
-          <Button
-            onClick={() => console.log("Login clicked")}
-            className="px-6 py-2 bg-transparent text-white border-2 border-white rounded-lg hover:bg-white hover:text-[#003FBC] transition duration-200"
-          >
-            Login
-          </Button>
+            <LanguageSwitcher />
 
-          <Button
-            onClick={() => console.log("Sign Up clicked")}
-            className="px-6 py-2 bg-[#FCD11A] text-[#003FBC] border-2 border-[#FCD11A] rounded-lg hover:bg-yellow-500 transition duration-200"
-          >
-            Sign Up
-          </Button>
+            <Button
+              onClick={() => console.log("Login clicked")}
+              className="px-6 py-2 bg-transparent text-white border-2 border-white rounded-lg hover:bg-white hover:text-[#003FBC] transition duration-200"
+            >
+              {t('nav.login')}
+            </Button>
+
+            <Button
+              onClick={() => console.log("Sign Up clicked")}
+              className="px-6 py-2 bg-[#FCD11A] text-[#003FBC] border-2 border-[#FCD11A] rounded-lg hover:bg-yellow-500 transition duration-200"
+            >
+              {t('nav.signup')}
+            </Button>
           </div>
         </div>
       </div>

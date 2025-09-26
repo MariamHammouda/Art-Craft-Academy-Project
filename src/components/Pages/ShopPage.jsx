@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const ShopPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -19,8 +21,8 @@ const ShopPage = () => {
           </div>
           
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Shop</h1>
-            <p className="text-gray-600 text-lg">Premium craft supplies and materials</p>
+            <h1 className="text-4xl font-bold text-gray-800 mb-4">{t('shop.title')}</h1>
+            <p className="text-gray-600 text-lg">{t('shop.subtitle')}</p>
           </div>
         </div>
       </div>

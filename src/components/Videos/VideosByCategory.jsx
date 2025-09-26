@@ -1,10 +1,12 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import VideoCard from "./VideoCard.jsx";
 import { videosData } from "../../mockData/videosData.js";
 import { categoriesData } from "../../mockData/categoriesData.js";
 import { useNavigate } from "react-router-dom";
 
 export const VideosByCategory = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // Group videos by category
@@ -29,7 +31,7 @@ export const VideosByCategory = () => {
   return (
     <section id="video-categories" className="py-12 px-6 bg-gray-50">
       <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
-        Explore Videos by Category
+        {t('videos.byCategory')}
       </h2>
       
       <div className="space-y-16">
@@ -44,7 +46,7 @@ export const VideosByCategory = () => {
               {/* Category Header */}
               <div 
                 className="flex items-center justify-between mb-6 cursor-pointer group"
-                onClick={() => handleCategoryClick(category.id, category.title)}
+                onClick={() => handleCategoryClick(category.id, t(category.titleKey))}
               >
                 <div className="flex items-center gap-4">
                   <div
@@ -54,11 +56,11 @@ export const VideosByCategory = () => {
                     <img src={category.icon} alt={category.title} className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
-                    {category.title}
+                    {t(category.titleKey)}
                   </h3>
                 </div>
                 <div className="text-blue-600 font-medium group-hover:text-blue-800 transition-colors">
-                  View All →
+                  {t('categories.viewAll')} →
                 </div>
               </div>
               
@@ -68,6 +70,8 @@ export const VideosByCategory = () => {
                   <VideoCard 
                     key={video.id} 
                     url={video.url} 
+                    titleKey={video.titleKey}
+                    categoryTitleKey={video.categoryTitleKey}
                     title={video.title}
                     categoryTitle={video.categoryTitle}
                   />
@@ -78,10 +82,10 @@ export const VideosByCategory = () => {
               {categoryVideosSorted.length > 4 && (
                 <div className="text-center mt-6">
                   <button
-                    onClick={() => handleCategoryClick(category.id, category.title)}
+                    onClick={() => handleCategoryClick(category.id, t(category.titleKey))}
                     className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   >
-                    View {categoryVideosSorted.length - 4} More Videos
+                    {t('categories.viewAll')} {categoryVideosSorted.length - 4} {t('videos.loadMore')}
                   </button>
                 </div>
               )}

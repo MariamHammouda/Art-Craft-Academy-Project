@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import VideoCard from "../Videos/VideoCard.jsx";
 import { categoriesData } from "../../mockData/categoriesData.js";
 import { videosData } from "../../mockData/videosData.js";
@@ -7,11 +8,16 @@ import { videosData } from "../../mockData/videosData.js";
 const CategoryPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { id: idParam } = useParams();
   const { categoryTitle: stateTitle, videos: stateVideos } = location.state || {};
 
   const resolvedCategory = (() => {
-    if (stateTitle) return categoriesData.find(c => c.title === stateTitle);
+    // First try to find by translated title (stateTitle is now the translated title)
+    if (stateTitle) {
+      return categoriesData.find(c => t(c.titleKey) === stateTitle);
+    }
+    // Fallback to finding by ID
     const idNum = Number(idParam);
     return categoriesData.find(c => c.id === idNum);
   })();
@@ -62,14 +68,14 @@ const CategoryPage = () => {
                 className="w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow flex items-center justify-center"
                 style={{ backgroundColor: categoryData.color }}
               >
-                <img src={categoryData.icon} alt={categoryData.title} className="w-8 h-8" />
+                <img src={categoryData.icon} alt={t(categoryData.titleKey)} className="w-8 h-8" />
               </div>
               <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight">
-                {categoryData.title}
+                {t(categoryData.titleKey)}
               </h1>
             </div>
             <p className="text-gray-600 text-lg">
-              Explore creative {categoryData.title.toLowerCase()} tutorials
+              Explore creative {t(categoryData.titleKey).toLowerCase()} tutorials
               <span className="hidden sm:inline"> for all ages!</span>
             </p>
           </div>
@@ -85,6 +91,8 @@ const CategoryPage = () => {
               <VideoCard
                 key={video.id}
                 url={video.url}
+                titleKey={video.titleKey}
+                categoryTitleKey={video.categoryTitleKey}
                 title={video.title}
                 categoryTitle={video.categoryTitle}
               />

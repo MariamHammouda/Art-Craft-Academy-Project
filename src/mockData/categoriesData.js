@@ -12,49 +12,49 @@ import sticks from "../assets/images/sticks.png"
 export const categoriesData = [
   {
     id: 1,
-    title: "Origami World",
+    titleKey: "categories.origamiWorld",
     color: "#FDE68A", // yellow
     icon: origami,
   },
   {
     id: 2,
-    title: "Drawing",
+    titleKey: "categories.drawing",
     color: "#93C5FD", // blue
     icon: drawing,
   },
   {
     id: 3,
-    title: "Beads & Jewelry",
+    titleKey: "categories.beadsJewelry",
     color: "#F9A8D4", // pink
     icon:beads,
   },
   {
     id: 4,
-    title: "Clay",
+    titleKey: "categories.clay",
     color: "#A7F3D0", // green
     icon: clay,
   },
   {
     id: 5,
-    title: "Preschool Crafts",
+    titleKey: "categories.preschoolCrafts",
     color: "#FBCFE8", // light pink
     icon: preschool,
   },
   {
     id: 6,
-    title: "Science DIY",
+    titleKey: "categories.scienceDiy",
     color: "#C7D2FE", // purple
     icon: science,
   },
   {
     id: 7,
-    title: "Recycling Art",
+    titleKey: "categories.recyclingArt",
     color: "#BBF7D0", // mint green
     icon: recycleing,
   },
   {
     id: 8,
-    title: "Popsicle Sticks",
+    titleKey: "categories.popsicleSticks",
     color: "#FDBA74", // orange
     icon: sticks,
   },

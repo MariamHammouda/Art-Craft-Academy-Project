@@ -1,9 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { videosData } from '../../mockData/videosData.js';
 
-const CategoryCard = ({ title, icon, color, id }) => {
+const CategoryCard = ({ titleKey, icon, color, id }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  
+  const title = t(titleKey);
 
   const goToCategoryPage = () => {
     const categoryVideos = videosData.filter(video => video.categoryId === id);

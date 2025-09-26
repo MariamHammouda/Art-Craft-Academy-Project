@@ -3,54 +3,54 @@ export const videosData = [
   {
     id: 1,
     url: "https://www.youtube.com/embed/WH37GeN77q8?si=oIetRbdrkhWrTimI&start=2",
-    title: "Paper Pencil Case",
+    titleKey: "videos.titles.paperPencilCase",
     views: 52340,
     categoryId: 1,
-    categoryTitle: "Origami World"
+    categoryTitleKey: "categories.origamiWorld"
   },
   {
     id: 2,
     url: "https://www.youtube.com/embed/JFEui1Ti2F0?si=7TKGURqr5WlYoccS&amp;start=2",
-    title: "Origami Rose from Paper",
+    titleKey: "videos.titles.origamiRose",
     views: 187230,
     categoryId: 1,
-    categoryTitle: "Origami World"
+    categoryTitleKey: "categories.origamiWorld"
   },
   {
     id: 3,
     url: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=example",
-    title: "Origami Crane Tutorial",
+    titleKey: "videos.titles.origamiCrane",
     views: 76510,
     categoryId: 1,
-    categoryTitle: "Origami World"
+    categoryTitleKey: "categories.origamiWorld"
   },
   
   // Drawing Videos
   {
     id: 4,
     url: "https://www.youtube.com/embed/example1?si=drawing1",
-    title: "Basic Drawing Techniques",
+    titleKey: "videos.titles.basicDrawing",
     views: 65420,
     categoryId: 2,
-    categoryTitle: "Drawing"
+    categoryTitleKey: "categories.drawing"
   },
   {
     id: 5,
     url: "https://www.youtube.com/embed/example2?si=drawing2",
-    title: "Watercolor Painting Basics",
+    titleKey: "videos.titles.watercolorBasics",
     views: 43210,
     categoryId: 2,
-    categoryTitle: "Drawing"
+    categoryTitleKey: "categories.drawing"
   },
   
   // Beads & Jewelry Videos
   {
     id: 6,
     url: "https://www.youtube.com/embed/gjqDo2LcBf4?si=qz84pD1usH7cXSQM&amp;start=2",
-    title: "Making Labubu from Perler Beads",
+    titleKey: "videos.titles.labubuBeads",
     views: 98231,
     categoryId: 3,
-    categoryTitle: "Beads & Jewelry"
+    categoryTitleKey: "categories.beadsJewelry"
   },
   {
     id: 7,

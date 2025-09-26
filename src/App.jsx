@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
-import NavBar from './components/NavBar/NavBar'
+import './i18n/i18n' // Initialize i18n
+import NavBar from './components/Navbar/Navbar'
 import HeroSection from './components/HeroSection/HeroSection'
 import CategoriesBar from "./components/Categories/CategoriesBar"
 import { VideosByCategory } from "./components/Videos/VideosByCategory"
@@ -23,8 +24,7 @@ function App() {
             <>
               <HeroSection/>
               <LatestVideos />
-              <ShortsStories />
-              <FeaturedStories />
+        
               <CategoriesBar />
               <VideosByCategory />
             </>
