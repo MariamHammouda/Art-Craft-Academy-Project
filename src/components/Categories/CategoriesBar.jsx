@@ -10,6 +10,7 @@ const CategoriesBar = () => {
         {categoriesData.map((cat) => (
           <CategoryCard
             key={cat.id}
+            id={cat.id}
             title={cat.title}
             icon={cat.icon}
             color={cat.color}
