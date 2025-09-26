@@ -26,7 +26,7 @@ export const VideosByCategory = () => {
   };
 
   return (
-    <section className="py-12 px-6 bg-gray-50">
+    <section id="video-categories" className="py-12 px-6 bg-gray-50">
       <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
         Explore Videos by Category
       </h2>
@@ -34,11 +34,12 @@ export const VideosByCategory = () => {
       <div className="space-y-16">
         {categoriesData.map((category) => {
           const categoryVideos = videosByCategory[category.id] || [];
+          const categoryVideosSorted = [...categoryVideos].sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
           
           if (categoryVideos.length === 0) return null;
           
           return (
-            <div key={category.id} className="max-w-7xl mx-auto">
+            <div key={category.id} id={`cat-${category.id}`} className="max-w-7xl mx-auto">
               {/* Category Header */}
               <div 
                 className="flex items-center justify-between mb-6 cursor-pointer group"
@@ -62,7 +63,7 @@ export const VideosByCategory = () => {
               
               {/* Videos Grid */}
               <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {categoryVideos.slice(0, 4).map((video) => (
+                {categoryVideosSorted.slice(0, 4).map((video) => (
                   <VideoCard 
                     key={video.id} 
                     url={video.url} 
@@ -73,13 +74,13 @@ export const VideosByCategory = () => {
               </div>
               
               {/* Show More Button if there are more videos */}
-              {categoryVideos.length > 4 && (
+              {categoryVideosSorted.length > 4 && (
                 <div className="text-center mt-6">
                   <button
                     onClick={() => handleCategoryClick(category.id, category.title)}
                     className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   >
-                    View {categoryVideos.length - 4} More Videos
+                    View {categoryVideosSorted.length - 4} More Videos
                   </button>
                 </div>
               )}
