@@ -9,6 +9,7 @@ import LatestVideos from './components/Videos/LatestVideos'
 import FeaturedStories from './components/Stories/FeaturedStories'
 import ShortsStories from './components/Stories/ShortsStories'
 import CategoryPage from './components/CategoryPage/CategoryPage'
+import VideoDetailPage from './components/VideoDetail/VideoDetailPage'
 import CoursesPage from './components/Pages/CoursesPage'
 import ShopPage from './components/Pages/ShopPage'
 import AboutPage from './components/Pages/AboutPage'
@@ -30,6 +31,7 @@ function App() {
             </>
           } />
           <Route path="/category/:id" element={<CategoryPage />} />
+          <Route path="/video/:videoId" element={<VideoDetailPage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/about" element={<AboutPage />} />

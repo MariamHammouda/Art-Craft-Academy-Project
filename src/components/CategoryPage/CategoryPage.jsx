@@ -53,31 +53,75 @@ const CategoryPage = () => {
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center gap-4 mb-6">
             <button
               onClick={() => navigate("/")}
-              className="text-blue-600 hover:text-blue-800 font-medium"
+              className="text-[#59ACBE] hover:text-[#4a9bb0] font-medium transition-colors"
             >
-              ← Back to Home
+              ← {t('common.back')}
             </button>
           </div>
           
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="flex items-center justify-center gap-4 mb-3">
+          {/* Title Section */}
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center gap-4 mb-4">
               <div
-                className="w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow flex items-center justify-center"
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full shadow-lg flex items-center justify-center"
                 style={{ backgroundColor: categoryData.color }}
               >
-                <img src={categoryData.icon} alt={t(categoryData.titleKey)} className="w-8 h-8" />
+                <img src={categoryData.icon} alt={t(categoryData.titleKey)} className="w-10 h-10 sm:w-12 sm:h-12" />
               </div>
-              <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight">
                 {t(categoryData.titleKey)}
               </h1>
             </div>
-            <p className="text-gray-600 text-lg">
-              Explore creative {t(categoryData.titleKey).toLowerCase()} tutorials
-              <span className="hidden sm:inline"> for all ages!</span>
-            </p>
+          </div>
+
+          {/* Image and Description Section */}
+          <div className="grid lg:grid-cols-2 gap-8 items-center mb-8">
+            {/* Category Image */}
+            <div className="order-2 lg:order-1">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                <img 
+                  src={categoryData.bannerImage} 
+                  alt={t(categoryData.titleKey)}
+                  className="w-full h-64 sm:h-80 lg:h-96 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="order-1 lg:order-2">
+              <div className="bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl shadow-lg border border-gray-100">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                  {t('videos.description')}
+                </h2>
+                <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                  {t(categoryData.descriptionKey)}
+                </p>
+                
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-4 bg-white rounded-xl shadow-sm">
+                    <div className="text-2xl font-bold text-[#59ACBE]">
+                      {resolvedVideos.length}
+                    </div>
+                    <div className="text-sm text-gray-600 font-medium">
+                      {t('videos.available')}
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-white rounded-xl shadow-sm">
+                    <div className="text-2xl font-bold text-[#59ACBE]">
+                      {Math.floor(Math.random() * 50) + 10}K
+                    </div>
+                    <div className="text-sm text-gray-600 font-medium">
+                      {t('videos.totalViews')}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -90,6 +134,7 @@ const CategoryPage = () => {
             .map((video) => (
               <VideoCard
                 key={video.id}
+                id={video.id}
                 url={video.url}
                 titleKey={video.titleKey}
                 categoryTitleKey={video.categoryTitleKey}

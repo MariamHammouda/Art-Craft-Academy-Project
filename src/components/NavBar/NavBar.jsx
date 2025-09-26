@@ -47,7 +47,7 @@ const NavBar = () => {
                   className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
                 >
                   <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
-                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                    <img src={CustomIcon} alt="Art Icon" className="w-8 h-8" />
                   </div>
                   <span className="text-base font-semibold">{t('nav.home')}</span>
                 </Link>
@@ -58,7 +58,7 @@ const NavBar = () => {
                   className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
                 >
                   <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
-                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                    <img src={CustomIcon} alt="Art Icon" className="w-8 h-8" />
                   </div>
                   <span className="text-base font-semibold">{t('nav.categories')}</span>
                 </button>
@@ -69,7 +69,7 @@ const NavBar = () => {
                   className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
                 >
                   <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
-                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                    <img src={CustomIcon} alt="Art Icon" className="w-8 h-8" />
                   </div>
                   <span className="text-base font-semibold">{t('nav.videos')}</span>
                 </button>
@@ -80,7 +80,7 @@ const NavBar = () => {
                   className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
                 >
                   <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
-                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                    <img src={CustomIcon} alt="Art Icon" className="w-8 h-8" />
                   </div>
                   <span className="text-base font-semibold">{t('nav.courses')}</span>
                 </Link>
@@ -91,7 +91,7 @@ const NavBar = () => {
                   className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
                 >
                   <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
-                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                    <img src={CustomIcon} alt="Art Icon" className="w-8 h-8" />
                   </div>
                   <span className="text-base font-semibold">{t('nav.shop')}</span>
                 </Link>
@@ -102,7 +102,7 @@ const NavBar = () => {
                   className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
                 >
                   <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
-                    <img src={CustomIcon} alt="Art Icon" className="w-5 h-5" />
+                    <img src={CustomIcon} alt="Art Icon" className="w-8 h-8" />
                   </div>
                   <span className="text-base font-semibold">{t('nav.about')}</span>
                 </Link>

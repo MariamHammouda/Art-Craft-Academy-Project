@@ -69,6 +69,7 @@ export const VideosByCategory = () => {
                 {categoryVideosSorted.slice(0, 4).map((video) => (
                   <VideoCard 
                     key={video.id} 
+                    id={video.id}
                     url={video.url} 
                     titleKey={video.titleKey}
                     categoryTitleKey={video.categoryTitleKey}

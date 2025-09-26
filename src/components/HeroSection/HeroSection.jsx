@@ -30,9 +30,9 @@ const HeroSection = () => {
                   <span className="text-[#FCD11A] block sm:inline"> {t('hero.titleHighlight')}</span> 
                   {t('hero.titleEnd') && <span className="block">{t('hero.titleEnd')}</span>}
                 </h1>
-                <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                {/* <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-lg mx-auto lg:mx-0">
                   {t('hero.description')}
-                </p>
+                </p> */}
               </div>
               
 

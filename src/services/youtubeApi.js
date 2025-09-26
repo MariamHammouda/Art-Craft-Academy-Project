@@ -1,0 +1,228 @@
+// YouTube Data API v3 Service
+const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
+
+/**
+ * Fetch videos from a YouTube channel
+ * @param {string} channelId - YouTube channel ID
+ * @param {number} maxResults - Maximum number of videos to fetch (default: 50)
+ * @returns {Promise<Array>} Array of video objects
+ */
+export const fetchChannelVideos = async (channelId, maxResults = 50) => {
+  try {
+    if (!YOUTUBE_API_KEY) {
+      console.warn('YouTube API key not found. Using fallback data.');
+      return [];
+    }
+
+    // First, get the uploads playlist ID
+    const channelResponse = await fetch(
+      `${YOUTUBE_API_BASE_URL}/channels?part=contentDetails&id=${channelId}&key=${YOUTUBE_API_KEY}`
+    );
+    
+    if (!channelResponse.ok) {
+      throw new Error(`Channel API error: ${channelResponse.status}`);
+    }
+    
+    const channelData = await channelResponse.json();
+    
+    if (!channelData.items || channelData.items.length === 0) {
+      throw new Error('Channel not found');
+    }
+    
+    const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+    
+    // Get videos from the uploads playlist
+    const videosResponse = await fetch(
+      `${YOUTUBE_API_BASE_URL}/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=${maxResults}&key=${YOUTUBE_API_KEY}`
+    );
+    
+    if (!videosResponse.ok) {
+      throw new Error(`Videos API error: ${videosResponse.status}`);
+    }
+    
+    const videosData = await videosResponse.json();
+    
+    // Get video statistics (views, likes, etc.)
+    const videoIds = videosData.items.map(item => item.snippet.resourceId.videoId).join(',');
+    const statsResponse = await fetch(
+      `${YOUTUBE_API_BASE_URL}/videos?part=statistics,contentDetails&id=${videoIds}&key=${YOUTUBE_API_KEY}`
+    );
+    
+    let statsData = { items: [] };
+    if (statsResponse.ok) {
+      statsData = await statsResponse.json();
+    }
+    
+    // Combine video data with statistics
+    const videos = videosData.items.map((item, index) => {
+      const stats = statsData.items.find(stat => stat.id === item.snippet.resourceId.videoId);
+      
+      return {
+        id: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnail: item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url,
+        publishedAt: item.snippet.publishedAt,
+        channelTitle: item.snippet.channelTitle,
+        url: `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}`,
+        views: stats?.statistics?.viewCount ? parseInt(stats.statistics.viewCount) : 0,
+        likes: stats?.statistics?.likeCount ? parseInt(stats.statistics.likeCount) : 0,
+        duration: stats?.contentDetails?.duration || 'PT0S',
+        // Add category mapping based on title keywords or tags
+        categoryId: getCategoryFromTitle(item.snippet.title),
+        categoryTitleKey: getCategoryTitleKey(item.snippet.title)
+      };
+    });
+    
+    return videos;
+    
+  } catch (error) {
+    console.error('Error fetching YouTube videos:', error);
+    return [];
+  }
+};
+
+/**
+ * Fetch videos from multiple channels and categorize them
+ * @param {Array} channels - Array of {channelId, categoryId, categoryTitleKey}
+ * @param {number} maxResults - Maximum results per channel
+ * @returns {Promise<Array>} Categorized videos
+ */
+export const fetchCategorizedVideos = async (channels, maxResults = 10) => {
+  try {
+    const allVideos = [];
+    
+    for (const channel of channels) {
+      const videos = await fetchChannelVideos(channel.channelId, maxResults);
+      const categorizedVideos = videos.map(video => ({
+        ...video,
+        categoryId: channel.categoryId,
+        categoryTitleKey: channel.categoryTitleKey
+      }));
+      allVideos.push(...categorizedVideos);
+    }
+    
+    return allVideos;
+  } catch (error) {
+    console.error('Error fetching categorized videos:', error);
+    return [];
+  }
+};
+
+/**
+ * Search for videos by keyword
+ * @param {string} query - Search query
+ * @param {number} maxResults - Maximum results
+ * @returns {Promise<Array>} Search results
+ */
+export const searchVideos = async (query, maxResults = 25) => {
+  try {
+    if (!YOUTUBE_API_KEY) {
+      console.warn('YouTube API key not found.');
+      return [];
+    }
+
+    const response = await fetch(
+      `${YOUTUBE_API_BASE_URL}/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=${maxResults}&key=${YOUTUBE_API_KEY}`
+    );
+    
+    if (!response.ok) {
+      throw new Error(`Search API error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    return data.items.map(item => ({
+      id: item.id.videoId,
+      title: item.snippet.title,
+      description: item.snippet.description,
+      thumbnail: item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url,
+      publishedAt: item.snippet.publishedAt,
+      channelTitle: item.snippet.channelTitle,
+      url: `https://www.youtube.com/embed/${item.id.videoId}`,
+      categoryId: getCategoryFromTitle(item.snippet.title),
+      categoryTitleKey: getCategoryTitleKey(item.snippet.title)
+    }));
+    
+  } catch (error) {
+    console.error('Error searching videos:', error);
+    return [];
+  }
+};
+
+/**
+ * Determine category based on video title keywords
+ * @param {string} title - Video title
+ * @returns {number} Category ID
+ */
+const getCategoryFromTitle = (title) => {
+  const titleLower = title.toLowerCase();
+  
+  if (titleLower.includes('origami') || titleLower.includes('paper fold')) return 1;
+  if (titleLower.includes('draw') || titleLower.includes('sketch') || titleLower.includes('paint')) return 2;
+  if (titleLower.includes('bead') || titleLower.includes('jewelry') || titleLower.includes('bracelet')) return 3;
+  if (titleLower.includes('clay') || titleLower.includes('pottery') || titleLower.includes('ceramic')) return 4;
+  if (titleLower.includes('preschool') || titleLower.includes('kids') || titleLower.includes('children')) return 5;
+  if (titleLower.includes('science') || titleLower.includes('experiment') || titleLower.includes('diy')) return 6;
+  if (titleLower.includes('recycle') || titleLower.includes('upcycle') || titleLower.includes('bottle')) return 7;
+  if (titleLower.includes('popsicle') || titleLower.includes('stick') || titleLower.includes('wood')) return 8;
+  
+  // Default to origami if no category matches
+  return 1;
+};
+
+/**
+ * Get category title key based on video title
+ * @param {string} title - Video title
+ * @returns {string} Category title key
+ */
+const getCategoryTitleKey = (title) => {
+  const categoryId = getCategoryFromTitle(title);
+  const categoryMap = {
+    1: 'categories.origamiWorld',
+    2: 'categories.drawing',
+    3: 'categories.beadsJewelry',
+    4: 'categories.clay',
+    5: 'categories.preschoolCrafts',
+    6: 'categories.scienceDiy',
+    7: 'categories.recyclingArt',
+    8: 'categories.popsicleSticks'
+  };
+  
+  return categoryMap[categoryId] || 'categories.origamiWorld';
+};
+
+/**
+ * Format duration from YouTube API format (PT4M13S) to readable format
+ * @param {string} duration - YouTube duration format
+ * @returns {string} Formatted duration (4:13)
+ */
+export const formatDuration = (duration) => {
+  const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+  if (!match) return '0:00';
+  
+  const hours = parseInt(match[1]) || 0;
+  const minutes = parseInt(match[2]) || 0;
+  const seconds = parseInt(match[3]) || 0;
+  
+  if (hours > 0) {
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+};
+
+/**
+ * Format view count to readable format (1.2K, 1.5M, etc.)
+ * @param {number} views - View count
+ * @returns {string} Formatted view count
+ */
+export const formatViewCount = (views) => {
+  if (views >= 1000000) {
+    return `${(views / 1000000).toFixed(1)}M`;
+  }
+  if (views >= 1000) {
+    return `${(views / 1000).toFixed(1)}K`;
+  }
+  return views.toString();
+};
