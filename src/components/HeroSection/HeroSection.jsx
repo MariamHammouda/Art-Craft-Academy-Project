@@ -6,31 +6,6 @@ import Artlogo from "../../assets/images/hero-images/Artlogo.png";
 const HeroSection = () => {
   return (
     <>
-      {/* Header Navigation */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-end">
-            
-            {/* Navigation Menu on Right */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 hover:text-[#003FBC] font-medium transition-colors">HOME</a>
-              <a href="#about" className="text-gray-700 hover:text-[#003FBC] font-medium transition-colors">ABOUT</a>
-              <a href="#courses" className="text-gray-700 hover:text-[#003FBC] font-medium transition-colors">COURSES</a>
-              <a href="#gallery" className="text-gray-700 hover:text-[#003FBC] font-medium transition-colors">GALLERY</a>
-              <a href="#contact" className="text-gray-700 hover:text-[#003FBC] font-medium transition-colors">CONTACT</a>
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <button className="md:hidden p-2">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Section with Slider */}
       <section id="home" className="bg-[#59ACBE] py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -50,7 +25,7 @@ const HeroSection = () => {
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
                   Discover Your 
                   <span className="text-[#FCD11A] block sm:inline"> Creative</span> 
-                  <span className="block">Side 🎨</span>
+                  <span className="block">Side</span>
                 </h1>
                 <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-lg mx-auto lg:mx-0">
                   Learn arts and crafts from professionals. Build your skills,
