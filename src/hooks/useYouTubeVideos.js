@@ -116,8 +116,14 @@ export const useLatestVideos = (maxResults = 20) => {
     videosCount: result.videos.length,
     loading: result.loading,
     error: result.error,
-    playlistsConfigured: playlists.length
+    playlistsConfigured: playlists.length,
+    sampleVideos: result.videos.slice(0, 3).map(v => ({ id: v.id, title: v.title, categoryId: v.categoryId }))
   });
+  
+  // Debug: Log when loading state changes
+  useEffect(() => {
+    console.log('🔄 useLatestVideos loading state changed:', result.loading);
+  }, [result.loading]);
   
   return result;
 };
@@ -185,6 +191,21 @@ export const usePlaylistVideos = (playlists, maxResults = 10) => {
 
   useEffect(() => {
     fetchVideos();
+    
+    // TEMPORARY: Force loading to false after 15 seconds if still loading
+    const timeoutId = setTimeout(() => {
+      if (loading) {
+        console.log('🚨 TIMEOUT: Forcing loading to false after 15 seconds');
+        setLoading(false);
+        // Use fallback data if no videos were loaded
+        if (videos.length === 0) {
+          console.log('📊 Using fallback data due to timeout');
+          setVideos(videosData.slice(0, maxResults));
+        }
+      }
+    }, 15000);
+    
+    return () => clearTimeout(timeoutId);
   }, [playlists, maxResults]);
 
   return {

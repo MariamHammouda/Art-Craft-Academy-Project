@@ -1,18 +1,64 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useLatestVideos } from "../../hooks/useYouTubeVideos.js";
 import VideoCard from "./VideoCard.jsx";
+import { videosData } from "../../mockData/videosData.js";
 
 const LatestVideos = () => {
   const { t } = useTranslation();
-  const { videos, loading, error } = useLatestVideos(15); // Get more videos to have better selection
+  
+  // Safe hook usage with error handling
+  let videos = [], loading = true, error = null;
+  
+  try {
+    const result = useLatestVideos(15);
+    videos = result.videos || [];
+    loading = result.loading;
+    error = result.error;
+  } catch (hookError) {
+    console.error('❌ Error in useLatestVideos hook:', hookError);
+    loading = false;
+    error = 'Failed to load videos';
+    // Use fallback data
+    videos = videosData.slice(0, 5);
+  }
+  
+  // If no videos after hook execution, use fallback
+  if (videos.length === 0 && !loading) {
+    videos = videosData.slice(0, 5);
+  }
+  
+  // TEMPORARY: Force loading to false after 5 seconds for better UX
+  const [forceLoaded, setForceLoaded] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (loading && !forceLoaded) {
+        console.log('🚨 LatestVideos: Forcing loaded state after 5 seconds');
+        setForceLoaded(true);
+      }
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [loading, forceLoaded]);
+  
+  const isActuallyLoading = loading && !forceLoaded;
   
   console.log('🎬 LatestVideos Debug:', { 
     videosCount: videos.length, 
     loading, 
     error,
-    sampleVideo: videos[0]
+    sampleVideo: videos[0],
+    allVideos: videos.map(v => ({ id: v.id, title: v.title, categoryId: v.categoryId }))
   });
+  
+  // Force render after 10 seconds if still loading (for debugging)
+  useEffect(() => {
+    if (loading) {
+      const timer = setTimeout(() => {
+        console.log('🚨 LatestVideos still loading after 10 seconds - this indicates a problem');
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
   
   // Sort by publication date (most recent first) instead of views
   const topVideos = [...videos]
@@ -32,7 +78,7 @@ const LatestVideos = () => {
     views: v.views 
   })));
 
-  if (loading) {
+  if (isActuallyLoading) {
     return (
       <section className="py-10 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -68,7 +114,7 @@ const LatestVideos = () => {
   }
 
   // If no videos available, show message
-  if (!loading && topVideos.length === 0) {
+  if (!isActuallyLoading && topVideos.length === 0) {
     return (
       <section className="py-10 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
