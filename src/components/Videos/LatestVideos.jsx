@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useTranslation } from 'react-i18next';
 import { useLatestVideos } from "../../hooks/useYouTubeVideos.js";
 import VideoCard from "./VideoCard.jsx";
@@ -68,4 +68,4 @@ const LatestVideos = () => {
   );
 };
 
-export default LatestVideos;
+export default memo(LatestVideos);

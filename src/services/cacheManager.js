@@ -143,23 +143,18 @@ export const generateCacheKey = {
  * @returns {boolean} Whether to proceed with API call
  */
 export const shouldMakeApiCall = (estimatedCost = 5) => {
-  // TEMPORARY: Allow API calls for testing drawing playlist
-  // Remove this after confirming the fix
-  console.log('🧪 TEMPORARY: Allowing API calls for testing');
-  return true;
-  
   const lastFetch = getCache(CACHE_KEYS.LAST_FETCH);
   const now = Date.now();
   
-  // If we made an API call in the last 30 minutes, be more conservative
-  if (lastFetch && (now - lastFetch.timestamp) < 30 * 60 * 1000) {
+  // If we made an API call in the last 10 minutes, be more conservative
+  if (lastFetch && (now - lastFetch.timestamp) < 10 * 60 * 1000) {
     console.log('⚠️ Recent API call detected, using cache to preserve quota');
     return false;
   }
   
   // Track API usage (simple estimation)
   const dailyUsage = getDailyApiUsage();
-  if (dailyUsage + estimatedCost > 8000) { // Stay under 8000 to be safe
+  if (dailyUsage + estimatedCost > 7000) { // Stay under 7000 to be safe
     console.log(`⚠️ Estimated quota usage too high: ${dailyUsage + estimatedCost}/10000`);
     return false;
   }

@@ -13,12 +13,27 @@ const CategoryPage = () => {
   const { id: idParam } = useParams();
   const { categoryTitle: stateTitle, videos: stateVideos } = location.state || {};
 
-  console.log('📂 CategoryPage loaded:', { idParam, stateTitle, stateVideosCount: stateVideos?.length || 0 });
+  // Try to get data from sessionStorage if React Router state is not available
+  const sessionData = sessionStorage.getItem('categoryData');
+  const parsedSessionData = sessionData ? JSON.parse(sessionData) : null;
+  
+  const finalTitle = stateTitle || parsedSessionData?.categoryTitle;
+  const finalVideos = stateVideos || parsedSessionData?.videos;
+
+  console.log('📂 CategoryPage loaded:', { 
+    idParam, 
+    stateTitle, 
+    sessionTitle: parsedSessionData?.categoryTitle,
+    finalTitle,
+    stateVideosCount: stateVideos?.length || 0,
+    sessionVideosCount: parsedSessionData?.videos?.length || 0,
+    finalVideosCount: finalVideos?.length || 0
+  });
 
   const resolvedCategory = (() => {
-    // First try to find by translated title (stateTitle is now the translated title)
-    if (stateTitle) {
-      return categoriesData.find(c => t(c.titleKey) === stateTitle);
+    // First try to find by translated title (finalTitle is now the translated title)
+    if (finalTitle) {
+      return categoriesData.find(c => t(c.titleKey) === finalTitle);
     }
     // Fallback to finding by ID
     const idNum = Number(idParam);
@@ -31,8 +46,8 @@ const CategoryPage = () => {
     50
   );
 
-  const resolvedVideos = stateVideos && stateVideos.length
-    ? stateVideos
+  const resolvedVideos = finalVideos && finalVideos.length
+    ? finalVideos
     : apiVideos.length > 0 
     ? apiVideos
     : (() => {

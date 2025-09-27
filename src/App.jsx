@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import './App.css'
 import './i18n/i18n' // Initialize i18n
 import NavBar from './components/Navbar/Navbar'

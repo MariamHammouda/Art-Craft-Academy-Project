@@ -1,20 +1,29 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 import { useTranslation } from 'react-i18next';
 import VideoCard from "./VideoCard.jsx";
 import { videosData } from "../../mockData/videosData.js";
 import { categoriesData } from "../../mockData/categoriesData.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useLatestVideos } from "../../hooks/useYouTubeVideos.js";
 
-export const VideosByCategory = () => {
+const VideosByCategoryComponent = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Debug: Check if we're in Router context
+  console.log('🔍 Router context check:', { 
+    navigate: typeof navigate, 
+    location: location?.pathname 
+  });
 
-  // Fetch videos from YouTube API
-  const { videos: apiVideos, loading, error } = useLatestVideos(50);
+  // Fetch videos from YouTube API with reduced frequency
+  const { videos: apiVideos, loading, error } = useLatestVideos(30);
   
   // Use API videos if available, otherwise fallback to mock data
-  const videosToUse = apiVideos.length > 0 ? apiVideos : videosData;
+  const videosToUse = useMemo(() => {
+    return apiVideos.length > 0 ? apiVideos : videosData;
+  }, [apiVideos]);
 
   console.log('🔍 VideosByCategory Debug:', {
     apiVideosCount: apiVideos.length,
@@ -23,27 +32,31 @@ export const VideosByCategory = () => {
     error
   });
 
-  // Group videos by category
-  const videosByCategory = videosToUse.reduce((acc, video) => {
-    const key = Number(video.categoryId);
-    if (!acc[key]) {
-      acc[key] = [];
-    }
-    acc[key].push(video);
-    return acc;
-  }, {});
+  // Group videos by category (memoized for performance)
+  const videosByCategory = useMemo(() => {
+    return videosToUse.reduce((acc, video) => {
+      const key = Number(video.categoryId);
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(video);
+      return acc;
+    }, {});
+  }, [videosToUse]);
 
   console.log('📊 Videos by category:', videosByCategory);
 
   const handleCategoryClick = (categoryId, categoryTitle) => {
     console.log('📂 Category clicked:', { categoryId, categoryTitle, videosCount: (videosByCategory[categoryId] || []).length });
     
-    navigate(`/category/${categoryId}`, { 
-      state: { 
-        categoryTitle,
-        videos: videosByCategory[categoryId] || []
-      }
-    });
+    // Use window.location for reliable navigation
+    // Store category data in sessionStorage for the target page
+    sessionStorage.setItem('categoryData', JSON.stringify({
+      categoryTitle,
+      videos: videosByCategory[categoryId] || []
+    }));
+    
+    window.location.href = `/category/${categoryId}`;
   };
 
   return (
@@ -135,3 +148,5 @@ export const VideosByCategory = () => {
     </section>
   );
 };
+
+export const VideosByCategory = VideosByCategoryComponent;
