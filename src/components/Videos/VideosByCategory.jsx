@@ -4,13 +4,20 @@ import VideoCard from "./VideoCard.jsx";
 import { videosData } from "../../mockData/videosData.js";
 import { categoriesData } from "../../mockData/categoriesData.js";
 import { useNavigate } from "react-router-dom";
+import { useLatestVideos } from "../../hooks/useYouTubeVideos.js";
 
 export const VideosByCategory = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  // Fetch videos from YouTube API
+  const { videos: apiVideos, loading, error } = useLatestVideos(50);
+  
+  // Use API videos if available, otherwise fallback to mock data
+  const videosToUse = apiVideos.length > 0 ? apiVideos : videosData;
+
   // Group videos by category
-  const videosByCategory = videosData.reduce((acc, video) => {
+  const videosByCategory = videosToUse.reduce((acc, video) => {
     const key = Number(video.categoryId);
     if (!acc[key]) {
       acc[key] = [];
@@ -33,6 +40,19 @@ export const VideosByCategory = () => {
       <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
         {t('videos.byCategory')}
       </h2>
+      
+      {loading && (
+        <div className="flex justify-center items-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#59ACBE]"></div>
+        </div>
+      )}
+      
+      {error && (
+        <div className="text-center py-8">
+          <p className="text-red-600 mb-2">Error loading videos: {error}</p>
+          <p className="text-gray-600">Showing fallback content...</p>
+        </div>
+      )}
       
       <div className="space-y-16">
         {categoriesData.map((category) => {

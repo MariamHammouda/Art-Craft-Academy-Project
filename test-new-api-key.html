@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test New API Key</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #59ACBE;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #4a9bb0;
+        }
+        .result {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #59ACBE;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .error {
+            background: #ffe6e6;
+            border-left-color: #ff4444;
+        }
+        .success {
+            background: #e6ffe6;
+            border-left-color: #44ff44;
+        }
+        .step {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 3px solid #59ACBE;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 Test New YouTube API Key</h1>
+        
+        <div class="step">
+            <h3>Step 1: Enter Your New API Key</h3>
+            <input type="text" id="apiKeyInput" placeholder="Paste your new YouTube Data API v3 key here..." />
+            <button onclick="testNewApiKey()">🧪 Test API Key</button>
+        </div>
+        
+        <div class="step">
+            <h3>Step 2: Test Origami Playlist</h3>
+            <button onclick="testOrigamiPlaylist()">📋 Test Origami Playlist</button>
+            <small style="display: block; margin-top: 5px; color: #666;">
+                Tests: PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-
+            </small>
+        </div>
+        
+        <div class="step">
+            <h3>Step 3: Generate .env Update</h3>
+            <button onclick="generateEnvUpdate()">📝 Generate .env Code</button>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let currentApiKey = '';
+        const PLAYLIST_ID = 'PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-';
+        const API_BASE = 'https://www.googleapis.com/youtube/v3';
+        
+        function log(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'result error' : type === 'success' ? 'result success' : 'result';
+            resultDiv.innerHTML = `<div class="${className}">[${timestamp}] ${message}</div>`;
+        }
+        
+        async function testNewApiKey() {
+            const apiKey = document.getElementById('apiKeyInput').value.trim();
+            
+            if (!apiKey) {
+                log('❌ Please enter an API key first!', 'error');
+                return;
+            }
+            
+            if (apiKey.length < 30) {
+                log('❌ API key seems too short. Please check and try again.', 'error');
+                return;
+            }
+            
+            currentApiKey = apiKey;
+            log('🔍 Testing new API key...', 'info');
+            
+            try {
+                // Simple search test
+                const url = `${API_BASE}/search?part=snippet&q=origami&type=video&maxResults=1&key=${apiKey}`;
+                const response = await fetch(url);
+                
+                if (response.status === 403) {
+                    const errorData = await response.json();
+                    if (errorData.error.message.includes('quota')) {
+                        log('❌ New API key also has quota exceeded!\nTry creating a fresh Google account.', 'error');
+                    } else {
+                        log(`❌ API Key Error (403):\n${JSON.stringify(errorData, null, 2)}`, 'error');
+                    }
+                } else if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ API Key Works!\nQuota Status: Fresh\nFound ${data.items.length} test results\nReady to use!`, 'success');
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ API test failed: ${response.status}\n${errorText}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Network error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testOrigamiPlaylist() {
+            if (!currentApiKey) {
+                log('❌ Please test your API key first!', 'error');
+                return;
+            }
+            
+            log('📋 Testing origami playlist access...', 'info');
+            
+            try {
+                const url = `${API_BASE}/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=3&key=${currentApiKey}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    log(`❌ Playlist test failed: ${response.status}\n${errorText}`, 'error');
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.items && data.items.length > 0) {
+                    let result = `✅ Origami Playlist Access: SUCCESS!\nFound ${data.items.length} videos:\n\n`;
+                    data.items.forEach((item, index) => {
+                        result += `${index + 1}. ${item.snippet.title}\n`;
+                        result += `   Published: ${new Date(item.snippet.publishedAt).toLocaleDateString()}\n\n`;
+                    });
+                    result += `🎯 Ready to integrate with your website!`;
+                    log(result, 'success');
+                } else {
+                    log('⚠️ Playlist found but no videos returned', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Playlist test error: ${error.message}`, 'error');
+            }
+        }
+        
+        function generateEnvUpdate() {
+            if (!currentApiKey) {
+                log('❌ Please test your API key first!', 'error');
+                return;
+            }
+            
+            const envCode = `# Updated .env file with new API key
+VITE_YOUTUBE_API_KEY=${currentApiKey}
+
+# Backup old key (commented out)
+# VITE_YOUTUBE_API_KEY_OLD=AIzaSyCcGV3fbXdwwp3Gop-okkZyWgdW_1Re0jE
+
+# Playlists (keep existing)
+VITE_ORIGAMI_PLAYLIST_ID=PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-
+VITE_DRAWING_PLAYLIST_ID=your_drawing_playlist_id
+VITE_CRAFTS_PLAYLIST_ID=your_crafts_playlist_id
+
+# Instructions:
+# 1. Copy the new API key line above
+# 2. Replace the VITE_YOUTUBE_API_KEY in your .env file
+# 3. Restart your dev server: npm run dev
+# 4. Click "🔄 Reset for New API Key" in the API Status panel
+# 5. Test your website!`;
+            
+            log(envCode, 'success');
+        }
+    </script>
+</body>
+</html>

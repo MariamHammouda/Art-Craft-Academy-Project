@@ -1,4 +1,6 @@
 // YouTube Data API v3 Service
+import { getCache, setCache, generateCacheKey, shouldMakeApiCall, recordApiUsage } from './cacheManager.js';
+
 const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
 
@@ -84,6 +86,101 @@ export const fetchChannelVideos = async (channelId, maxResults = 50) => {
 };
 
 /**
+ * Fetch videos from a YouTube playlist
+ * @param {string} playlistId - YouTube playlist ID
+ * @param {number} maxResults - Maximum number of videos to fetch (default: 50)
+ * @returns {Promise<Array>} Array of video objects
+ */
+export const fetchPlaylistVideos = async (playlistId, maxResults = 50) => {
+  try {
+    console.log('🔍 Attempting to fetch playlist:', playlistId);
+    
+    // Check cache first
+    const cacheKey = generateCacheKey.playlistVideos(playlistId, maxResults);
+    const cachedData = getCache(cacheKey);
+    
+    if (cachedData) {
+      console.log('💾 Using cached playlist data');
+      return cachedData;
+    }
+    
+    console.log('🔑 API Key available:', !!YOUTUBE_API_KEY);
+    
+    if (!YOUTUBE_API_KEY) {
+      console.warn('❌ YouTube API key not found. Using fallback data.');
+      return [];
+    }
+    
+    // Check if we should make API call (quota management)
+    if (!shouldMakeApiCall(5)) {
+      console.warn('⚠️ Skipping API call to preserve quota');
+      return [];
+    }
+
+    // Get videos from the playlist
+    const apiUrl = `${YOUTUBE_API_BASE_URL}/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=${maxResults}&key=${YOUTUBE_API_KEY}`;
+    console.log('📡 Making API call to:', apiUrl);
+    
+    const videosResponse = await fetch(apiUrl);
+    
+    console.log('📊 API Response status:', videosResponse.status);
+    console.log('📊 API Response ok:', videosResponse.ok);
+    
+    if (!videosResponse.ok) {
+      const errorText = await videosResponse.text();
+      console.error('❌ API Error Response:', errorText);
+      throw new Error(`Playlist API error: ${videosResponse.status} - ${errorText}`);
+    }
+    
+    const videosData = await videosResponse.json();
+    
+    // Get video statistics (views, likes, etc.)
+    const videoIds = videosData.items.map(item => item.snippet.resourceId.videoId).join(',');
+    const statsResponse = await fetch(
+      `${YOUTUBE_API_BASE_URL}/videos?part=statistics,contentDetails&id=${videoIds}&key=${YOUTUBE_API_KEY}`
+    );
+    
+    let statsData = { items: [] };
+    if (statsResponse.ok) {
+      statsData = await statsResponse.json();
+    }
+    
+    // Combine video data with statistics
+    const videos = videosData.items.map((item, index) => {
+      const stats = statsData.items.find(stat => stat.id === item.snippet.resourceId.videoId);
+      
+      return {
+        id: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnail: item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url,
+        publishedAt: item.snippet.publishedAt,
+        channelTitle: item.snippet.channelTitle,
+        url: `https://www.youtube.com/embed/${item.snippet.resourceId.videoId}`,
+        views: stats?.statistics?.viewCount ? parseInt(stats.statistics.viewCount) : 0,
+        likes: stats?.statistics?.likeCount ? parseInt(stats.statistics.likeCount) : 0,
+        duration: stats?.contentDetails?.duration || 'PT0S',
+        // Add category mapping based on title keywords or tags
+        categoryId: getCategoryFromTitle(item.snippet.title),
+        categoryTitleKey: getCategoryTitleKey(item.snippet.title)
+      };
+    });
+    
+    // Record API usage and cache the results
+    recordApiUsage(5); // Estimate: 3 for playlist + 2 for stats
+    setCache(cacheKey, videos, 2 * 60 * 60 * 1000); // Cache for 2 hours
+    
+    console.log(`✅ Fetched and cached ${videos.length} videos from playlist`);
+    return videos;
+    
+  } catch (error) {
+    console.error('Error fetching playlist videos:', error);
+    recordApiUsage(3); // Still record partial usage
+    return [];
+  }
+};
+
+/**
  * Fetch videos from multiple channels and categorize them
  * @param {Array} channels - Array of {channelId, categoryId, categoryTitleKey}
  * @param {number} maxResults - Maximum results per channel
@@ -106,6 +203,33 @@ export const fetchCategorizedVideos = async (channels, maxResults = 10) => {
     return allVideos;
   } catch (error) {
     console.error('Error fetching categorized videos:', error);
+    return [];
+  }
+};
+
+/**
+ * Fetch videos from multiple playlists and categorize them
+ * @param {Array} playlists - Array of {playlistId, categoryId, categoryTitleKey}
+ * @param {number} maxResults - Maximum results per playlist
+ * @returns {Promise<Array>} Categorized videos
+ */
+export const fetchCategorizedPlaylistVideos = async (playlists, maxResults = 10) => {
+  try {
+    const allVideos = [];
+    
+    for (const playlist of playlists) {
+      const videos = await fetchPlaylistVideos(playlist.playlistId, maxResults);
+      const categorizedVideos = videos.map(video => ({
+        ...video,
+        categoryId: playlist.categoryId,
+        categoryTitleKey: playlist.categoryTitleKey
+      }));
+      allVideos.push(...categorizedVideos);
+    }
+    
+    return allVideos;
+  } catch (error) {
+    console.error('Error fetching categorized playlist videos:', error);
     return [];
   }
 };

@@ -14,6 +14,7 @@ import CoursesPage from './components/Pages/CoursesPage'
 import ShopPage from './components/Pages/ShopPage'
 import AboutPage from './components/Pages/AboutPage'
 import Footer from './components/Footer/Footer'
+import QuotaManager from './components/Debug/QuotaManager'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
         </Routes>
         <Footer />
+        <QuotaManager />
       </div>
     </Router>
   )

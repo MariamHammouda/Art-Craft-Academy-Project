@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Art Craft Academy Channel Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #59ACBE;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #4a9bb0;
+        }
+        .result {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #59ACBE;
+        }
+        .error {
+            background: #ffe6e6;
+            border-left-color: #ff4444;
+        }
+        .success {
+            background: #e6ffe6;
+            border-left-color: #44ff44;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .video-item {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .video-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .video-stats {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Art Craft Academy Channel Info</h1>
+        <p>Get channel information and latest videos from: <strong>@Art-Craft-Academy1</strong></p>
+        
+        <button onclick="getChannelInfo()">Get Channel ID & Info</button>
+        <button onclick="getLatestVideos()">Get Latest Videos</button>
+        <button onclick="testOrigamiPlaylist()">Test Origami Playlist</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyAOIXWOtoqqhzqXPspaIRef0zlqEw2YY9w';
+        const CHANNEL_HANDLE = 'Art-Craft-Academy1';
+        
+        async function getChannelInfo() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="result">🔍 Searching for channel...</div>';
+            
+            try {
+                // Search for the channel by handle
+                const searchResponse = await fetch(
+                    `https://www.googleapis.com/youtube/v3/search?part=snippet&q=@${CHANNEL_HANDLE}&type=channel&maxResults=5&key=${API_KEY}`
+                );
+                
+                if (!searchResponse.ok) {
+                    throw new Error(`Search API error: ${searchResponse.status}`);
+                }
+                
+                const searchData = await searchResponse.json();
+                
+                if (searchData.items && searchData.items.length > 0) {
+                    // Find the exact match
+                    const channel = searchData.items.find(item => 
+                        item.snippet.channelTitle.toLowerCase().includes('art craft academy') ||
+                        item.snippet.description.toLowerCase().includes('art craft academy')
+                    ) || searchData.items[0];
+                    
+                    const channelId = channel.snippet.channelId;
+                    
+                    // Get detailed channel info
+                    const channelResponse = await fetch(
+                        `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&id=${channelId}&key=${API_KEY}`
+                    );
+                    
+                    const channelData = await channelResponse.json();
+                    const channelInfo = channelData.items[0];
+                    
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ Channel Found!</h3>
+                            <p><strong>Channel Name:</strong> ${channelInfo.snippet.title}</p>
+                            <p><strong>Channel ID:</strong> <code>${channelInfo.id}</code></p>
+                            <p><strong>Subscribers:</strong> ${formatNumber(channelInfo.statistics.subscriberCount)}</p>
+                            <p><strong>Total Videos:</strong> ${formatNumber(channelInfo.statistics.videoCount)}</p>
+                            <p><strong>Total Views:</strong> ${formatNumber(channelInfo.statistics.viewCount)}</p>
+                            <p><strong>Uploads Playlist:</strong> <code>${channelInfo.contentDetails.relatedPlaylists.uploads}</code></p>
+                            
+                            <h4>📋 Add to your .env file:</h4>
+                            <code style="display: block; padding: 10px; background: #f8f8f8;">
+VITE_MAIN_CHANNEL_ID=${channelInfo.id}<br>
+VITE_UPLOADS_PLAYLIST_ID=${channelInfo.contentDetails.relatedPlaylists.uploads}
+                            </code>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = '<div class="result error">❌ Channel not found. Try searching manually.</div>';
+                }
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function getLatestVideos() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="result">🎬 Getting latest videos...</div>';
+            
+            try {
+                // First get channel info to get uploads playlist
+                const searchResponse = await fetch(
+                    `https://www.googleapis.com/youtube/v3/search?part=snippet&q=@${CHANNEL_HANDLE}&type=channel&maxResults=1&key=${API_KEY}`
+                );
+                
+                const searchData = await searchResponse.json();
+                if (!searchData.items || searchData.items.length === 0) {
+                    throw new Error('Channel not found');
+                }
+                
+                const channelId = searchData.items[0].snippet.channelId;
+                
+                // Get channel details for uploads playlist
+                const channelResponse = await fetch(
+                    `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${API_KEY}`
+                );
+                
+                const channelData = await channelResponse.json();
+                const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+                
+                // Get latest videos from uploads playlist
+                const videosResponse = await fetch(
+                    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=10&key=${API_KEY}`
+                );
+                
+                const videosData = await videosResponse.json();
+                
+                // Get video statistics
+                const videoIds = videosData.items.map(item => item.snippet.resourceId.videoId).join(',');
+                const statsResponse = await fetch(
+                    `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoIds}&key=${API_KEY}`
+                );
+                
+                const statsData = await statsResponse.json();
+                
+                let html = '<div class="result success"><h3>🎬 Latest Videos from Art Craft Academy:</h3>';
+                
+                videosData.items.forEach((item, index) => {
+                    const stats = statsData.items.find(stat => stat.id === item.snippet.resourceId.videoId);
+                    const views = stats ? formatNumber(stats.statistics.viewCount) : '0';
+                    
+                    html += `
+                        <div class="video-item">
+                            <div class="video-title">${item.snippet.title}</div>
+                            <div class="video-stats">
+                                📅 ${new Date(item.snippet.publishedAt).toLocaleDateString()} | 
+                                👁️ ${views} views | 
+                                🎬 ID: ${item.snippet.resourceId.videoId}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                    <h4>📋 Use this uploads playlist ID:</h4>
+                    <code style="display: block; padding: 10px; background: #f8f8f8;">
+VITE_MAIN_UPLOADS_PLAYLIST_ID=${uploadsPlaylistId}
+                    </code>
+                </div>`;
+                
+                resultDiv.innerHTML = html;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testOrigamiPlaylist() {
+            const resultDiv = document.getElementById('result');
+            const ORIGAMI_PLAYLIST_ID = 'PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-';
+            
+            resultDiv.innerHTML = '<div class="result">🎯 Testing Origami Playlist...</div>';
+            
+            try {
+                // Test the specific origami playlist
+                const videosResponse = await fetch(
+                    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${ORIGAMI_PLAYLIST_ID}&maxResults=10&key=${API_KEY}`
+                );
+                
+                if (!videosResponse.ok) {
+                    const errorText = await videosResponse.text();
+                    throw new Error(`API error: ${videosResponse.status} - ${errorText}`);
+                }
+                
+                const videosData = await videosResponse.json();
+                
+                if (videosData.items && videosData.items.length > 0) {
+                    // Get video statistics
+                    const videoIds = videosData.items.map(item => item.snippet.resourceId.videoId).join(',');
+                    const statsResponse = await fetch(
+                        `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoIds}&key=${API_KEY}`
+                    );
+                    
+                    const statsData = await statsResponse.json();
+                    
+                    let html = `<div class="result success">
+                        <h3>🎯 Origami Playlist Test Results:</h3>
+                        <p><strong>Playlist ID:</strong> <code>${ORIGAMI_PLAYLIST_ID}</code></p>
+                        <p><strong>Videos Found:</strong> ${videosData.items.length}</p>
+                    `;
+                    
+                    videosData.items.forEach((item, index) => {
+                        const stats = statsData.items ? statsData.items.find(stat => stat.id === item.snippet.resourceId.videoId) : null;
+                        const views = stats ? formatNumber(stats.statistics.viewCount) : '0';
+                        
+                        html += `
+                            <div class="video-item">
+                                <div class="video-title">${item.snippet.title}</div>
+                                <div class="video-stats">
+                                    📅 ${new Date(item.snippet.publishedAt).toLocaleDateString()} | 
+                                    👁️ ${views} views | 
+                                    🎬 ID: ${item.snippet.resourceId.videoId}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = '<div class="result error">❌ No videos found in the origami playlist.</div>';
+                }
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Error testing origami playlist: ${error.message}</div>`;
+            }
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            }
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+    </script>
+</body>
+</html>

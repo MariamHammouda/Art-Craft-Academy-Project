@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import VideoCard from "../Videos/VideoCard.jsx";
 import { categoriesData } from "../../mockData/categoriesData.js";
 import { videosData } from "../../mockData/videosData.js";
+import { useVideosByCategory } from "../../hooks/useYouTubeVideos.js";
 
 const CategoryPage = () => {
   const location = useLocation();
@@ -22,8 +23,16 @@ const CategoryPage = () => {
     return categoriesData.find(c => c.id === idNum);
   })();
 
+  // Use YouTube API to fetch videos for this category
+  const { videos: apiVideos, loading: videosLoading, error: videosError } = useVideosByCategory(
+    resolvedCategory?.id || 1, 
+    50
+  );
+
   const resolvedVideos = stateVideos && stateVideos.length
     ? stateVideos
+    : apiVideos.length > 0 
+    ? apiVideos
     : (() => {
         if (!resolvedCategory) return [];
         return videosData.filter(v => v.categoryId === resolvedCategory.id);
@@ -128,6 +137,17 @@ const CategoryPage = () => {
 
       {/* Videos Grid */}
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {videosLoading ? (
+          <div className="flex justify-center items-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#59ACBE]"></div>
+          </div>
+        ) : videosError ? (
+          <div className="text-center py-12">
+            <p className="text-red-600 mb-4">Error loading videos: {videosError}</p>
+            <p className="text-gray-600">Showing fallback content...</p>
+          </div>
+        ) : null}
+        
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {[...resolvedVideos]
             .sort((a, b) => (b.id ?? 0) - (a.id ?? 0))
@@ -143,6 +163,12 @@ const CategoryPage = () => {
               />
           ))}
         </div>
+        
+        {resolvedVideos.length === 0 && !videosLoading && (
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">{t('videos.noVideosFound')}</p>
+          </div>
+        )}
       </div>
     </div>
   );

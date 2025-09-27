@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { fetchChannelVideos, fetchCategorizedVideos } from '../services/youtubeApi';
+import { fetchChannelVideos, fetchCategorizedVideos, fetchPlaylistVideos, fetchCategorizedPlaylistVideos } from '../services/youtubeApi';
+import { resetForNewApiKey } from '../services/cacheManager'; // Import the reset function
 import { videosData } from '../mockData/videosData'; // Fallback data
 
 /**
@@ -59,31 +60,89 @@ export const useYouTubeVideos = (channels, maxResults = 10) => {
 };
 
 /**
- * Hook for fetching latest videos from multiple channels
+ * Hook for fetching latest videos from main channel or playlists
  * @param {number} maxResults - Maximum results
  * @returns {Object} { videos, loading, error, refetch }
  */
 export const useLatestVideos = (maxResults = 20) => {
-  // Define your channel configuration here
-  const channels = [
+  // Try YouTube API with smart caching and quota management
+  const playlists = [
     {
-      channelId: import.meta.env.VITE_ORIGAMI_CHANNEL_ID || 'UC_default_origami',
+      playlistId: 'PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-',
       categoryId: 1,
       categoryTitleKey: 'categories.origamiWorld'
-    },
-    {
-      channelId: import.meta.env.VITE_DRAWING_CHANNEL_ID || 'UC_default_drawing',
-      categoryId: 2,
-      categoryTitleKey: 'categories.drawing'
-    },
-    {
-      channelId: import.meta.env.VITE_CRAFTS_CHANNEL_ID || 'UC_default_crafts',
-      categoryId: 3,
-      categoryTitleKey: 'categories.beadsJewelry'
     }
   ];
 
-  return useYouTubeVideos(channels, Math.ceil(maxResults / channels.length));
+  return usePlaylistVideos(playlists, maxResults);
+};
+
+/**
+ * Custom hook for fetching and managing YouTube playlist videos
+ * @param {Array} playlists - Array of playlist objects
+ * @param {number} maxResults - Maximum results per playlist
+ * @returns {Object} { videos, loading, error, refetch }
+ */
+export const usePlaylistVideos = (playlists, maxResults = 10) => {
+  useEffect(() => {
+    // TEMPORARY: Reset cache and quota data for the new API key.
+    // This will be removed after confirming the fix.
+    console.log('🔑 TEMPORARILY RESETTING API KEY DATA...');
+    resetForNewApiKey();
+  }, []); // Run only once on mount
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchVideos = async () => {
+    try {
+      console.log('🚀 usePlaylistVideos: Starting fetch...');
+      console.log('📋 Playlists to fetch:', playlists);
+      
+      setLoading(true);
+      setError(null);
+      
+      let fetchedVideos = [];
+      
+      if (Array.isArray(playlists)) {
+        console.log('📡 Fetching from playlists...');
+        // Multiple playlists with categories
+        fetchedVideos = await fetchCategorizedPlaylistVideos(playlists, maxResults);
+        console.log('✅ Fetched videos count:', fetchedVideos.length);
+      }
+      
+      // If no videos fetched (API error, no key, etc.), use fallback data
+      if (fetchedVideos.length === 0) {
+        console.log('⚠️ No videos fetched, using fallback data');
+        console.log('📊 Fallback data count:', videosData.length);
+        setVideos(videosData);
+      } else {
+        console.log('✅ Using fetched videos:', fetchedVideos.length);
+        setVideos(fetchedVideos);
+      }
+      
+    } catch (err) {
+      console.error('❌ Error in usePlaylistVideos:', err);
+      setError(err.message);
+      // Use fallback data on error
+      console.log('🔄 Using fallback data due to error');
+      setVideos(videosData);
+    } finally {
+      setLoading(false);
+      console.log('🏁 usePlaylistVideos: Fetch complete');
+    }
+  };
+
+  useEffect(() => {
+    fetchVideos();
+  }, [playlists, maxResults]);
+
+  return {
+    videos,
+    loading,
+    error,
+    refetch: fetchVideos
+  };
 };
 
 /**
@@ -93,19 +152,70 @@ export const useLatestVideos = (maxResults = 20) => {
  * @returns {Object} { videos, loading, error, refetch }
  */
 export const useVideosByCategory = (categoryId, maxResults = 10) => {
-  const { videos: allVideos, loading, error, refetch } = useLatestVideos(50);
-  
-  const [categoryVideos, setCategoryVideos] = useState([]);
-  
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchCategoryVideos = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      let fetchedVideos = [];
+      
+      // Map category IDs to their respective playlists
+      const categoryPlaylistMap = {
+        1: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID, // Origami
+        2: import.meta.env.VITE_DRAWING_PLAYLIST_ID, // Drawing
+        3: import.meta.env.VITE_CRAFTS_PLAYLIST_ID, // Crafts
+        // Add more categories as needed
+      };
+      
+      const playlistId = categoryPlaylistMap[categoryId];
+      
+      if (playlistId) {
+        console.log(`🎯 Fetching videos for category ${categoryId} from playlist ${playlistId}`);
+        fetchedVideos = await fetchPlaylistVideos(playlistId, maxResults);
+        
+        // Ensure videos have the correct category ID
+        fetchedVideos = fetchedVideos.map(video => ({
+          ...video,
+          categoryId: categoryId
+        }));
+      } else {
+        console.log(`⚠️ No playlist configured for category ${categoryId}, using fallback data`);
+        // Fallback: use mock data for this category
+        fetchedVideos = [];
+      }
+      
+      // If no videos fetched, use fallback data
+      if (fetchedVideos.length === 0) {
+        console.log('Using fallback video data for category', categoryId);
+        const fallbackVideos = videosData.filter(video => video.categoryId === categoryId);
+        setVideos(fallbackVideos.slice(0, maxResults));
+      } else {
+        setVideos(fetchedVideos);
+      }
+      
+    } catch (err) {
+      console.error('Error in useVideosByCategory:', err);
+      setError(err.message);
+      // Use fallback data on error
+      const fallbackVideos = videosData.filter(video => video.categoryId === categoryId);
+      setVideos(fallbackVideos.slice(0, maxResults));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const filtered = allVideos.filter(video => video.categoryId === categoryId);
-    setCategoryVideos(filtered.slice(0, maxResults));
-  }, [allVideos, categoryId, maxResults]);
+    fetchCategoryVideos();
+  }, [categoryId, maxResults]);
   
   return {
-    videos: categoryVideos,
+    videos,
     loading,
     error,
-    refetch
+    refetch: fetchCategoryVideos
   };
 };
