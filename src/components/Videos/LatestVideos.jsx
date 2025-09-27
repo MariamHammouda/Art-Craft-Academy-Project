@@ -20,12 +20,12 @@ const LatestVideos = () => {
     loading = false;
     error = 'Failed to load videos';
     // Use fallback data
-    videos = videosData.slice(0, 5);
+    videos = videosData.slice(0, 4);
   }
   
   // If no videos after hook execution, use fallback
   if (videos.length === 0 && !loading) {
-    videos = videosData.slice(0, 5);
+    videos = videosData.slice(0, 4);
   }
   
   // TEMPORARY: Force loading to false after 5 seconds for better UX
@@ -70,7 +70,7 @@ const LatestVideos = () => {
       // Fallback to views if dates are not available
       return (b.views ?? 0) - (a.views ?? 0);
     })
-    .slice(0, 5);
+    .slice(0, 4);
     
   console.log('📊 Top videos selected:', topVideos.map(v => ({ 
     title: v.title, 
@@ -83,8 +83,8 @@ const LatestVideos = () => {
       <section className="py-10 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">{t('videos.latest')}</h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {[...Array(5)].map((_, index) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[...Array(4)].map((_, index) => (
               <div key={index} className="bg-gray-200 rounded-xl animate-pulse">
                 <div className="aspect-video bg-gray-300 rounded-t-xl"></div>
                 <div className="p-4">
@@ -132,7 +132,7 @@ const LatestVideos = () => {
     <section className="py-10 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold mb-6">{t('videos.latest')}</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {topVideos.map((video) => (
             <VideoCard
               key={video.id}

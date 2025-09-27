@@ -118,40 +118,8 @@ const VideoDetailPage = () => {
                 </h1>
               </div>
 
-              {/* Video Stats */}
-              <div className="flex flex-wrap items-center gap-6 mb-6 text-gray-600">
-                <div className="flex items-center gap-2">
-                  <FaEye className="w-4 h-4" />
-                  <span>{formatViewCount(video.views || 0)} {t('videos.views')}</span>
-                </div>
-                {video.likes && (
-                  <div className="flex items-center gap-2">
-                    <FaThumbsUp className="w-4 h-4" />
-                    <span>{formatViewCount(video.likes)} {t('videos.likes')}</span>
-                  </div>
-                )}
-                {video.publishedAt && (
-                  <div className="text-sm">
-                    {t('videos.published')}: {new Date(video.publishedAt).toLocaleDateString()}
-                  </div>
-                )}
-              </div>
+        
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-3 mb-6">
-                <button className="flex items-center gap-2 px-4 py-2 bg-[#59ACBE] text-white rounded-lg hover:bg-[#4a9bb0] transition-colors">
-                  <FaThumbsUp className="w-4 h-4" />
-                  {t('videos.like')}
-                </button>
-                <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                  <FaShare className="w-4 h-4" />
-                  {t('videos.share')}
-                </button>
-                <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                  <FaBookmark className="w-4 h-4" />
-                  {t('videos.save')}
-                </button>
-              </div>
 
               {/* Description */}
               <div className="border-t pt-6">

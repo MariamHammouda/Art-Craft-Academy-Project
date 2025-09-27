@@ -127,25 +127,7 @@ const CategoryPage = () => {
                   {t(categoryData.descriptionKey)}
                 </p>
                 
-                {/* Stats */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-4 bg-white rounded-xl shadow-sm">
-                    <div className="text-2xl font-bold text-[#59ACBE]">
-                      {resolvedVideos.length}
-                    </div>
-                    <div className="text-sm text-gray-600 font-medium">
-                      {t('videos.available')}
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-white rounded-xl shadow-sm">
-                    <div className="text-2xl font-bold text-[#59ACBE]">
-                      {Math.floor(Math.random() * 50) + 10}K
-                    </div>
-                    <div className="text-sm text-gray-600 font-medium">
-                      {t('videos.totalViews')}
-                    </div>
-                  </div>
-                </div>
+           
               </div>
             </div>
           </div>
