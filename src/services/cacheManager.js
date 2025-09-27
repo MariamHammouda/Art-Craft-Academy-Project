@@ -143,6 +143,11 @@ export const generateCacheKey = {
  * @returns {boolean} Whether to proceed with API call
  */
 export const shouldMakeApiCall = (estimatedCost = 5) => {
+  // TEMPORARY: Allow API calls for testing drawing playlist
+  // Remove this after confirming the fix
+  console.log('🧪 TEMPORARY: Allowing API calls for testing');
+  return true;
+  
   const lastFetch = getCache(CACHE_KEYS.LAST_FETCH);
   const now = Date.now();
   

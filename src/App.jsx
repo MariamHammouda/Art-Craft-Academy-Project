@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import './App.css'
 import './i18n/i18n' // Initialize i18n
 import NavBar from './components/Navbar/Navbar'
@@ -15,6 +15,7 @@ import ShopPage from './components/Pages/ShopPage'
 import AboutPage from './components/Pages/AboutPage'
 import Footer from './components/Footer/Footer'
 import QuotaManager from './components/Debug/QuotaManager'
+
 
 function App() {
   return (

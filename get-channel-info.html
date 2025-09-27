@@ -78,6 +78,8 @@
         <button onclick="getChannelInfo()">Get Channel ID & Info</button>
         <button onclick="getLatestVideos()">Get Latest Videos</button>
         <button onclick="testOrigamiPlaylist()">Test Origami Playlist</button>
+        <button onclick="testDrawingPlaylist()">Test Drawing Playlist</button>
+        <button onclick="testBeadsPlaylist()">Test Beads Playlist</button>
         
         <div id="result"></div>
     </div>
@@ -275,6 +277,128 @@ VITE_MAIN_UPLOADS_PLAYLIST_ID=${uploadsPlaylistId}
                 
             } catch (error) {
                 resultDiv.innerHTML = `<div class="result error">❌ Error testing origami playlist: ${error.message}</div>`;
+            }
+        }
+
+        async function testDrawingPlaylist() {
+            const resultDiv = document.getElementById('result');
+            const DRAWING_PLAYLIST_ID = 'PL4CiQqug4-YPejEI7f4xBYQUqzRTdlvWM';
+            
+            resultDiv.innerHTML = '<div class="result">🎨 Testing Drawing Playlist...</div>';
+            
+            try {
+                // Test the specific drawing playlist
+                const videosResponse = await fetch(
+                    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${DRAWING_PLAYLIST_ID}&maxResults=10&key=${API_KEY}`
+                );
+                
+                if (!videosResponse.ok) {
+                    const errorText = await videosResponse.text();
+                    throw new Error(`API error: ${videosResponse.status} - ${errorText}`);
+                }
+                
+                const videosData = await videosResponse.json();
+                
+                if (videosData.items && videosData.items.length > 0) {
+                    // Get video statistics
+                    const videoIds = videosData.items.map(item => item.snippet.resourceId.videoId).join(',');
+                    const statsResponse = await fetch(
+                        `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoIds}&key=${API_KEY}`
+                    );
+                    
+                    const statsData = await statsResponse.json();
+                    
+                    let html = `<div class="result success">
+                        <h3>🎨 Drawing Playlist Test Results:</h3>
+                        <p><strong>Playlist ID:</strong> <code>${DRAWING_PLAYLIST_ID}</code></p>
+                        <p><strong>Videos Found:</strong> ${videosData.items.length}</p>
+                    `;
+                    
+                    videosData.items.forEach((item, index) => {
+                        const stats = statsData.items ? statsData.items.find(stat => stat.id === item.snippet.resourceId.videoId) : null;
+                        const views = stats ? formatNumber(stats.statistics.viewCount) : '0';
+                        
+                        html += `
+                            <div class="video-item">
+                                <div class="video-title">${item.snippet.title}</div>
+                                <div class="video-stats">
+                                    📅 ${new Date(item.snippet.publishedAt).toLocaleDateString()} | 
+                                    👁️ ${views} views | 
+                                    🎬 ID: ${item.snippet.resourceId.videoId}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = '<div class="result error">❌ No videos found in the drawing playlist.</div>';
+                }
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Error testing drawing playlist: ${error.message}</div>`;
+            }
+        }
+
+        async function testBeadsPlaylist() {
+            const resultDiv = document.getElementById('result');
+            const BEADS_PLAYLIST_ID = 'PL4CiQqug4-YPegbyjIwKLN-DlamTLwzqG';
+            
+            resultDiv.innerHTML = '<div class="result">📿 Testing Beads & Jewelry Playlist...</div>';
+            
+            try {
+                // Test the specific beads playlist
+                const videosResponse = await fetch(
+                    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${BEADS_PLAYLIST_ID}&maxResults=10&key=${API_KEY}`
+                );
+                
+                if (!videosResponse.ok) {
+                    const errorText = await videosResponse.text();
+                    throw new Error(`API error: ${videosResponse.status} - ${errorText}`);
+                }
+                
+                const videosData = await videosResponse.json();
+                
+                if (videosData.items && videosData.items.length > 0) {
+                    // Get video statistics
+                    const videoIds = videosData.items.map(item => item.snippet.resourceId.videoId).join(',');
+                    const statsResponse = await fetch(
+                        `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoIds}&key=${API_KEY}`
+                    );
+                    
+                    const statsData = await statsResponse.json();
+                    
+                    let html = `<div class="result success">
+                        <h3>📿 Beads & Jewelry Playlist Test Results:</h3>
+                        <p><strong>Playlist ID:</strong> <code>${BEADS_PLAYLIST_ID}</code></p>
+                        <p><strong>Videos Found:</strong> ${videosData.items.length}</p>
+                    `;
+                    
+                    videosData.items.forEach((item, index) => {
+                        const stats = statsData.items ? statsData.items.find(stat => stat.id === item.snippet.resourceId.videoId) : null;
+                        const views = stats ? formatNumber(stats.statistics.viewCount) : '0';
+                        
+                        html += `
+                            <div class="video-item">
+                                <div class="video-title">${item.snippet.title}</div>
+                                <div class="video-stats">
+                                    📅 ${new Date(item.snippet.publishedAt).toLocaleDateString()} | 
+                                    👁️ ${views} views | 
+                                    🎬 ID: ${item.snippet.resourceId.videoId}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = '<div class="result error">❌ No videos found in the beads & jewelry playlist.</div>';
+                }
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Error testing beads playlist: ${error.message}</div>`;
             }
         }
 

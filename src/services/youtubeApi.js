@@ -94,6 +94,8 @@ export const fetchChannelVideos = async (channelId, maxResults = 50) => {
 export const fetchPlaylistVideos = async (playlistId, maxResults = 50) => {
   try {
     console.log('🔍 Attempting to fetch playlist:', playlistId);
+    console.log('🎯 Playlist type:', playlistId === import.meta.env.VITE_ORIGAMI_PLAYLIST_ID ? 'ORIGAMI' : 
+                                     playlistId === import.meta.env.VITE_DRAWING_PLAYLIST_ID ? 'DRAWING' : 'OTHER');
     
     // Check cache first
     const cacheKey = generateCacheKey.playlistVideos(playlistId, maxResults);

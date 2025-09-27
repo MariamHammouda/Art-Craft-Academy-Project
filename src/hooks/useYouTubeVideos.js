@@ -68,11 +68,29 @@ export const useLatestVideos = (maxResults = 20) => {
   // Try YouTube API with smart caching and quota management
   const playlists = [
     {
-      playlistId: 'PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-',
+      playlistId: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID,
       categoryId: 1,
       categoryTitleKey: 'categories.origamiWorld'
+    },
+    {
+      playlistId: import.meta.env.VITE_DRAWING_PLAYLIST_ID,
+      categoryId: 2,
+      categoryTitleKey: 'categories.drawing'
+    },
+    {
+      playlistId: import.meta.env.VITE_BEADS_PLAYLIST_ID,
+      categoryId: 3,
+      categoryTitleKey: 'categories.beadsJewelry'
     }
-  ];
+    // Add more playlists as you configure them
+  ].filter(playlist => playlist.playlistId && !playlist.playlistId.startsWith('your_')); // Filter out unconfigured playlists
+
+  console.log('🎬 useLatestVideos - Configured playlists:', playlists);
+  console.log('📋 Environment variables:', {
+    origami: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID,
+    drawing: import.meta.env.VITE_DRAWING_PLAYLIST_ID,
+    beads: import.meta.env.VITE_BEADS_PLAYLIST_ID
+  });
 
   return usePlaylistVideos(playlists, maxResults);
 };
@@ -167,7 +185,7 @@ export const useVideosByCategory = (categoryId, maxResults = 10) => {
       const categoryPlaylistMap = {
         1: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID, // Origami
         2: import.meta.env.VITE_DRAWING_PLAYLIST_ID, // Drawing
-        3: import.meta.env.VITE_CRAFTS_PLAYLIST_ID, // Crafts
+        3: import.meta.env.VITE_BEADS_PLAYLIST_ID, // Beads & Jewelry
         // Add more categories as needed
       };
       

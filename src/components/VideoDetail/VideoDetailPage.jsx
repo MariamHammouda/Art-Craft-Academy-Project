@@ -18,9 +18,14 @@ const VideoDetailPage = () => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
+    console.log('🔍 VideoDetailPage - Looking for video:', { videoId, dynamicVideosCount: dynamicVideos.length });
+    
     // Find video from dynamic videos or fallback to static data
     const allVideos = dynamicVideos.length > 0 ? dynamicVideos : videosData;
+    console.log('📹 Available videos:', allVideos.map(v => ({ id: v.id, title: v.title })));
+    
     const foundVideo = allVideos.find(v => v.id.toString() === videoId);
+    console.log('🎯 Found video:', foundVideo);
     
     if (foundVideo) {
       setVideo(foundVideo);

@@ -16,6 +16,13 @@ export const VideosByCategory = () => {
   // Use API videos if available, otherwise fallback to mock data
   const videosToUse = apiVideos.length > 0 ? apiVideos : videosData;
 
+  console.log('🔍 VideosByCategory Debug:', {
+    apiVideosCount: apiVideos.length,
+    videosToUseCount: videosToUse.length,
+    loading,
+    error
+  });
+
   // Group videos by category
   const videosByCategory = videosToUse.reduce((acc, video) => {
     const key = Number(video.categoryId);
@@ -26,7 +33,11 @@ export const VideosByCategory = () => {
     return acc;
   }, {});
 
+  console.log('📊 Videos by category:', videosByCategory);
+
   const handleCategoryClick = (categoryId, categoryTitle) => {
+    console.log('📂 Category clicked:', { categoryId, categoryTitle, videosCount: (videosByCategory[categoryId] || []).length });
+    
     navigate(`/category/${categoryId}`, { 
       state: { 
         categoryTitle,
@@ -40,6 +51,7 @@ export const VideosByCategory = () => {
       <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
         {t('videos.byCategory')}
       </h2>
+      
       
       {loading && (
         <div className="flex justify-center items-center py-12">
@@ -56,10 +68,16 @@ export const VideosByCategory = () => {
       
       <div className="space-y-16">
         {categoriesData.map((category) => {
-          const categoryVideos = videosByCategory[category.id] || [];
-          const categoryVideosSorted = [...categoryVideos].sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+          let categoryVideos = videosByCategory[category.id] || [];
           
-          if (categoryVideos.length === 0) return null;
+          // If no API videos available, try to use mock data for this category
+          if (categoryVideos.length === 0) {
+            const mockVideosForCategory = videosData.filter(v => v.categoryId === category.id);
+            if (mockVideosForCategory.length === 0) return null;
+            categoryVideos = mockVideosForCategory.slice(0, 4);
+          }
+          
+          const categoryVideosSorted = [...categoryVideos].sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
           
           return (
             <div key={category.id} id={`cat-${category.id}`} className="max-w-7xl mx-auto">

@@ -13,6 +13,8 @@ const CategoryPage = () => {
   const { id: idParam } = useParams();
   const { categoryTitle: stateTitle, videos: stateVideos } = location.state || {};
 
+  console.log('📂 CategoryPage loaded:', { idParam, stateTitle, stateVideosCount: stateVideos?.length || 0 });
+
   const resolvedCategory = (() => {
     // First try to find by translated title (stateTitle is now the translated title)
     if (stateTitle) {
