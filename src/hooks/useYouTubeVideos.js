@@ -110,7 +110,16 @@ export const useLatestVideos = (maxResults = 20) => {
     recycling: import.meta.env.VITE_RECYCLING_PLAYLIST_ID
   });
 
-  return usePlaylistVideos(playlists, maxResults);
+  const result = usePlaylistVideos(playlists, maxResults);
+  
+  console.log('🎬 useLatestVideos result:', {
+    videosCount: result.videos.length,
+    loading: result.loading,
+    error: result.error,
+    playlistsConfigured: playlists.length
+  });
+  
+  return result;
 };
 
 /**
@@ -120,6 +129,11 @@ export const useLatestVideos = (maxResults = 20) => {
  * @returns {Object} { videos, loading, error, refetch }
  */
 export const usePlaylistVideos = (playlists, maxResults = 10) => {
+  console.log('🎯 usePlaylistVideos called with:', { 
+    playlistsCount: playlists?.length || 0, 
+    maxResults,
+    playlists: playlists?.map(p => ({ id: p.playlistId, categoryId: p.categoryId }))
+  });
   useEffect(() => {
     // TEMPORARY: Reset cache and quota data for the new API key.
     // This will be removed after confirming the fix.

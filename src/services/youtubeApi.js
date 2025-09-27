@@ -220,9 +220,13 @@ export const fetchCategorizedPlaylistVideos = async (playlists, maxResults = 10)
     console.log('🎯 fetchCategorizedPlaylistVideos: Starting with playlists:', playlists);
     const allVideos = [];
     
+    // Calculate videos per playlist to distribute evenly
+    const videosPerPlaylist = Math.ceil(maxResults / playlists.length);
+    console.log(`📊 Distributing ${maxResults} videos across ${playlists.length} playlists (${videosPerPlaylist} per playlist)`);
+    
     for (const playlist of playlists) {
       console.log(`📡 Fetching from playlist: ${playlist.playlistId} (Category: ${playlist.categoryId})`);
-      const videos = await fetchPlaylistVideos(playlist.playlistId, maxResults);
+      const videos = await fetchPlaylistVideos(playlist.playlistId, videosPerPlaylist);
       console.log(`✅ Got ${videos.length} videos from playlist ${playlist.playlistId}`);
       
       const categorizedVideos = videos.map(video => ({
