@@ -79,59 +79,60 @@ export const videosData = [
     categoryTitle: "Clay"
   },
   
-  // Preschool Crafts Videos
+  // Recycling Art Videos (moved after Clay)
   {
     id: 10,
-    url: "https://www.youtube.com/embed/example6?si=preschool1",
-    title: "Easy Paper Crafts for Kids",
-    views: 74560,
+    url: "https://www.youtube.com/embed/example10?si=recycle1",
+    title: "Bottle Cap Art Project",
+    views: 35210,
     categoryId: 5,
-    categoryTitle: "Preschool Crafts"
+    categoryTitle: "Recycling Art"
   },
   {
     id: 11,
+    url: "https://www.youtube.com/embed/example11?si=recycle2",
+    title: "Cardboard Castle DIY",
+    views: 29870,
+    categoryId: 5,
+    categoryTitle: "Recycling Art"
+  },
+  
+  // Preschool Crafts Videos
+  {
+    id: 12,
+    url: "https://www.youtube.com/embed/example6?si=preschool1",
+    title: "Easy Paper Crafts for Kids",
+    views: 74560,
+    categoryId: 6,
+    categoryTitle: "Preschool Crafts"
+  },
+  {
+    id: 13,
     url: "https://www.youtube.com/embed/example7?si=preschool2",
     title: "Finger Painting Fun",
     views: 21540,
-    categoryId: 5,
+    categoryId: 6,
     categoryTitle: "Preschool Crafts"
   },
   
   // Science DIY Videos
   {
-    id: 12,
+    id: 14,
     url: "https://www.youtube.com/embed/example8?si=science1",
     title: "Homemade Volcano Experiment",
     views: 134560,
-    categoryId: 6,
-    categoryTitle: "Science DIY"
-  },
-  {
-    id: 13,
-    url: "https://www.youtube.com/embed/example9?si=science2",
-    title: "DIY Slime Recipe",
-    views: 165430,
-    categoryId: 6,
-    categoryTitle: "Science DIY"
-  },
-  
-  // Recycling Art Videos
-  {
-    id: 14,
-    url: "https://www.youtube.com/embed/example10?si=recycle1",
-    title: "Bottle Cap Art Project",
-    views: 35210,
     categoryId: 7,
-    categoryTitle: "Recycling Art"
+    categoryTitle: "Science DIY"
   },
   {
     id: 15,
-    url: "https://www.youtube.com/embed/example11?si=recycle2",
-    title: "Cardboard Castle DIY",
-    views: 29870,
+    url: "https://www.youtube.com/embed/example9?si=science2",
+    title: "DIY Slime Recipe",
+    views: 165430,
     categoryId: 7,
-    categoryTitle: "Recycling Art"
+    categoryTitle: "Science DIY"
   },
+  
   
   // Popsicle Sticks Videos
   {

@@ -95,7 +95,7 @@ export const useLatestVideos = (maxResults = 20) => {
     },
     {
       playlistId: import.meta.env.VITE_RECYCLING_PLAYLIST_ID,
-      categoryId: 7,
+      categoryId: 5,
       categoryTitleKey: 'categories.recyclingArt'
     }
     // Add more playlists as you configure them
@@ -219,7 +219,7 @@ export const useVideosByCategory = (categoryId, maxResults = 10) => {
         2: import.meta.env.VITE_DRAWING_PLAYLIST_ID, // Drawing
         3: import.meta.env.VITE_BEADS_PLAYLIST_ID, // Beads & Jewelry
         4: import.meta.env.VITE_CLAY_PLAYLIST_ID, // Clay
-        7: import.meta.env.VITE_RECYCLING_PLAYLIST_ID, // Recycling Art
+        5: import.meta.env.VITE_RECYCLING_PLAYLIST_ID, // Recycling Art
         // Add more categories as needed
       };
       

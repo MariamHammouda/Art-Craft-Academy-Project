@@ -49,6 +49,14 @@ export const categoriesData = [
   },
   {
     id: 5,
+    titleKey: "categories.recyclingArt",
+    color: "#BBF7D0", // mint green
+    icon: recycleing,
+    bannerImage: recycleing,
+    descriptionKey: "categories.descriptions.recyclingArt",
+  },
+  {
+    id: 6,
     titleKey: "categories.preschoolCrafts",
     color: "#FBCFE8", // light pink
     icon: preschool,
@@ -56,20 +64,12 @@ export const categoriesData = [
     descriptionKey: "categories.descriptions.preschoolCrafts",
   },
   {
-    id: 6,
+    id: 7,
     titleKey: "categories.scienceDiy",
     color: "#C7D2FE", // purple
     icon: science,
     bannerImage: science,
     descriptionKey: "categories.descriptions.scienceDiy",
-  },
-  {
-    id: 7,
-    titleKey: "categories.recyclingArt",
-    color: "#BBF7D0", // mint green
-    icon: recycleing,
-    bannerImage: recycleing,
-    descriptionKey: "categories.descriptions.recyclingArt",
   },
   {
     id: 8,
