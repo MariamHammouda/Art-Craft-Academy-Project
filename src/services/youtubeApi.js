@@ -226,17 +226,31 @@ export const fetchCategorizedPlaylistVideos = async (playlists, maxResults = 10)
     
     for (const playlist of playlists) {
       console.log(`📡 Fetching from playlist: ${playlist.playlistId} (Category: ${playlist.categoryId})`);
-      const videos = await fetchPlaylistVideos(playlist.playlistId, videosPerPlaylist);
-      console.log(`✅ Got ${videos.length} videos from playlist ${playlist.playlistId}`);
       
-      const categorizedVideos = videos.map(video => ({
-        ...video,
-        categoryId: playlist.categoryId,
-        categoryTitleKey: playlist.categoryTitleKey
-      }));
-      
-      console.log(`🏷️ Categorized ${categorizedVideos.length} videos with categoryId: ${playlist.categoryId}`);
-      allVideos.push(...categorizedVideos);
+      try {
+        const videos = await fetchPlaylistVideos(playlist.playlistId, videosPerPlaylist);
+        console.log(`✅ Got ${videos.length} videos from playlist ${playlist.playlistId}`);
+        
+        if (videos.length === 0) {
+          console.warn(`⚠️ No videos found for playlist ${playlist.playlistId} (Category ${playlist.categoryId})`);
+          continue;
+        }
+        
+        const categorizedVideos = videos.map(video => ({
+          ...video,
+          categoryId: playlist.categoryId,
+          categoryTitleKey: playlist.categoryTitleKey,
+          // Ensure we have proper IDs
+          id: video.id || `${playlist.categoryId}_${Date.now()}_${Math.random()}`
+        }));
+        
+        console.log(`🏷️ Categorized ${categorizedVideos.length} videos with categoryId: ${playlist.categoryId}`);
+        
+        allVideos.push(...categorizedVideos);
+      } catch (error) {
+        console.error(`❌ Error fetching playlist ${playlist.playlistId}:`, error);
+        // Continue with other playlists even if one fails
+      }
     }
     
     console.log(`🎉 Total videos fetched: ${allVideos.length}`);

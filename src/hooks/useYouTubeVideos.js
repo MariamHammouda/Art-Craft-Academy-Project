@@ -177,6 +177,9 @@ export const usePlaylistVideos = (playlists, maxResults = 10) => {
         setVideos(fetchedVideos);
       }
       
+      // Ensure loading is set to false when we have data
+      setLoading(false);
+      
     } catch (err) {
       console.error('❌ Error in usePlaylistVideos:', err);
       setError(err.message);
@@ -192,18 +195,19 @@ export const usePlaylistVideos = (playlists, maxResults = 10) => {
   useEffect(() => {
     fetchVideos();
     
-    // TEMPORARY: Force loading to false after 15 seconds if still loading
+    // Force loading to false after 10 seconds to prevent endless loading
     const timeoutId = setTimeout(() => {
-      if (loading) {
-        console.log('🚨 TIMEOUT: Forcing loading to false after 15 seconds');
-        setLoading(false);
-        // Use fallback data if no videos were loaded
-        if (videos.length === 0) {
+      console.log('⏰ TIMEOUT: Forcing loading to false after 10 seconds');
+      setLoading(false);
+      // Use fallback data if no videos were loaded
+      setVideos(prevVideos => {
+        if (prevVideos.length === 0) {
           console.log('📊 Using fallback data due to timeout');
-          setVideos(videosData.slice(0, maxResults));
+          return videosData.slice(0, maxResults);
         }
-      }
-    }, 15000);
+        return prevVideos;
+      });
+    }, 10000);
     
     return () => clearTimeout(timeoutId);
   }, [playlists, maxResults]);

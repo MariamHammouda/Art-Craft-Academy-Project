@@ -78,7 +78,7 @@ const LatestVideos = () => {
     views: v.views 
   })));
 
-  if (isActuallyLoading) {
+  if (loading && videos.length === 0) {
     return (
       <section className="py-10 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
