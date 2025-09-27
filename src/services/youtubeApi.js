@@ -217,17 +217,29 @@ export const fetchCategorizedVideos = async (channels, maxResults = 10) => {
  */
 export const fetchCategorizedPlaylistVideos = async (playlists, maxResults = 10) => {
   try {
+    console.log('🎯 fetchCategorizedPlaylistVideos: Starting with playlists:', playlists);
     const allVideos = [];
     
     for (const playlist of playlists) {
+      console.log(`📡 Fetching from playlist: ${playlist.playlistId} (Category: ${playlist.categoryId})`);
       const videos = await fetchPlaylistVideos(playlist.playlistId, maxResults);
+      console.log(`✅ Got ${videos.length} videos from playlist ${playlist.playlistId}`);
+      
       const categorizedVideos = videos.map(video => ({
         ...video,
         categoryId: playlist.categoryId,
         categoryTitleKey: playlist.categoryTitleKey
       }));
+      
+      console.log(`🏷️ Categorized ${categorizedVideos.length} videos with categoryId: ${playlist.categoryId}`);
       allVideos.push(...categorizedVideos);
     }
+    
+    console.log(`🎉 Total videos fetched: ${allVideos.length}`);
+    console.log('📊 Videos by category:', allVideos.reduce((acc, video) => {
+      acc[video.categoryId] = (acc[video.categoryId] || 0) + 1;
+      return acc;
+    }, {}));
     
     return allVideos;
   } catch (error) {

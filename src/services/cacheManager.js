@@ -78,6 +78,8 @@ export const clearCache = () => {
  * Reset everything for new API key
  */
 export const resetForNewApiKey = () => {
+  console.log('🔄 Resetting cache and quota data for new API key...');
+  
   // Clear all cache
   clearCache();
   
@@ -86,15 +88,30 @@ export const resetForNewApiKey = () => {
   const usageKey = `youtube_daily_usage_${today}`;
   localStorage.removeItem(usageKey);
   
-  // Clear any other API-related data
-  const allKeys = Object.keys(localStorage);
-  allKeys.forEach(key => {
-    if (key.startsWith('youtube_')) {
+  // Clear all YouTube-related cache
+  const keys = Object.keys(localStorage);
+  keys.forEach(key => {
+    if (key.startsWith('youtube_') || key.startsWith('yt_')) {
       localStorage.removeItem(key);
     }
   });
   
-  console.log('🔄 Reset all data for new API key');
+  console.log('✅ Cache and quota data reset complete');
+};
+
+/**
+ * Clear all cache data (for debugging)
+ */
+export const clearAllCache = () => {
+  console.log('🧹 Clearing all cache data...');
+  const keys = Object.keys(localStorage);
+  keys.forEach(key => {
+    if (key.startsWith('youtube_') || key.startsWith('yt_')) {
+      localStorage.removeItem(key);
+      console.log(`🗑️ Removed cache key: ${key}`);
+    }
+  });
+  console.log('✅ All cache cleared');
 };
 
 /**
@@ -143,6 +160,10 @@ export const generateCacheKey = {
  * @returns {boolean} Whether to proceed with API call
  */
 export const shouldMakeApiCall = (estimatedCost = 5) => {
+  // TEMPORARY: Allow API calls for testing all playlists
+  console.log('🧪 TEMPORARY: Allowing API calls for testing all playlists');
+  return true;
+  
   const lastFetch = getCache(CACHE_KEYS.LAST_FETCH);
   const now = Date.now();
   

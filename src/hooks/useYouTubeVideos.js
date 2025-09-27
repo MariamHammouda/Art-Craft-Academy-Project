@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { fetchChannelVideos, fetchCategorizedVideos, fetchPlaylistVideos, fetchCategorizedPlaylistVideos } from '../services/youtubeApi';
-import { resetForNewApiKey } from '../services/cacheManager'; // Import the reset function
-import { videosData } from '../mockData/videosData'; // Fallback data
+import { fetchChannelVideos, fetchPlaylistVideos, fetchCategorizedPlaylistVideos } from '../services/youtubeApi.js';
+import { resetForNewApiKey, clearAllCache } from '../services/cacheManager.js';
+import { videosData } from '../mockData/videosData.js'; // Fallback data
 
 /**
  * Custom hook for fetching and managing YouTube videos
@@ -65,6 +65,12 @@ export const useYouTubeVideos = (channels, maxResults = 10) => {
  * @returns {Object} { videos, loading, error, refetch }
  */
 export const useLatestVideos = (maxResults = 20) => {
+  // TEMPORARY: Clear cache to ensure fresh data for all playlists
+  useEffect(() => {
+    console.log('🧹 Clearing cache to fetch fresh data for all playlists');
+    clearAllCache();
+  }, []);
+
   // Try YouTube API with smart caching and quota management
   const playlists = [
     {
@@ -81,6 +87,16 @@ export const useLatestVideos = (maxResults = 20) => {
       playlistId: import.meta.env.VITE_BEADS_PLAYLIST_ID,
       categoryId: 3,
       categoryTitleKey: 'categories.beadsJewelry'
+    },
+    {
+      playlistId: import.meta.env.VITE_CLAY_PLAYLIST_ID,
+      categoryId: 4,
+      categoryTitleKey: 'categories.clay'
+    },
+    {
+      playlistId: import.meta.env.VITE_RECYCLING_PLAYLIST_ID,
+      categoryId: 7,
+      categoryTitleKey: 'categories.recyclingArt'
     }
     // Add more playlists as you configure them
   ].filter(playlist => playlist.playlistId && !playlist.playlistId.startsWith('your_')); // Filter out unconfigured playlists
@@ -89,7 +105,9 @@ export const useLatestVideos = (maxResults = 20) => {
   console.log('📋 Environment variables:', {
     origami: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID,
     drawing: import.meta.env.VITE_DRAWING_PLAYLIST_ID,
-    beads: import.meta.env.VITE_BEADS_PLAYLIST_ID
+    beads: import.meta.env.VITE_BEADS_PLAYLIST_ID,
+    clay: import.meta.env.VITE_CLAY_PLAYLIST_ID,
+    recycling: import.meta.env.VITE_RECYCLING_PLAYLIST_ID
   });
 
   return usePlaylistVideos(playlists, maxResults);
@@ -186,6 +204,8 @@ export const useVideosByCategory = (categoryId, maxResults = 10) => {
         1: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID, // Origami
         2: import.meta.env.VITE_DRAWING_PLAYLIST_ID, // Drawing
         3: import.meta.env.VITE_BEADS_PLAYLIST_ID, // Beads & Jewelry
+        4: import.meta.env.VITE_CLAY_PLAYLIST_ID, // Clay
+        7: import.meta.env.VITE_RECYCLING_PLAYLIST_ID, // Recycling Art
         // Add more categories as needed
       };
       
