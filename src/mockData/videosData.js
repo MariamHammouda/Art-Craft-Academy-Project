@@ -3,54 +3,54 @@ export const videosData = [
   {
     id: 1,
     url: "https://www.youtube.com/embed/WH37GeN77q8?si=oIetRbdrkhWrTimI&start=2",
-    title: "Paper Pencil Case",
+    titleKey: "videos.titles.paperPencilCase",
     views: 52340,
     categoryId: 1,
-    categoryTitle: "Origami World"
+    categoryTitleKey: "categories.origamiWorld"
   },
   {
     id: 2,
     url: "https://www.youtube.com/embed/JFEui1Ti2F0?si=7TKGURqr5WlYoccS&amp;start=2",
-    title: "Origami Rose from Paper",
+    titleKey: "videos.titles.origamiRose",
     views: 187230,
     categoryId: 1,
-    categoryTitle: "Origami World"
+    categoryTitleKey: "categories.origamiWorld"
   },
   {
     id: 3,
     url: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=example",
-    title: "Origami Crane Tutorial",
+    titleKey: "videos.titles.origamiCrane",
     views: 76510,
     categoryId: 1,
-    categoryTitle: "Origami World"
+    categoryTitleKey: "categories.origamiWorld"
   },
   
   // Drawing Videos
   {
     id: 4,
     url: "https://www.youtube.com/embed/example1?si=drawing1",
-    title: "Basic Drawing Techniques",
+    titleKey: "videos.titles.basicDrawing",
     views: 65420,
     categoryId: 2,
-    categoryTitle: "Drawing"
+    categoryTitleKey: "categories.drawing"
   },
   {
     id: 5,
     url: "https://www.youtube.com/embed/example2?si=drawing2",
-    title: "Watercolor Painting Basics",
+    titleKey: "videos.titles.watercolorBasics",
     views: 43210,
     categoryId: 2,
-    categoryTitle: "Drawing"
+    categoryTitleKey: "categories.drawing"
   },
   
   // Beads & Jewelry Videos
   {
     id: 6,
     url: "https://www.youtube.com/embed/gjqDo2LcBf4?si=qz84pD1usH7cXSQM&amp;start=2",
-    title: "Making Labubu from Perler Beads",
+    titleKey: "videos.titles.labubuBeads",
     views: 98231,
     categoryId: 3,
-    categoryTitle: "Beads & Jewelry"
+    categoryTitleKey: "categories.beadsJewelry"
   },
   {
     id: 7,
@@ -79,59 +79,60 @@ export const videosData = [
     categoryTitle: "Clay"
   },
   
-  // Preschool Crafts Videos
+  // Recycling Art Videos (moved after Clay)
   {
     id: 10,
-    url: "https://www.youtube.com/embed/example6?si=preschool1",
-    title: "Easy Paper Crafts for Kids",
-    views: 74560,
+    url: "https://www.youtube.com/embed/example10?si=recycle1",
+    title: "Bottle Cap Art Project",
+    views: 35210,
     categoryId: 5,
-    categoryTitle: "Preschool Crafts"
+    categoryTitle: "Recycling Art"
   },
   {
     id: 11,
+    url: "https://www.youtube.com/embed/example11?si=recycle2",
+    title: "Cardboard Castle DIY",
+    views: 29870,
+    categoryId: 5,
+    categoryTitle: "Recycling Art"
+  },
+  
+  // Preschool Crafts Videos
+  {
+    id: 12,
+    url: "https://www.youtube.com/embed/example6?si=preschool1",
+    title: "Easy Paper Crafts for Kids",
+    views: 74560,
+    categoryId: 6,
+    categoryTitle: "Preschool Crafts"
+  },
+  {
+    id: 13,
     url: "https://www.youtube.com/embed/example7?si=preschool2",
     title: "Finger Painting Fun",
     views: 21540,
-    categoryId: 5,
+    categoryId: 6,
     categoryTitle: "Preschool Crafts"
   },
   
   // Science DIY Videos
   {
-    id: 12,
+    id: 14,
     url: "https://www.youtube.com/embed/example8?si=science1",
     title: "Homemade Volcano Experiment",
     views: 134560,
-    categoryId: 6,
-    categoryTitle: "Science DIY"
-  },
-  {
-    id: 13,
-    url: "https://www.youtube.com/embed/example9?si=science2",
-    title: "DIY Slime Recipe",
-    views: 165430,
-    categoryId: 6,
-    categoryTitle: "Science DIY"
-  },
-  
-  // Recycling Art Videos
-  {
-    id: 14,
-    url: "https://www.youtube.com/embed/example10?si=recycle1",
-    title: "Bottle Cap Art Project",
-    views: 35210,
     categoryId: 7,
-    categoryTitle: "Recycling Art"
+    categoryTitle: "Science DIY"
   },
   {
     id: 15,
-    url: "https://www.youtube.com/embed/example11?si=recycle2",
-    title: "Cardboard Castle DIY",
-    views: 29870,
+    url: "https://www.youtube.com/embed/example9?si=science2",
+    title: "DIY Slime Recipe",
+    views: 165430,
     categoryId: 7,
-    categoryTitle: "Recycling Art"
+    categoryTitle: "Science DIY"
   },
+  
   
   // Popsicle Sticks Videos
   {

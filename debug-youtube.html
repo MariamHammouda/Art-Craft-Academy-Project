@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug YouTube API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #59ACBE;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #4a9bb0;
+        }
+        .result {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #59ACBE;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .error {
+            background: #ffe6e6;
+            border-left-color: #ff4444;
+        }
+        .success {
+            background: #e6ffe6;
+            border-left-color: #44ff44;
+        }
+        .video-item {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #59ACBE;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 YouTube API Debug Tool</h1>
+        <p><strong>Testing Origami Playlist:</strong> PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-</p>
+        
+        <button onclick="testDirectAPI()">🔍 Test Direct API Call</button>
+        <button onclick="testWithCORS()">🌐 Test CORS Issue</button>
+        <button onclick="testAPIKey()">🔑 Test API Key</button>
+        <button onclick="testPlaylistAccess()">📋 Test Playlist Access</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyCcGV3fbXdwwp3Gop-okkZyWgdW_1Re0jE';
+        const PLAYLIST_ID = 'PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-';
+        const API_BASE = 'https://www.googleapis.com/youtube/v3';
+        
+        function log(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'result error' : type === 'success' ? 'result success' : 'result';
+            resultDiv.innerHTML = `<div class="${className}">[${timestamp}] ${message}</div>`;
+        }
+        
+        async function testDirectAPI() {
+            log('🔍 Testing direct API call to origami playlist...', 'info');
+            
+            try {
+                const url = `${API_BASE}/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=5&key=${API_KEY}`;
+                log(`📡 URL: ${url}`, 'info');
+                
+                const response = await fetch(url);
+                log(`📊 Response Status: ${response.status}`, 'info');
+                log(`📊 Response OK: ${response.ok}`, 'info');
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    log(`❌ API Error:\nStatus: ${response.status}\nResponse: ${errorText}`, 'error');
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.items && data.items.length > 0) {
+                    let result = `✅ SUCCESS! Found ${data.items.length} videos:\n\n`;
+                    data.items.forEach((item, index) => {
+                        result += `${index + 1}. ${item.snippet.title}\n`;
+                        result += `   Published: ${new Date(item.snippet.publishedAt).toLocaleDateString()}\n`;
+                        result += `   Video ID: ${item.snippet.resourceId.videoId}\n\n`;
+                    });
+                    log(result, 'success');
+                } else {
+                    log('⚠️ API call successful but no videos found', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Network Error: ${error.message}\n\nThis could be:\n- CORS issue\n- Network firewall\n- Browser blocking`, 'error');
+            }
+        }
+        
+        async function testWithCORS() {
+            log('🌐 Testing CORS and network connectivity...', 'info');
+            
+            try {
+                // Test basic internet connectivity
+                const testResponse = await fetch('https://httpbin.org/get');
+                if (testResponse.ok) {
+                    log('✅ Internet connectivity: OK', 'success');
+                } else {
+                    log('❌ Internet connectivity: FAILED', 'error');
+                    return;
+                }
+                
+                // Test if we can reach Google APIs
+                const googleTest = await fetch('https://www.googleapis.com/');
+                log(`📊 Google APIs reachable: ${googleTest.ok ? 'YES' : 'NO'}`, googleTest.ok ? 'success' : 'error');
+                
+            } catch (error) {
+                log(`❌ CORS/Network Issue: ${error.message}\n\nSolution: Make sure you're running from localhost, not file://`, 'error');
+            }
+        }
+        
+        async function testAPIKey() {
+            log('🔑 Testing API key validity...', 'info');
+            
+            try {
+                // Simple search to test API key
+                const url = `${API_BASE}/search?part=snippet&q=test&type=video&maxResults=1&key=${API_KEY}`;
+                const response = await fetch(url);
+                
+                if (response.status === 403) {
+                    const errorData = await response.json();
+                    log(`❌ API Key Error (403):\n${JSON.stringify(errorData, null, 2)}\n\nPossible issues:\n- API key invalid\n- Quota exceeded\n- API not enabled`, 'error');
+                } else if (response.ok) {
+                    log('✅ API Key is valid and working!', 'success');
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ API Key test failed: ${response.status}\n${errorText}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ API Key test error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testPlaylistAccess() {
+            log('📋 Testing playlist accessibility...', 'info');
+            
+            try {
+                // Test if playlist exists and is public
+                const url = `${API_BASE}/playlists?part=snippet&id=${PLAYLIST_ID}&key=${API_KEY}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    log(`❌ Playlist access error: ${response.status}\n${errorText}`, 'error');
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.items && data.items.length > 0) {
+                    const playlist = data.items[0];
+                    log(`✅ Playlist found!\nTitle: ${playlist.snippet.title}\nChannel: ${playlist.snippet.channelTitle}\nDescription: ${playlist.snippet.description.substring(0, 100)}...`, 'success');
+                } else {
+                    log('❌ Playlist not found or not accessible\n\nPossible issues:\n- Playlist is private\n- Playlist ID is wrong\n- Playlist was deleted', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Playlist test error: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

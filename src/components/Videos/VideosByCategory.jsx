@@ -1,50 +1,103 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
+import { useTranslation } from 'react-i18next';
 import VideoCard from "./VideoCard.jsx";
 import { videosData } from "../../mockData/videosData.js";
 import { categoriesData } from "../../mockData/categoriesData.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useLatestVideos } from "../../hooks/useYouTubeVideos.js";
 
-export const VideosByCategory = () => {
+const VideosByCategoryComponent = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Debug: Check if we're in Router context
+  console.log('🔍 Router context check:', { 
+    navigate: typeof navigate, 
+    location: location?.pathname 
+  });
 
-  // Group videos by category
-  const videosByCategory = videosData.reduce((acc, video) => {
-    const key = Number(video.categoryId);
-    if (!acc[key]) {
-      acc[key] = [];
-    }
-    acc[key].push(video);
-    return acc;
-  }, {});
+  // Fetch videos from YouTube API with reduced frequency
+  const { videos: apiVideos, loading, error } = useLatestVideos(30);
+  
+  // Use API videos if available, otherwise fallback to mock data
+  const videosToUse = useMemo(() => {
+    return apiVideos.length > 0 ? apiVideos : videosData;
+  }, [apiVideos]);
+
+  console.log('🔍 VideosByCategory Debug:', {
+    apiVideosCount: apiVideos.length,
+    videosToUseCount: videosToUse.length,
+    loading,
+    error
+  });
+
+  // Group videos by category (memoized for performance)
+  const videosByCategory = useMemo(() => {
+    return videosToUse.reduce((acc, video) => {
+      const key = Number(video.categoryId);
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(video);
+      return acc;
+    }, {});
+  }, [videosToUse]);
+
+  console.log('📊 Videos by category:', videosByCategory);
 
   const handleCategoryClick = (categoryId, categoryTitle) => {
-    navigate(`/category/${categoryId}`, { 
-      state: { 
-        categoryTitle,
-        videos: videosByCategory[categoryId] || []
-      }
-    });
+    console.log('📂 Category clicked:', { categoryId, categoryTitle, videosCount: (videosByCategory[categoryId] || []).length });
+    
+    // Use window.location for reliable navigation
+    // Store category data in sessionStorage for the target page
+    sessionStorage.setItem('categoryData', JSON.stringify({
+      categoryTitle,
+      videos: videosByCategory[categoryId] || []
+    }));
+    
+    window.location.href = `/category/${categoryId}`;
   };
 
   return (
     <section id="video-categories" className="py-12 px-6 bg-gray-50">
       <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
-        Explore Videos by Category
+        {t('videos.byCategory')}
       </h2>
+      
+      
+      {loading && videosToUse.length === 0 && (
+        <div className="flex justify-center items-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#59ACBE]"></div>
+        </div>
+      )}
+      
+      {error && (
+        <div className="text-center py-8">
+          <p className="text-red-600 mb-2">Error loading videos: {error}</p>
+          <p className="text-gray-600">Showing fallback content...</p>
+        </div>
+      )}
       
       <div className="space-y-16">
         {categoriesData.map((category) => {
-          const categoryVideos = videosByCategory[category.id] || [];
-          const categoryVideosSorted = [...categoryVideos].sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+          let categoryVideos = videosByCategory[category.id] || [];
           
-          if (categoryVideos.length === 0) return null;
+          // If no API videos available, try to use mock data for this category
+          if (categoryVideos.length === 0) {
+            const mockVideosForCategory = videosData.filter(v => v.categoryId === category.id);
+            if (mockVideosForCategory.length === 0) return null;
+            categoryVideos = mockVideosForCategory.slice(0, 4);
+          }
+          
+          const categoryVideosSorted = [...categoryVideos].sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
           
           return (
             <div key={category.id} id={`cat-${category.id}`} className="max-w-7xl mx-auto">
               {/* Category Header */}
               <div 
                 className="flex items-center justify-between mb-6 cursor-pointer group"
-                onClick={() => handleCategoryClick(category.id, category.title)}
+                onClick={() => handleCategoryClick(category.id, t(category.titleKey))}
               >
                 <div className="flex items-center gap-4">
                   <div
@@ -54,11 +107,11 @@ export const VideosByCategory = () => {
                     <img src={category.icon} alt={category.title} className="w-8 h-8" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
-                    {category.title}
+                    {t(category.titleKey)}
                   </h3>
                 </div>
                 <div className="text-blue-600 font-medium group-hover:text-blue-800 transition-colors">
-                  View All →
+                  {t('categories.viewAll')} →
                 </div>
               </div>
               
@@ -67,7 +120,10 @@ export const VideosByCategory = () => {
                 {categoryVideosSorted.slice(0, 4).map((video) => (
                   <VideoCard 
                     key={video.id} 
+                    id={video.id}
                     url={video.url} 
+                    titleKey={video.titleKey}
+                    categoryTitleKey={video.categoryTitleKey}
                     title={video.title}
                     categoryTitle={video.categoryTitle}
                   />
@@ -78,10 +134,10 @@ export const VideosByCategory = () => {
               {categoryVideosSorted.length > 4 && (
                 <div className="text-center mt-6">
                   <button
-                    onClick={() => handleCategoryClick(category.id, category.title)}
+                    onClick={() => handleCategoryClick(category.id, t(category.titleKey))}
                     className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   >
-                    View {categoryVideosSorted.length - 4} More Videos
+                    {t('categories.viewAll')} {categoryVideosSorted.length - 4} {t('videos.loadMore')}
                   </button>
                 </div>
               )}
@@ -92,3 +148,5 @@ export const VideosByCategory = () => {
     </section>
   );
 };
+
+export const VideosByCategory = VideosByCategoryComponent;

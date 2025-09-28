@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Categories Data</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .category { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .category h3 { margin: 0 0 10px 0; color: #333; }
+        .video-item { margin: 5px 0; padding: 8px; background: #f5f5f5; border-radius: 4px; }
+        .error { color: red; }
+        .success { color: green; }
+        .warning { color: orange; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Categories Data Distribution</h1>
+    
+    <div id="results"></div>
+    
+    <script type="module">
+        // Simulate the environment variables
+        const env = {
+            VITE_ORIGAMI_PLAYLIST_ID: 'PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-',
+            VITE_DRAWING_PLAYLIST_ID: 'PL4CiQqug4-YPejEI7f4xBYQUqzRTdlvWM',
+            VITE_BEADS_PLAYLIST_ID: 'PL4CiQqug4-YPegbyjIwKLN-DlamTLwzqG',
+            VITE_CLAY_PLAYLIST_ID: 'PL4CiQqug4-YMsjp4jNTS5KqjcHv2qzV8C',
+            VITE_RECYCLING_PLAYLIST_ID: 'PL4CiQqug4-YMUyAFeKZWnBQg7QLF33JnU'
+        };
+        
+        // Simulate the playlists configuration
+        const playlists = [
+            {
+                playlistId: env.VITE_ORIGAMI_PLAYLIST_ID,
+                categoryId: 1,
+                categoryTitleKey: 'categories.origamiWorld'
+            },
+            {
+                playlistId: env.VITE_DRAWING_PLAYLIST_ID,
+                categoryId: 2,
+                categoryTitleKey: 'categories.drawing'
+            },
+            {
+                playlistId: env.VITE_BEADS_PLAYLIST_ID,
+                categoryId: 3,
+                categoryTitleKey: 'categories.beadsJewelry'
+            },
+            {
+                playlistId: env.VITE_CLAY_PLAYLIST_ID,
+                categoryId: 4,
+                categoryTitleKey: 'categories.clay'
+            },
+            {
+                playlistId: env.VITE_RECYCLING_PLAYLIST_ID,
+                categoryId: 5,
+                categoryTitleKey: 'categories.recyclingArt'
+            }
+        ].filter(playlist => playlist.playlistId && !playlist.playlistId.startsWith('your_'));
+        
+        const resultsDiv = document.getElementById('results');
+        
+        // Display configuration
+        resultsDiv.innerHTML = `
+            <div class="category">
+                <h3>📋 Playlists Configuration</h3>
+                <p><strong>Total configured playlists:</strong> ${playlists.length}</p>
+                ${playlists.map(p => `
+                    <div class="video-item">
+                        <strong>Category ${p.categoryId}:</strong> ${p.categoryTitleKey}<br>
+                        <strong>Playlist ID:</strong> ${p.playlistId}
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div class="category">
+                <h3>🔍 Expected Categories in Data</h3>
+                <p>When API data is fetched, each video should have:</p>
+                <ul>
+                    <li><strong>categoryId:</strong> 1, 2, 3, 4, or 5</li>
+                    <li><strong>categoryTitleKey:</strong> corresponding translation key</li>
+                </ul>
+            </div>
+            
+            <div class="category">
+                <h3>⚠️ Potential Issues</h3>
+                <div class="warning">
+                    <p><strong>Issue 1:</strong> If API quota is exceeded, only mock data shows</p>
+                    <p><strong>Issue 2:</strong> If playlists are empty or private, no data for those categories</p>
+                    <p><strong>Issue 3:</strong> If categoryId assignment fails, videos might all go to category 1</p>
+                </div>
+            </div>
+            
+            <div class="category">
+                <h3>🛠️ Debugging Steps</h3>
+                <ol>
+                    <li>Check browser console for API calls and responses</li>
+                    <li>Look for logs starting with 🎯, 📡, ✅</li>
+                    <li>Check localStorage for cached data</li>
+                    <li>Verify playlist IDs are correct and public</li>
+                </ol>
+            </div>
+        `;
+    </script>
+</body>
+</html>

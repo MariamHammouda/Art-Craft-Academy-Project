@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find YouTube Channel ID</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #59ACBE;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #4a9bb0;
+        }
+        .result {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #59ACBE;
+        }
+        .error {
+            background: #ffe6e6;
+            border-left-color: #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Find YouTube Channel ID</h1>
+        <p>Enter your channel username or custom URL to find the channel ID:</p>
+        
+        <input type="text" id="channelInput" placeholder="Enter channel username (e.g., @YourChannelName)" />
+        <button onclick="findChannelId()">Find Channel ID</button>
+        
+        <div id="result"></div>
+        
+        <h3>📝 Instructions:</h3>
+        <ul>
+            <li>Enter your channel username (with @) or custom URL</li>
+            <li>Click "Find Channel ID"</li>
+            <li>Copy the channel ID to your .env file</li>
+        </ul>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyCcGV3fbXdwwp3Gop-okkZyWgdW_1Re0jE';
+        
+        async function findChannelId() {
+            const input = document.getElementById('channelInput').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (!input) {
+                resultDiv.innerHTML = '<div class="result error">Please enter a channel username or URL</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="result">🔍 Searching...</div>';
+            
+            try {
+                // Extract username from input
+                let username = input;
+                if (input.includes('@')) {
+                    username = input.replace('@', '');
+                }
+                if (input.includes('youtube.com/')) {
+                    const match = input.match(/youtube\.com\/(@[\w-]+|c\/[\w-]+|user\/[\w-]+)/);
+                    if (match) {
+                        username = match[1].replace('@', '').replace('c/', '').replace('user/', '');
+                    }
+                }
+                
+                // Try different API endpoints
+                let response;
+                
+                // Try by username first
+                response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=id,snippet&forUsername=${username}&key=${API_KEY}`);
+                let data = await response.json();
+                
+                // If no results, try search
+                if (!data.items || data.items.length === 0) {
+                    response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${username}&type=channel&maxResults=5&key=${API_KEY}`);
+                    data = await response.json();
+                    
+                    if (data.items && data.items.length > 0) {
+                        const channels = data.items.map(item => ({
+                            id: item.snippet.channelId,
+                            title: item.snippet.channelTitle,
+                            description: item.snippet.description
+                        }));
+                        
+                        let html = '<div class="result"><h3>🎯 Found Channels:</h3>';
+                        channels.forEach(channel => {
+                            html += `
+                                <div style="margin: 10px 0; padding: 10px; background: white; border-radius: 5px;">
+                                    <strong>${channel.title}</strong><br>
+                                    <code>Channel ID: ${channel.id}</code><br>
+                                    <small>${channel.description.substring(0, 100)}...</small>
+                                </div>
+                            `;
+                        });
+                        html += '</div>';
+                        resultDiv.innerHTML = html;
+                        return;
+                    }
+                }
+                
+                if (data.items && data.items.length > 0) {
+                    const channel = data.items[0];
+                    resultDiv.innerHTML = `
+                        <div class="result">
+                            <h3>✅ Channel Found!</h3>
+                            <p><strong>Channel Name:</strong> ${channel.snippet.title}</p>
+                            <p><strong>Channel ID:</strong> <code>${channel.id}</code></p>
+                            <p><strong>Subscribers:</strong> ${channel.statistics?.subscriberCount || 'Hidden'}</p>
+                            <p>📋 Copy this Channel ID to your .env file!</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = '<div class="result error">❌ No channel found. Try a different username or check the spelling.</div>';
+                }
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="result error">❌ Error: ${error.message}</div>`;
+            }
+        }
+        
+        // Allow Enter key to search
+        document.getElementById('channelInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                findChannelId();
+            }
+        });
+    </script>
+</body>
+</html>

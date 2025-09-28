@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Test New API Key</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #59ACBE;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            width: 100%;
+        }
+        button:hover {
+            background: #4a9bb0;
+        }
+        .result {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #59ACBE;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success {
+            background: #e6ffe6;
+            border-left-color: #44ff44;
+        }
+        .error {
+            background: #ffe6e6;
+            border-left-color: #ff4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Quick Test: New API Key</h1>
+        <p><strong>Testing:</strong> AIzaSyAOIXWOtoqqhzqXPspaIRef0zlqEw2YY9w</p>
+        
+        <button onclick="testApiKey()">🔍 Test API Key</button>
+        <button onclick="testOrigamiPlaylist()">📋 Test Origami Playlist</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyAOIXWOtoqqhzqXPspaIRef0zlqEw2YY9w';
+        const PLAYLIST_ID = 'PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-';
+        const API_BASE = 'https://www.googleapis.com/youtube/v3';
+        
+        function log(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'result error' : type === 'success' ? 'result success' : 'result';
+            resultDiv.innerHTML = `<div class="${className}">[${timestamp}] ${message}</div>`;
+        }
+        
+        async function testApiKey() {
+            log('🔍 Testing new API key...', 'info');
+            
+            try {
+                const url = `${API_BASE}/search?part=snippet&q=test&type=video&maxResults=1&key=${API_KEY}`;
+                const response = await fetch(url);
+                
+                if (response.status === 403) {
+                    const errorData = await response.json();
+                    log(`❌ API Key Error (403):\n${JSON.stringify(errorData, null, 2)}`, 'error');
+                } else if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ API Key Works!\nQuota: Fresh (10,000 units)\nTest search found: ${data.items.length} results\nStatus: Ready to use!`, 'success');
+                } else {
+                    const errorText = await response.text();
+                    log(`❌ Unexpected error: ${response.status}\n${errorText}`, 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Network error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testOrigamiPlaylist() {
+            log('📋 Testing origami playlist...', 'info');
+            
+            try {
+                const url = `${API_BASE}/playlistItems?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=5&key=${API_KEY}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    log(`❌ Playlist error: ${response.status}\n${errorText}`, 'error');
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.items && data.items.length > 0) {
+                    let result = `✅ ORIGAMI PLAYLIST SUCCESS!\nFound ${data.items.length} videos:\n\n`;
+                    data.items.forEach((item, index) => {
+                        result += `${index + 1}. ${item.snippet.title}\n`;
+                    });
+                    result += `\n🎉 Your website will now show these real videos!`;
+                    log(result, 'success');
+                } else {
+                    log('⚠️ Playlist accessible but no videos found', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Playlist test error: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

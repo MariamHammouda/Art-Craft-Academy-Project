@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Categories Data Distribution</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .test-section { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .category-box { display: inline-block; margin: 10px; padding: 15px; border-radius: 8px; min-width: 200px; }
+        .cat-1 { background: #e3f2fd; border-left: 4px solid #2196f3; }
+        .cat-2 { background: #f3e5f5; border-left: 4px solid #9c27b0; }
+        .cat-3 { background: #e8f5e8; border-left: 4px solid #4caf50; }
+        .cat-4 { background: #fff3e0; border-left: 4px solid #ff9800; }
+        .cat-5 { background: #fce4ec; border-left: 4px solid #e91e63; }
+        .success { color: #4caf50; font-weight: bold; }
+        .warning { color: #ff9800; font-weight: bold; }
+        .error { color: #f44336; font-weight: bold; }
+        .code { background: #f5f5f5; padding: 10px; border-radius: 4px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Categories Data Distribution</h1>
+        
+        <div class="test-section">
+            <h2>📋 Expected Categories</h2>
+            <div class="category-box cat-1">
+                <strong>Category 1: Origami World</strong><br>
+                Playlist: PL4CiQqug4-YOWDWbMf4avDF8ONuZTmN4-
+            </div>
+            <div class="category-box cat-2">
+                <strong>Category 2: Drawing</strong><br>
+                Playlist: PL4CiQqug4-YPejEI7f4xBYQUqzRTdlvWM
+            </div>
+            <div class="category-box cat-3">
+                <strong>Category 3: Beads & Jewelry</strong><br>
+                Playlist: PL4CiQqug4-YPegbyjIwKLN-DlamTLwzqG
+            </div>
+            <div class="category-box cat-4">
+                <strong>Category 4: Clay</strong><br>
+                Playlist: PL4CiQqug4-YMsjp4jNTS5KqjcHv2qzV8C
+            </div>
+            <div class="category-box cat-5">
+                <strong>Category 5: Recycling Art</strong><br>
+                Playlist: PL4CiQqug4-YMUyAFeKZWnBQg7QLF33JnU
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔍 Debugging Instructions</h2>
+            <ol>
+                <li><strong>Open Browser Console</strong> (F12 → Console tab)</li>
+                <li><strong>Reload the main page</strong> and watch for these logs:</li>
+                <ul>
+                    <li><span class="code">🎯 fetchCategorizedPlaylistVideos: Starting with playlists</span></li>
+                    <li><span class="code">📡 Fetching from playlist: [ID] (Category: [N])</span></li>
+                    <li><span class="code">✅ Got [N] videos from playlist [ID]</span></li>
+                    <li><span class="code">🏷️ Categorized [N] videos with categoryId: [N]</span></li>
+                    <li><span class="code">📊 Videos by category: {1: X, 2: Y, 3: Z...}</span></li>
+                </ul>
+                <li><strong>Check for warnings:</strong></li>
+                <ul>
+                    <li><span class="code">⚠️ No videos found for playlist [ID]</span> - Playlist might be empty or private</li>
+                    <li><span class="code">⚠️ Missing categories: [1,2,3...]</span> - Some categories have no API data</li>
+                    <li><span class="code">📊 Using [N] mock videos for category [N]</span> - Fallback data being used</li>
+                </ul>
+            </ol>
+        </div>
+        
+        <div class="test-section">
+            <h2>🛠️ Fixes Applied</h2>
+            <div class="success">✅ Enhanced error handling for individual playlists</div>
+            <div class="success">✅ Added detailed logging for each category</div>
+            <div class="success">✅ Automatic fallback to mock data for missing categories</div>
+            <div class="success">✅ Better video ID generation for API videos</div>
+            <div class="success">✅ Hybrid approach: API data + mock data supplement</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎯 Expected Results</h2>
+            <p><strong>Scenario 1 - API Working:</strong> All categories show fresh YouTube videos</p>
+            <p><strong>Scenario 2 - Some Playlists Empty:</strong> Working playlists show API data, others show mock data</p>
+            <p><strong>Scenario 3 - API Quota Exceeded:</strong> All categories show mock data</p>
+            <p><strong>Scenario 4 - Network Issues:</strong> Cached data if available, otherwise mock data</p>
+        </div>
+        
+        <div class="test-section">
+            <h2>⚡ Quick Test</h2>
+            <p>If you still see only Origami with real data:</p>
+            <ol>
+                <li>Check if other playlist IDs are correct and public</li>
+                <li>Verify API quota hasn't been exceeded</li>
+                <li>Clear localStorage cache: <span class="code">localStorage.clear()</span></li>
+                <li>Check network tab for failed API requests</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

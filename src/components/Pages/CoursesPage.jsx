@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const CoursesPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -19,8 +21,8 @@ const CoursesPage = () => {
           </div>
           
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Courses</h1>
-            <p className="text-gray-600 text-lg">Comprehensive craft courses coming soon!</p>
+            <h1 className="text-4xl font-bold text-gray-800 mb-4">{t('courses.title')}</h1>
+            <p className="text-gray-600 text-lg">{t('courses.subtitle')}</p>
           </div>
         </div>
       </div>
@@ -32,15 +34,15 @@ const CoursesPage = () => {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Course Categories</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
               <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-blue-800">Beginner Courses</h3>
+                <h3 className="font-semibold text-blue-800">{t('courses.beginner')}</h3>
                 <p className="text-sm text-gray-600 mt-2">Perfect for getting started</p>
               </div>
               <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-green-800">Intermediate Courses</h3>
+                <h3 className="font-semibold text-green-800">{t('courses.intermediate')}</h3>
                 <p className="text-sm text-gray-600 mt-2">Build on your skills</p>
               </div>
               <div className="bg-purple-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-purple-800">Advanced Courses</h3>
+                <h3 className="font-semibold text-purple-800">{t('courses.advanced')}</h3>
                 <p className="text-sm text-gray-600 mt-2">Master your craft</p>
               </div>
               <div className="bg-orange-50 p-6 rounded-lg">

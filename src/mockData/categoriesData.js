@@ -7,55 +7,76 @@ import recycleing from "../assets/images/recycleing.png"
 import science from "../assets/images/science.png"
 import sticks from "../assets/images/sticks.png"
 
+// Category banner images
+import origamiCategory from "../assets/images/category-images/orgami-category.jpg"
+import drawingCategory from "../assets/images/category-images/drawing-category.jpg"
+import beadsCategory from "../assets/images/category-images/beads-category.jpg"
+
 
 
 export const categoriesData = [
   {
     id: 1,
-    title: "Origami World",
+    titleKey: "categories.origamiWorld",
     color: "#FDE68A", // yellow
     icon: origami,
+    bannerImage: origamiCategory, // Using dedicated category image
+    descriptionKey: "categories.descriptions.origamiWorld",
   },
   {
     id: 2,
-    title: "Drawing",
+    titleKey: "categories.drawing",
     color: "#93C5FD", // blue
     icon: drawing,
+    bannerImage: drawingCategory, // Using dedicated category image
+    descriptionKey: "categories.descriptions.drawing",
   },
   {
     id: 3,
-    title: "Beads & Jewelry",
+    titleKey: "categories.beadsJewelry",
     color: "#F9A8D4", // pink
-    icon:beads,
+    icon: beads,
+    bannerImage: beadsCategory, // Using dedicated category image
+    descriptionKey: "categories.descriptions.beadsJewelry",
   },
   {
     id: 4,
-    title: "Clay",
+    titleKey: "categories.clay",
     color: "#A7F3D0", // green
     icon: clay,
+    bannerImage: clay,
+    descriptionKey: "categories.descriptions.clay",
   },
   {
     id: 5,
-    title: "Preschool Crafts",
-    color: "#FBCFE8", // light pink
-    icon: preschool,
+    titleKey: "categories.recyclingArt",
+    color: "#BBF7D0", // mint green
+    icon: recycleing,
+    bannerImage: recycleing,
+    descriptionKey: "categories.descriptions.recyclingArt",
   },
   {
     id: 6,
-    title: "Science DIY",
-    color: "#C7D2FE", // purple
-    icon: science,
+    titleKey: "categories.preschoolCrafts",
+    color: "#FBCFE8", // light pink
+    icon: preschool,
+    bannerImage: preschool,
+    descriptionKey: "categories.descriptions.preschoolCrafts",
   },
   {
     id: 7,
-    title: "Recycling Art",
-    color: "#BBF7D0", // mint green
-    icon: recycleing,
+    titleKey: "categories.scienceDiy",
+    color: "#C7D2FE", // purple
+    icon: science,
+    bannerImage: science,
+    descriptionKey: "categories.descriptions.scienceDiy",
   },
   {
     id: 8,
-    title: "Popsicle Sticks",
+    titleKey: "categories.popsicleSticks",
     color: "#FDBA74", // orange
     icon: sticks,
+    bannerImage: sticks,
+    descriptionKey: "categories.descriptions.popsicleSticks",
   },
 ];
