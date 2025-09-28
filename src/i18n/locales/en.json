@@ -3,6 +3,7 @@
     "home": "Home",
     "categories": "Categories",
     "videos": "Videos",
+    "pictures": "Pictures",
     "courses": "Courses",
     "shop": "Shop",
     "about": "About",
@@ -148,6 +149,39 @@
     "helpCenter": "Help Center",
     "faq": "FAQ"
   },
+  "pictures": {
+    "title": "Picture Gallery",
+    "subtitle": "Explore our collection of inspiring craft pictures",
+    "categories": {
+      "origamiPaperCrafts": "Origami & Paper Crafts",
+      "drawing": "Drawing",
+      "recyclingArt": "Recycling Art",
+      "beadsAccessories": "Beads & Accessories",
+      "clayCreations": "Clay Creations",
+      "preschoolCrafts": "Preschool Crafts",
+      "perlerBeads": "Perler Beads",
+      "3dPenFun": "3D Pen Fun",
+      "miniatureWonders": "Miniature Wonders",
+      "scienceDiyExperiments": "Science & DIY Experiments",
+      "tipsTricks": "Tips & Tricks"
+    },
+    "descriptions": {
+      "origamiPaperCrafts": "Beautiful paper folding creations and paper craft projects",
+      "drawing": "Inspiring drawings, sketches, and artistic illustrations",
+      "recyclingArt": "Creative art projects made from recycled materials",
+      "beadsAccessories": "Stunning jewelry and accessories made with beads",
+      "clayCreations": "Amazing sculptures and pottery made from clay",
+      "preschoolCrafts": "Fun and colorful crafts perfect for young children",
+      "perlerBeads": "Pixel art and designs created with Perler beads",
+      "3dPenFun": "Incredible 3D creations made with 3D pens",
+      "miniatureWonders": "Tiny detailed crafts and miniature worlds",
+      "scienceDiyExperiments": "Educational and fun science experiment results",
+      "tipsTricks": "Helpful techniques and creative solutions for crafting"
+    },
+    "viewGallery": "View Gallery",
+    "backToPictures": "Back to Pictures",
+    "noImages": "No images available in this category yet"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Error",
@@ -158,7 +192,8 @@
     "delete": "Delete",
     "confirm": "Confirm",
     "back": "Back",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "search": "Search"
   },
   "materials": {
     "origamiPaper": "Origami Paper",

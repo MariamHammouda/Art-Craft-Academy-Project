@@ -3,6 +3,7 @@
     "home": "الرئيسية",
     "categories": "الفئات",
     "videos": "الفيديوهات",
+    "pictures": "الصور",
     "courses": "الدورات",
     "shop": "المتجر",
     "about": "حولنا",
@@ -146,6 +147,39 @@
     "termsOfService": "شروط الخدمة",
     "helpCenter": "مركز المساعدة",
     "faq": "الأسئلة الشائعة"
+  },
+  "pictures": {
+    "title": "معرض الصور",
+    "subtitle": "استكشف مجموعتنا من صور الحرف الملهمة",
+    "categories": {
+      "origamiPaperCrafts": "الأوريجامي والحرف الورقية",
+      "drawing": "الرسم",
+      "recyclingArt": "فن إعادة التدوير",
+      "beadsAccessories": "الخرز والإكسسوارات",
+      "clayCreations": "إبداعات الطين",
+      "preschoolCrafts": "حرف ما قبل المدرسة",
+      "perlerBeads": "خرز البيرلر",
+      "3dPenFun": "متعة القلم ثلاثي الأبعاد",
+      "miniatureWonders": "عجائب مصغرة",
+      "scienceDiyExperiments": "تجارب العلوم والأعمال اليدوية",
+      "tipsTricks": "نصائح وحيل"
+    },
+    "descriptions": {
+      "origamiPaperCrafts": "إبداعات جميلة من طي الورق ومشاريع الحرف الورقية",
+      "drawing": "رسومات ملهمة وتخطيطات وتوضيحات فنية",
+      "recyclingArt": "مشاريع فنية إبداعية من المواد المعاد تدويرها",
+      "beadsAccessories": "مجوهرات وإكسسوارات مذهلة مصنوعة من الخرز",
+      "clayCreations": "منحوتات وفخار مذهل مصنوع من الطين",
+      "preschoolCrafts": "حرف ممتعة وملونة مثالية للأطفال الصغار",
+      "perlerBeads": "فن البكسل والتصاميم المصنوعة من خرز البيرلر",
+      "3dPenFun": "إبداعات ثلاثية الأبعاد لا تصدق مصنوعة بالأقلام ثلاثية الأبعاد",
+      "miniatureWonders": "حرف صغيرة مفصلة وعوالم مصغرة",
+      "scienceDiyExperiments": "نتائج تجارب علمية تعليمية وممتعة",
+      "tipsTricks": "تقنيات مفيدة وحلول إبداعية للحرف اليدوية"
+    },
+    "viewGallery": "عرض المعرض",
+    "backToPictures": "العودة للصور",
+    "noImages": "لا توجد صور متاحة في هذه الفئة بعد"
   },
   "common": {
     "search": "بحث",

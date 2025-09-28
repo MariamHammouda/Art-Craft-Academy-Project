@@ -76,6 +76,18 @@ const NavBar = () => {
               </li>
               <li>
                 <Link 
+                  to="/pictures" 
+                  onClick={() => console.log("Pictures clicked - navigating to /pictures")}
+                  className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
+                    <img src={CustomIcon} alt="Art Icon" className="w-8 h-8" />
+                  </div>
+                  <span className="text-base font-semibold">{t('nav.pictures')}</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
                   to="/courses" 
                   className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
                 >
