@@ -129,11 +129,11 @@ const PicturesPage = () => {
             <div
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
-              className="bg-white border-2 border-gray-200 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg overflow-hidden"
+              className="bg-white border-2 border-gray-200 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg overflow-hidden h-80 flex flex-col"
             >
-              {/* Image Section */}
+              {/* Image Section - أكبر ارتفاع */}
               {category.backgroundImage ? (
-                <div className="h-64 w-full overflow-hidden">
+                <div className="flex-grow overflow-hidden">
                   <img
                     src={category.backgroundImage}
                     alt={t(`pictures.categories.${category.key}`)}
@@ -141,7 +141,7 @@ const PicturesPage = () => {
                   />
                 </div>
               ) : (
-                <div className={`h-64 w-full ${category.color} flex items-center justify-center`}>
+                <div className={`flex-grow ${category.color} flex items-center justify-center`}>
                   <div className={`${category.iconBg} w-20 h-20 rounded-full flex items-center justify-center`}>
                     <div className={`w-10 h-10 ${category.textColor} flex items-center justify-center text-3xl font-bold`}>
                       {category.id}
@@ -150,30 +150,16 @@ const PicturesPage = () => {
                 </div>
               )}
               
-              {/* Text Content Below Image */}
-              <div className="p-6">
-                {/* Category Icon (only for non-image categories) */}
-                {!category.backgroundImage && (
-                  <div className={`${category.iconBg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                    <div className={`w-8 h-8 ${category.textColor} flex items-center justify-center text-2xl font-bold`}>
-                      {category.id}
-                    </div>
-                  </div>
-                )}
-                
+              {/* Text Content في النهاية - ارتفاع ثابت ومضغوط */}
+              <div className="p-4 bg-white mt-auto">
                 {/* Category Title */}
-                <h3 className={`text-xl font-bold ${category.textColor} text-center mb-3`}>
+                <h3 className={`text-lg font-bold ${category.textColor} text-center mb-2`}>
                   {t(`pictures.categories.${category.key}`)}
                 </h3>
                 
-                {/* Category Description */}
-                <p className="text-gray-600 text-sm text-center leading-relaxed mb-4">
-                  {t(`pictures.descriptions.${category.key}`)}
-                </p>
-                
                 {/* View Gallery Button */}
                 <div className="text-center">
-                  <span className={`inline-block px-4 py-2 ${category.textColor} bg-white border-2 border-current rounded-full text-sm font-medium transition-all duration-200 hover:bg-current hover:text-white`}>
+                  <span className={`inline-block px-3 py-1 ${category.textColor} bg-white border-2 border-current rounded-full text-xs font-medium transition-all duration-200 hover:bg-current hover:text-white`}>
                     {t('pictures.viewGallery')}
                   </span>
                 </div>
