@@ -131,7 +131,12 @@ const PictureCategoryPage = () => {
           {galleryImages.map((image) => (
             <div
               key={image.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 group"
+              onClick={() => {
+                if (currentCategory.id === 2) { // Drawing category
+                  navigate(`/pictures/drawing/${image.id}`);
+                }
+              }}
+              className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 group ${currentCategory.id === 2 ? 'cursor-pointer hover:scale-105 transform transition-transform' : ''}`}
             >
               {/* Image */}
               <div className="aspect-square overflow-hidden">
