@@ -2,6 +2,11 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
+// Import gallery images
+import drawingImage from '../../assets/images/picture-gallary-images/drawing.jpg';
+import origamiImage from '../../assets/images/picture-gallary-images/orgami.jpg';
+import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
+
 const PictureCategoryPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -9,12 +14,12 @@ const PictureCategoryPage = () => {
 
   // Picture categories data (same as in PicturesPage for consistency)
   const pictureCategories = [
-    { id: 1, key: 'origamiPaperCrafts', color: 'bg-pink-50', textColor: 'text-pink-800' },
-    { id: 2, key: 'drawing', color: 'bg-blue-50', textColor: 'text-blue-800' },
+    { id: 1, key: 'origamiPaperCrafts', color: 'bg-pink-50', textColor: 'text-pink-800', backgroundImage: origamiImage },
+    { id: 2, key: 'drawing', color: 'bg-blue-50', textColor: 'text-blue-800', backgroundImage: drawingImage },
     { id: 3, key: 'recyclingArt', color: 'bg-green-50', textColor: 'text-green-800' },
     { id: 4, key: 'beadsAccessories', color: 'bg-purple-50', textColor: 'text-purple-800' },
     { id: 5, key: 'clayCreations', color: 'bg-orange-50', textColor: 'text-orange-800' },
-    { id: 6, key: 'preschoolCrafts', color: 'bg-yellow-50', textColor: 'text-yellow-800' },
+    { id: 6, key: 'preschoolCrafts', color: 'bg-yellow-50', textColor: 'text-yellow-800', backgroundImage: preschoolImage },
     { id: 7, key: 'perlerBeads', color: 'bg-indigo-50', textColor: 'text-indigo-800' },
     { id: 8, key: '3dPenFun', color: 'bg-teal-50', textColor: 'text-teal-800' },
     { id: 9, key: 'miniatureWonders', color: 'bg-red-50', textColor: 'text-red-800' },
@@ -53,22 +58,35 @@ const PictureCategoryPage = () => {
   return (
     <div className={`min-h-screen ${currentCategory.color}`}>
       {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-8">
+      <div 
+        className={`relative shadow-sm ${currentCategory.backgroundImage ? 'bg-cover bg-center' : 'bg-white'}`}
+        style={currentCategory.backgroundImage ? {
+          backgroundImage: `url(${currentCategory.backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          minHeight: '300px'
+        } : {}}
+      >
+        {/* Background Overlay for better text readability */}
+        {currentCategory.backgroundImage && (
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        )}
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
           <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() => navigate("/pictures")}
-              className="text-[#003FBC] hover:text-[#FCD11A] font-medium transition-colors duration-200"
+              className={`${currentCategory.backgroundImage ? 'text-white hover:text-yellow-300' : 'text-[#003FBC] hover:text-[#FCD11A]'} font-medium transition-colors duration-200`}
             >
               ← {t('pictures.backToPictures')}
             </button>
           </div>
           
           <div className="text-center">
-            <h1 className={`text-4xl font-bold ${currentCategory.textColor} mb-4`}>
+            <h1 className={`text-4xl font-bold ${currentCategory.backgroundImage ? 'text-white' : currentCategory.textColor} mb-4`}>
               {t(`pictures.categories.${currentCategory.key}`)}
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className={`${currentCategory.backgroundImage ? 'text-gray-100' : 'text-gray-600'} text-lg`}>
               {t(`pictures.descriptions.${currentCategory.key}`)}
             </p>
           </div>

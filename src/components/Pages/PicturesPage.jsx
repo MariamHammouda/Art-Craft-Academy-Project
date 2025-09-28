@@ -2,6 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
+// Import gallery images
+import drawingImage from '../../assets/images/picture-gallary-images/drawing.jpg';
+import origamiImage from '../../assets/images/picture-gallary-images/orgami.jpg';
+import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
+
 const PicturesPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -15,14 +20,16 @@ const PicturesPage = () => {
       key: 'origamiPaperCrafts',
       color: 'bg-pink-50 border-pink-200 hover:bg-pink-100',
       textColor: 'text-pink-800',
-      iconBg: 'bg-pink-100'
+      iconBg: 'bg-pink-100',
+      backgroundImage: origamiImage
     },
     {
       id: 2,
       key: 'drawing',
       color: 'bg-blue-50 border-blue-200 hover:bg-blue-100',
       textColor: 'text-blue-800',
-      iconBg: 'bg-blue-100'
+      iconBg: 'bg-blue-100',
+      backgroundImage: drawingImage
     },
     {
       id: 3,
@@ -50,7 +57,8 @@ const PicturesPage = () => {
       key: 'preschoolCrafts',
       color: 'bg-yellow-50 border-yellow-200 hover:bg-yellow-100',
       textColor: 'text-yellow-800',
-      iconBg: 'bg-yellow-100'
+      iconBg: 'bg-yellow-100',
+      backgroundImage: preschoolImage
     },
     {
       id: 7,
@@ -121,30 +129,44 @@ const PicturesPage = () => {
             <div
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
-              className={`${category.color} border-2 rounded-xl p-6 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg`}
+              className={`relative overflow-hidden ${category.backgroundImage ? 'bg-cover bg-center' : category.color} border-2 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg`}
+              style={category.backgroundImage ? {
+                backgroundImage: `url(${category.backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: '300px'
+              } : {}}
             >
-              {/* Category Icon Placeholder */}
-              <div className={`${category.iconBg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                <div className={`w-8 h-8 ${category.textColor} flex items-center justify-center text-2xl font-bold`}>
-                  {category.id}
+              {/* Background Overlay for better text readability */}
+              {category.backgroundImage && (
+                <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl"></div>
+              )}
+              
+              {/* Content Container */}
+              <div className={`relative z-10 p-6 ${category.backgroundImage ? 'text-white' : ''}`}>
+                {/* Category Icon */}
+                <div className={`${category.backgroundImage ? 'bg-white bg-opacity-20 backdrop-blur-sm' : category.iconBg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <div className={`w-8 h-8 ${category.backgroundImage ? 'text-white' : category.textColor} flex items-center justify-center text-2xl font-bold`}>
+                    {category.id}
+                  </div>
                 </div>
-              </div>
-              
-              {/* Category Title */}
-              <h3 className={`text-xl font-bold ${category.textColor} text-center mb-3`}>
-                {t(`pictures.categories.${category.key}`)}
-              </h3>
-              
-              {/* Category Description */}
-              <p className="text-gray-600 text-sm text-center leading-relaxed">
-                {t(`pictures.descriptions.${category.key}`)}
-              </p>
-              
-              {/* View Gallery Button */}
-              <div className="mt-4 text-center">
-                <span className={`inline-block px-4 py-2 ${category.textColor} bg-white rounded-full text-sm font-medium border-2 border-current transition-all duration-200 hover:bg-current hover:text-white`}>
-                  {t('pictures.viewGallery')}
-                </span>
+                
+                {/* Category Title */}
+                <h3 className={`text-xl font-bold ${category.backgroundImage ? 'text-white' : category.textColor} text-center mb-3`}>
+                  {t(`pictures.categories.${category.key}`)}
+                </h3>
+                
+                {/* Category Description */}
+                <p className={`${category.backgroundImage ? 'text-gray-100' : 'text-gray-600'} text-sm text-center leading-relaxed`}>
+                  {t(`pictures.descriptions.${category.key}`)}
+                </p>
+                
+                {/* View Gallery Button */}
+                <div className="mt-4 text-center">
+                  <span className={`inline-block px-4 py-2 ${category.backgroundImage ? 'bg-white text-gray-800 hover:bg-gray-100' : `${category.textColor} bg-white hover:bg-current hover:text-white`} rounded-full text-sm font-medium border-2 ${category.backgroundImage ? 'border-white' : 'border-current'} transition-all duration-200`}>
+                    {t('pictures.viewGallery')}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
