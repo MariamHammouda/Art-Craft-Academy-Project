@@ -129,41 +129,51 @@ const PicturesPage = () => {
             <div
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
-              className={`relative overflow-hidden ${category.backgroundImage ? 'bg-cover bg-center' : category.color} border-2 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg`}
-              style={category.backgroundImage ? {
-                backgroundImage: `url(${category.backgroundImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                minHeight: '300px'
-              } : {}}
+              className="bg-white border-2 border-gray-200 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg overflow-hidden"
             >
-              {/* Background Overlay for better text readability */}
-              {category.backgroundImage && (
-                <div className="absolute inset-0 bg-black bg-opacity-40 rounded-xl"></div>
-              )}
-              
-              {/* Content Container */}
-              <div className={`relative z-10 p-6 ${category.backgroundImage ? 'text-white' : ''}`}>
-                {/* Category Icon */}
-                <div className={`${category.backgroundImage ? 'bg-white bg-opacity-20 backdrop-blur-sm' : category.iconBg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <div className={`w-8 h-8 ${category.backgroundImage ? 'text-white' : category.textColor} flex items-center justify-center text-2xl font-bold`}>
-                    {category.id}
+              {/* Image Section */}
+              {category.backgroundImage ? (
+                <div className="h-64 w-full overflow-hidden">
+                  <img
+                    src={category.backgroundImage}
+                    alt={t(`pictures.categories.${category.key}`)}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                  />
+                </div>
+              ) : (
+                <div className={`h-64 w-full ${category.color} flex items-center justify-center`}>
+                  <div className={`${category.iconBg} w-20 h-20 rounded-full flex items-center justify-center`}>
+                    <div className={`w-10 h-10 ${category.textColor} flex items-center justify-center text-3xl font-bold`}>
+                      {category.id}
+                    </div>
                   </div>
                 </div>
+              )}
+              
+              {/* Text Content Below Image */}
+              <div className="p-6">
+                {/* Category Icon (only for non-image categories) */}
+                {!category.backgroundImage && (
+                  <div className={`${category.iconBg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                    <div className={`w-8 h-8 ${category.textColor} flex items-center justify-center text-2xl font-bold`}>
+                      {category.id}
+                    </div>
+                  </div>
+                )}
                 
                 {/* Category Title */}
-                <h3 className={`text-xl font-bold ${category.backgroundImage ? 'text-white' : category.textColor} text-center mb-3`}>
+                <h3 className={`text-xl font-bold ${category.textColor} text-center mb-3`}>
                   {t(`pictures.categories.${category.key}`)}
                 </h3>
                 
                 {/* Category Description */}
-                <p className={`${category.backgroundImage ? 'text-gray-100' : 'text-gray-600'} text-sm text-center leading-relaxed`}>
+                <p className="text-gray-600 text-sm text-center leading-relaxed mb-4">
                   {t(`pictures.descriptions.${category.key}`)}
                 </p>
                 
                 {/* View Gallery Button */}
-                <div className="mt-4 text-center">
-                  <span className={`inline-block px-4 py-2 ${category.backgroundImage ? 'bg-white text-gray-800 hover:bg-gray-100' : `${category.textColor} bg-white hover:bg-current hover:text-white`} rounded-full text-sm font-medium border-2 ${category.backgroundImage ? 'border-white' : 'border-current'} transition-all duration-200`}>
+                <div className="text-center">
+                  <span className={`inline-block px-4 py-2 ${category.textColor} bg-white border-2 border-current rounded-full text-sm font-medium transition-all duration-200 hover:bg-current hover:text-white`}>
                     {t('pictures.viewGallery')}
                   </span>
                 </div>

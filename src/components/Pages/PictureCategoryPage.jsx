@@ -58,37 +58,38 @@ const PictureCategoryPage = () => {
   return (
     <div className={`min-h-screen ${currentCategory.color}`}>
       {/* Header */}
-      <div 
-        className={`relative shadow-sm ${currentCategory.backgroundImage ? 'bg-cover bg-center' : 'bg-white'}`}
-        style={currentCategory.backgroundImage ? {
-          backgroundImage: `url(${currentCategory.backgroundImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          minHeight: '300px'
-        } : {}}
-      >
-        {/* Background Overlay for better text readability */}
+      <div>
+        {/* Image Section */}
         {currentCategory.backgroundImage && (
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div className="h-80 w-full overflow-hidden">
+            <img
+              src={currentCategory.backgroundImage}
+              alt={t(`pictures.categories.${currentCategory.key}`)}
+              className="w-full h-full object-cover"
+            />
+          </div>
         )}
         
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
-          <div className="flex items-center gap-4 mb-4">
-            <button
-              onClick={() => navigate("/pictures")}
-              className={`${currentCategory.backgroundImage ? 'text-white hover:text-yellow-300' : 'text-[#003FBC] hover:text-[#FCD11A]'} font-medium transition-colors duration-200`}
-            >
-              ← {t('pictures.backToPictures')}
-            </button>
-          </div>
-          
-          <div className="text-center">
-            <h1 className={`text-4xl font-bold ${currentCategory.backgroundImage ? 'text-white' : currentCategory.textColor} mb-4`}>
-              {t(`pictures.categories.${currentCategory.key}`)}
-            </h1>
-            <p className={`${currentCategory.backgroundImage ? 'text-gray-100' : 'text-gray-600'} text-lg`}>
-              {t(`pictures.descriptions.${currentCategory.key}`)}
-            </p>
+        {/* Text Content Below Image */}
+        <div className={`${currentCategory.backgroundImage ? 'bg-white' : currentCategory.color} shadow-sm`}>
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <div className="flex items-center gap-4 mb-4">
+              <button
+                onClick={() => navigate("/pictures")}
+                className="text-[#003FBC] hover:text-[#FCD11A] font-medium transition-colors duration-200"
+              >
+                ← {t('pictures.backToPictures')}
+              </button>
+            </div>
+            
+            <div className="text-center">
+              <h1 className={`text-4xl font-bold ${currentCategory.textColor} mb-4`}>
+                {t(`pictures.categories.${currentCategory.key}`)}
+              </h1>
+              <p className="text-gray-600 text-lg">
+                {t(`pictures.descriptions.${currentCategory.key}`)}
+              </p>
+            </div>
           </div>
         </div>
       </div>
