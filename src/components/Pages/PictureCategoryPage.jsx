@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import drawingImage from '../../assets/images/picture-gallary-images/drawing.jpg';
 import origamiImage from '../../assets/images/picture-gallary-images/orgami.jpg';
 import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
+import clayImage from '../../assets/images/picture-gallary-images/clay.jpg';
+import beadsAccessoriesImage from '../../assets/images/picture-gallary-images/beads-accessories.jpg';
 
 // Import drawing gallery images
 import drawingImg1 from '../../assets/images/picture-gallary-images/drawing-images/img1.jpg';
@@ -27,8 +29,8 @@ const PictureCategoryPage = () => {
     { id: 1, key: 'origamiPaperCrafts', color: 'bg-pink-50', textColor: 'text-pink-800', backgroundImage: origamiImage },
     { id: 2, key: 'drawing', color: 'bg-blue-50', textColor: 'text-blue-800', backgroundImage: drawingImage },
     { id: 3, key: 'recyclingArt', color: 'bg-green-50', textColor: 'text-green-800' },
-    { id: 4, key: 'beadsAccessories', color: 'bg-purple-50', textColor: 'text-purple-800' },
-    { id: 5, key: 'clayCreations', color: 'bg-orange-50', textColor: 'text-orange-800' },
+    { id: 4, key: 'beadsAccessories', color: 'bg-purple-50', textColor: 'text-purple-800', backgroundImage: beadsAccessoriesImage },
+    { id: 5, key: 'clayCreations', color: 'bg-orange-50', textColor: 'text-orange-800', backgroundImage: clayImage },
     { id: 6, key: 'preschoolCrafts', color: 'bg-yellow-50', textColor: 'text-yellow-800', backgroundImage: preschoolImage },
     { id: 7, key: 'perlerBeads', color: 'bg-indigo-50', textColor: 'text-indigo-800' },
     { id: 8, key: '3dPenFun', color: 'bg-teal-50', textColor: 'text-teal-800' },
@@ -91,12 +93,14 @@ const PictureCategoryPage = () => {
       <div>
         {/* Image Section */}
         {currentCategory.backgroundImage && (
-          <div className="h-80 w-full overflow-hidden">
+          <div className="h-96 w-full overflow-hidden relative">
             <img
               src={currentCategory.backgroundImage}
               alt={t(`pictures.categories.${currentCategory.key}`)}
               className="w-full h-full object-cover"
             />
+            {/* Gradient overlay for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
           </div>
         )}
         

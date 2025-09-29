@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
@@ -6,12 +6,18 @@ import { useTranslation } from 'react-i18next';
 import drawingImage from '../../assets/images/picture-gallary-images/drawing.jpg';
 import origamiImage from '../../assets/images/picture-gallary-images/orgami.jpg';
 import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
+import clayImage from '../../assets/images/picture-gallary-images/clay.jpg';
+import beadsAccessoriesImage from '../../assets/images/picture-gallary-images/beads-accessories.jpg';
 
 const PicturesPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  console.log("PicturesPage component loaded!");
+  useEffect(() => {
+    console.log("PicturesPage component mounted successfully!");
+    console.log("Translation function available:", typeof t);
+    console.log("Navigate function available:", typeof navigate);
+  }, [t, navigate]);
 
   // Picture categories data
   const pictureCategories = [
@@ -43,14 +49,16 @@ const PicturesPage = () => {
       key: 'beadsAccessories',
       color: 'bg-purple-50 border-purple-200 hover:bg-purple-100',
       textColor: 'text-purple-800',
-      iconBg: 'bg-purple-100'
+      iconBg: 'bg-purple-100',
+      backgroundImage: beadsAccessoriesImage
     },
     {
       id: 5,
       key: 'clayCreations',
       color: 'bg-orange-50 border-orange-200 hover:bg-orange-100',
       textColor: 'text-orange-800',
-      iconBg: 'bg-orange-100'
+      iconBg: 'bg-orange-100',
+      backgroundImage: clayImage
     },
     {
       id: 6,
@@ -98,10 +106,13 @@ const PicturesPage = () => {
   ];
 
   const handleCategoryClick = (categoryId) => {
+    console.log("Category clicked:", categoryId);
     navigate(`/pictures/category/${categoryId}`);
   };
 
-  return (
+  // Add error handling for rendering
+  try {
+    return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-yellow-50">
       {/* Header */}
       <div className="bg-white shadow-sm">
@@ -133,12 +144,14 @@ const PicturesPage = () => {
             >
               {/* Image Section - أكبر ارتفاع */}
               {category.backgroundImage ? (
-                <div className="flex-grow overflow-hidden">
+                <div className="flex-grow overflow-hidden relative">
                   <img
                     src={category.backgroundImage}
                     alt={t(`pictures.categories.${category.key}`)}
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                   />
+                  {/* Image overlay for better text readability */}
+                  <div className="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300"></div>
                 </div>
               ) : (
                 <div className={`flex-grow ${category.color} flex items-center justify-center`}>
@@ -151,7 +164,7 @@ const PicturesPage = () => {
               )}
               
               {/* Text Content في النهاية - ارتفاع ثابت ومضغوط */}
-              <div className="p-4 bg-white mt-auto">
+              <div className="p-4 bg-white mt-auto shadow-lg">
                 {/* Category Title */}
                 <h3 className={`text-lg font-bold ${category.textColor} text-center mb-2`}>
                   {t(`pictures.categories.${category.key}`)}
@@ -159,7 +172,7 @@ const PicturesPage = () => {
                 
                 {/* View Gallery Button */}
                 <div className="text-center">
-                  <span className={`inline-block px-3 py-1 ${category.textColor} bg-white border-2 border-current rounded-full text-xs font-medium transition-all duration-200 hover:bg-current hover:text-white`}>
+                  <span className={`inline-block px-4 py-2 ${category.textColor} bg-white border-2 border-current rounded-full text-sm font-medium transition-all duration-200 hover:bg-current hover:text-white shadow-sm`}>
                     {t('pictures.viewGallery')}
                   </span>
                 </div>
@@ -188,6 +201,23 @@ const PicturesPage = () => {
       </div>
     </div>
   );
+  } catch (error) {
+    console.error("Error rendering PicturesPage:", error);
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">Something went wrong</h1>
+          <p className="text-gray-600 mb-4">There was an error loading the Pictures page.</p>
+          <button
+            onClick={() => navigate("/")}
+            className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default PicturesPage;

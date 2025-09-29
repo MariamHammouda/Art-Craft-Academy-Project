@@ -49,14 +49,20 @@ const VideosByCategoryComponent = () => {
   const handleCategoryClick = (categoryId, categoryTitle) => {
     console.log('📂 Category clicked:', { categoryId, categoryTitle, videosCount: (videosByCategory[categoryId] || []).length });
     
-    // Use window.location for reliable navigation
+    // Use React Router navigate for proper HashRouter navigation
     // Store category data in sessionStorage for the target page
     sessionStorage.setItem('categoryData', JSON.stringify({
       categoryTitle,
       videos: videosByCategory[categoryId] || []
     }));
     
-    window.location.href = `/category/${categoryId}`;
+    // Navigate using React Router (works with HashRouter)
+    navigate(`/category/${categoryId}`, {
+      state: {
+        categoryTitle,
+        videos: videosByCategory[categoryId] || []
+      }
+    });
   };
 
   return (

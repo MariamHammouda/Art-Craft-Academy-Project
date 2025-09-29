@@ -22,11 +22,11 @@ const CategoryCard = ({ titleKey, icon, color, id }) => {
   const scrollToHomeCategory = () => {
     const anchorId = `cat-${id}`;
     if (location.pathname !== '/') {
-      navigate('/', { replace: false });
-      requestAnimationFrame(() => {
+      navigate('/');
+      setTimeout(() => {
         const el = document.getElementById(anchorId);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      });
+      }, 100);
       return;
     }
     const el = document.getElementById(anchorId);

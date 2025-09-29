@@ -28,7 +28,7 @@ export const videosData = [
   // Drawing Videos
   {
     id: 4,
-    url: "https://www.youtube.com/embed/example1?si=drawing1",
+    url: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=drawing1",
     titleKey: "videos.titles.basicDrawing",
     views: 65420,
     categoryId: 2,
@@ -36,7 +36,7 @@ export const videosData = [
   },
   {
     id: 5,
-    url: "https://www.youtube.com/embed/example2?si=drawing2",
+    url: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=drawing2",
     titleKey: "videos.titles.watercolorBasics",
     views: 43210,
     categoryId: 2,
@@ -54,7 +54,7 @@ export const videosData = [
   },
   {
     id: 7,
-    url: "https://www.youtube.com/embed/example3?si=beads1",
+    url: "https://www.youtube.com/embed/gjqDo2LcBf4?si=beads1",
     title: "DIY Beaded Bracelet",
     views: 35678,
     categoryId: 3,
@@ -64,7 +64,7 @@ export const videosData = [
   // Clay Videos
   {
     id: 8,
-    url: "https://www.youtube.com/embed/example4?si=clay1",
+    url: "https://www.youtube.com/embed/X1Bc8XR96eI?si=clay1",
     title: "Clay Pottery Basics",
     views: 58900,
     categoryId: 4,
@@ -72,7 +72,7 @@ export const videosData = [
   },
   {
     id: 9,
-    url: "https://www.youtube.com/embed/example5?si=clay2",
+    url: "https://www.youtube.com/embed/Q4-VuXr8Rn0?si=clay2",
     title: "Making Clay Animals",
     views: 41200,
     categoryId: 4,
@@ -82,7 +82,7 @@ export const videosData = [
   // Recycling Art Videos (moved after Clay)
   {
     id: 10,
-    url: "https://www.youtube.com/embed/example10?si=recycle1",
+    url: "https://www.youtube.com/embed/NYp0VdQlfx4?si=recycle1",
     title: "Bottle Cap Art Project",
     views: 35210,
     categoryId: 5,
@@ -90,7 +90,7 @@ export const videosData = [
   },
   {
     id: 11,
-    url: "https://www.youtube.com/embed/example11?si=recycle2",
+    url: "https://www.youtube.com/embed/55Rm_sfnuxE?si=recycle2",
     title: "Cardboard Castle DIY",
     views: 29870,
     categoryId: 5,
@@ -100,7 +100,7 @@ export const videosData = [
   // Preschool Crafts Videos
   {
     id: 12,
-    url: "https://www.youtube.com/embed/example6?si=preschool1",
+    url: "https://www.youtube.com/embed/WH37GeN77q8?si=preschool1",
     title: "Easy Paper Crafts for Kids",
     views: 74560,
     categoryId: 6,
@@ -108,7 +108,7 @@ export const videosData = [
   },
   {
     id: 13,
-    url: "https://www.youtube.com/embed/example7?si=preschool2",
+    url: "https://www.youtube.com/embed/JFEui1Ti2F0?si=preschool2",
     title: "Finger Painting Fun",
     views: 21540,
     categoryId: 6,
@@ -118,7 +118,7 @@ export const videosData = [
   // Science DIY Videos
   {
     id: 14,
-    url: "https://www.youtube.com/embed/example8?si=science1",
+    url: "https://www.youtube.com/embed/X1Bc8XR96eI?si=science1",
     title: "Homemade Volcano Experiment",
     views: 134560,
     categoryId: 7,
@@ -126,7 +126,7 @@ export const videosData = [
   },
   {
     id: 15,
-    url: "https://www.youtube.com/embed/example9?si=science2",
+    url: "https://www.youtube.com/embed/Q4-VuXr8Rn0?si=science2",
     title: "DIY Slime Recipe",
     views: 165430,
     categoryId: 7,
@@ -137,7 +137,7 @@ export const videosData = [
   // Popsicle Sticks Videos
   {
     id: 16,
-    url: "https://www.youtube.com/embed/example12?si=sticks1",
+    url: "https://www.youtube.com/embed/NYp0VdQlfx4?si=sticks1",
     title: "Popsicle Stick House",
     views: 50980,
     categoryId: 8,
@@ -145,7 +145,7 @@ export const videosData = [
   },
   {
     id: 17,
-    url: "https://www.youtube.com/embed/example13?si=sticks2",
+    url: "https://www.youtube.com/embed/55Rm_sfnuxE?si=sticks2",
     title: "Craft Stick Windmill",
     views: 22450,
     categoryId: 8,

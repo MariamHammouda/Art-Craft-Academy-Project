@@ -12,16 +12,18 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const handleNavClick = (link) => {
+    console.log("Navigation to:", link);
+    
     // If it's a hash link to an anchor on the home page
     if (link.startsWith('/#')) {
       const anchor = link.split('#')[1];
       if (location.pathname !== '/') {
-        navigate('/', { replace: false });
-        // Delay until next paint so home mounts, then scroll
-        requestAnimationFrame(() => {
+        navigate('/');
+        // Use setTimeout instead of requestAnimationFrame for better reliability
+        setTimeout(() => {
           const el = document.getElementById(anchor);
           if (el) el.scrollIntoView({ behavior: 'smooth' });
-        });
+        }, 100);
       } else {
         const el = document.getElementById(anchor);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -75,16 +77,18 @@ const NavBar = () => {
                 </button>
               </li>
               <li>
-                <Link 
-                  to="/pictures" 
-                  onClick={() => console.log("Pictures clicked - navigating to /pictures")}
+                <button 
+                  onClick={() => {
+                    console.log("Pictures button clicked - using handleNavClick");
+                    handleNavClick('/pictures');
+                  }}
                   className="group flex flex-col items-center text-white hover:text-[#FCD11A] font-medium transition-all duration-300"
                 >
                   <div className="opacity-0 group-hover:opacity-100 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300 mb-1">
                     <img src={CustomIcon} alt="Art Icon" className="w-8 h-8" />
                   </div>
                   <span className="text-base font-semibold">{t('nav.pictures')}</span>
-                </Link>
+                </button>
               </li>
               <li>
                 <Link 
