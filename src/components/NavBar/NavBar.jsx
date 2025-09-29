@@ -136,14 +136,14 @@ const NavBar = () => {
 
             <Button
               onClick={() => console.log("Login clicked")}
-              className="px-6 py-2 bg-transparent text-white border-2 border-white rounded-lg hover:bg-white hover:text-[#003FBC] transition duration-200"
+              className="px-6 py-2 bg-transparent text-white border-2 border-white rounded-lg hover:bg-white hover:text-[#59ACBE] transition duration-200"
             >
               {t('nav.login')}
             </Button>
 
             <Button
               onClick={() => console.log("Sign Up clicked")}
-              className="px-6 py-2 bg-[#FCD11A] text-[#003FBC] border-2 border-[#FCD11A] rounded-lg hover:bg-yellow-500 transition duration-200"
+              className="px-6 py-2 bg-[#FCD11A] text-[#59ACBE] border-2 border-[#FCD11A] rounded-lg hover:bg-yellow-500 transition duration-200"
             >
               {t('nav.signup')}
             </Button>

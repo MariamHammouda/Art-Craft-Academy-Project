@@ -39,7 +39,7 @@ const PicturesPage = () => {
       id: 2,
       key: 'drawing',
       color: 'bg-blue-50 border-blue-200 hover:bg-blue-100',
-      textColor: 'text-blue-800',
+      textColor: 'text-[#59ACBE]',
       iconBg: 'bg-blue-100',
       backgroundImage: drawingImage
     },
@@ -132,7 +132,7 @@ const PicturesPage = () => {
           <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() => navigate("/")}
-              className="text-[#003FBC] hover:text-[#FCD11A] font-medium transition-colors duration-200"
+              className="text-[#59ACBE] hover:text-[#FCD11A] font-medium transition-colors duration-200"
             >
               ← {t('common.backToHome')}
             </button>
@@ -203,7 +203,7 @@ const PicturesPage = () => {
               from our community of crafters.
             </p>
             <div className="mt-6">
-              <div className="inline-flex items-center px-6 py-3 bg-[#003FBC] text-white rounded-lg">
+              <div className="inline-flex items-center px-6 py-3 bg-[#59ACBE] text-white rounded-lg">
                 <span className="mr-2">📸</span>
                 Stay tuned for updates!
               </div>
@@ -222,7 +222,7 @@ const PicturesPage = () => {
           <p className="text-gray-600 mb-4">There was an error loading the Pictures page.</p>
           <button
             onClick={() => navigate("/")}
-            className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+            className="px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200"
           >
             Back to Home
           </button>

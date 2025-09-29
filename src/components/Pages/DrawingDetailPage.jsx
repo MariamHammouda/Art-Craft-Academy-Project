@@ -123,7 +123,7 @@ const DrawingDetailPage = () => {
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Drawing Not Found</h1>
           <button
             onClick={() => navigate("/pictures/category/2")}
-            className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+            className="px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200"
           >
             Back to Drawing Gallery
           </button>
@@ -149,7 +149,7 @@ const DrawingDetailPage = () => {
           <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() => navigate("/pictures/category/2")}
-              className="text-[#003FBC] hover:text-[#FCD11A] font-medium transition-colors duration-200"
+              className="text-[#59ACBE] hover:text-[#FCD11A] font-medium transition-colors duration-200"
             >
               ← Back to Drawing Gallery
             </button>
@@ -176,7 +176,7 @@ const DrawingDetailPage = () => {
             {/* Title and Category */}
             <div>
               <div className="flex items-center gap-3 mb-3">
-                <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                <span className="px-3 py-1 bg-blue-100 text-[#59ACBE] rounded-full text-sm font-medium">
                   {currentDrawing.category}
                 </span>
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(currentDrawing.difficulty)}`}>
@@ -196,7 +196,7 @@ const DrawingDetailPage = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {currentDrawing.materials.map((material, index) => (
                   <div key={index} className="flex items-center">
-                    <span className="w-2 h-2 bg-[#003FBC] rounded-full mr-3"></span>
+                    <span className="w-2 h-2 bg-[#59ACBE] rounded-full mr-3"></span>
                     <span className="text-gray-700">{material}</span>
                   </div>
                 ))}
@@ -277,7 +277,7 @@ const DrawingDetailPage = () => {
           <div className="text-center mt-8">
             <button
               onClick={() => navigate("/pictures/category/2")}
-              className="px-8 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200 font-medium"
+              className="px-8 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200 font-medium"
             >
               View All Drawings
             </button>

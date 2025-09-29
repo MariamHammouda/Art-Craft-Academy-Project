@@ -112,11 +112,11 @@ const VideosByCategoryComponent = () => {
                   >
                     <img src={category.icon} alt={category.title} className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-2xl font-bold text-gray-800 group-hover:text-[#59ACBE] transition-colors">
                     {t(category.titleKey)}
                   </h3>
                 </div>
-                <div className="text-blue-600 font-medium group-hover:text-blue-800 transition-colors">
+                <div className="text-[#59ACBE] font-medium group-hover:text-[#FCD11A] transition-colors">
                   {t('categories.viewAll')} →
                 </div>
               </div>
@@ -141,7 +141,7 @@ const VideosByCategoryComponent = () => {
                 <div className="text-center mt-6">
                   <button
                     onClick={() => handleCategoryClick(category.id, t(category.titleKey))}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-6 py-2 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors"
                   >
                     {t('categories.viewAll')} {categoryVideosSorted.length - 4} {t('videos.loadMore')}
                   </button>

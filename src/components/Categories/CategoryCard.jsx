@@ -48,7 +48,7 @@ const CategoryCard = ({ titleKey, icon, color, id }) => {
       <button
         type="button"
         onClick={goToCategoryPage}
-        className="text-sm font-semibold mt-2 text-gray-700 group-hover:text-blue-600 transition-colors"
+        className="text-sm font-semibold mt-2 text-gray-700 group-hover:text-[#59ACBE] transition-colors"
       >
         {title}
       </button>

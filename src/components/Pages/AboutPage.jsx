@@ -12,7 +12,7 @@ const AboutPage = () => {
           <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() => navigate("/")}
-              className="text-blue-600 hover:text-blue-800 font-medium"
+              className="text-[#59ACBE] hover:text-[#FCD11A] font-medium"
             >
               ← Back to Home
             </button>
@@ -53,7 +53,7 @@ const AboutPage = () => {
             
             <div className="grid md:grid-cols-2 gap-4 mt-6">
               <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-blue-800">Origami World</h3>
+                <h3 className="font-semibold text-[#59ACBE]">Origami World</h3>
                 <p className="text-sm text-gray-600">Paper folding techniques and projects</p>
               </div>
               <div className="bg-green-50 p-4 rounded-lg">

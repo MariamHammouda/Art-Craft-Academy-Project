@@ -14,7 +14,7 @@ const CoursesPage = () => {
           <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() => navigate("/")}
-              className="text-blue-600 hover:text-blue-800 font-medium"
+              className="text-[#59ACBE] hover:text-[#FCD11A] font-medium"
             >
               ← Back to Home
             </button>
@@ -34,7 +34,7 @@ const CoursesPage = () => {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Course Categories</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
               <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-blue-800">{t('courses.beginner')}</h3>
+                <h3 className="font-semibold text-[#59ACBE]">{t('courses.beginner')}</h3>
                 <p className="text-sm text-gray-600 mt-2">Perfect for getting started</p>
               </div>
               <div className="bg-green-50 p-6 rounded-lg">

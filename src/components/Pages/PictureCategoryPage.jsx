@@ -33,7 +33,7 @@ const PictureCategoryPage = () => {
   // Picture categories data (same as in PicturesPage for consistency)
   const pictureCategories = [
     { id: 1, key: 'origamiPaperCrafts', color: 'bg-pink-50', textColor: 'text-pink-800', backgroundImage: origamiImage },
-    { id: 2, key: 'drawing', color: 'bg-blue-50', textColor: 'text-blue-800', backgroundImage: drawingImage },
+    { id: 2, key: 'drawing', color: 'bg-blue-50', textColor: 'text-[#59ACBE]', backgroundImage: drawingImage },
     { id: 3, key: 'recyclingArt', color: 'bg-green-50', textColor: 'text-green-800', backgroundImage: recyclingImage },
     { id: 4, key: 'beadsAccessories', color: 'bg-purple-50', textColor: 'text-purple-800', backgroundImage: beadsAccessoriesImage },
     { id: 5, key: 'clayCreations', color: 'bg-orange-50', textColor: 'text-orange-800', backgroundImage: clayImage },
@@ -68,7 +68,7 @@ const PictureCategoryPage = () => {
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Category Not Found</h1>
           <button
             onClick={() => navigate("/pictures")}
-            className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+            className="px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200"
           >
             {t('pictures.backToPictures')}
           </button>
@@ -116,7 +116,7 @@ const PictureCategoryPage = () => {
             <div className="flex items-center gap-4 mb-4">
               <button
                 onClick={() => navigate("/pictures")}
-                className="text-[#003FBC] hover:text-[#FCD11A] font-medium transition-colors duration-200"
+                className="text-[#59ACBE] hover:text-[#FCD11A] font-medium transition-colors duration-200"
               >
                 ← {t('pictures.backToPictures')}
               </button>
@@ -185,13 +185,13 @@ const PictureCategoryPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                 <button
                   onClick={() => navigate("/pictures")}
-                  className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+                  className="px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200"
                 >
                   {t('pictures.backToPictures')}
                 </button>
                 <button
                   onClick={() => navigate("/")}
-                  className="px-6 py-3 border-2 border-[#003FBC] text-[#003FBC] rounded-lg hover:bg-[#003FBC] hover:text-white transition-colors duration-200"
+                  className="px-6 py-3 border-2 border-[#59ACBE] text-[#59ACBE] rounded-lg hover:bg-[#59ACBE] hover:text-white transition-colors duration-200"
                 >
                   {t('common.backToHome')}
                 </button>
@@ -216,13 +216,13 @@ const PictureCategoryPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                 <button
                   onClick={() => navigate("/pictures")}
-                  className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+                  className="px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200"
                 >
                   {t('pictures.backToPictures')}
                 </button>
                 <button
                   onClick={() => navigate("/")}
-                  className="px-6 py-3 border-2 border-[#003FBC] text-[#003FBC] rounded-lg hover:bg-[#003FBC] hover:text-white transition-colors duration-200"
+                  className="px-6 py-3 border-2 border-[#59ACBE] text-[#59ACBE] rounded-lg hover:bg-[#59ACBE] hover:text-white transition-colors duration-200"
                 >
                   {t('common.backToHome')}
                 </button>
