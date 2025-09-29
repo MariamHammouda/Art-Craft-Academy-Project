@@ -8,6 +8,12 @@ import origamiImage from '../../assets/images/picture-gallary-images/orgami.jpg'
 import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
 import clayImage from '../../assets/images/picture-gallary-images/clay.jpg';
 import beadsAccessoriesImage from '../../assets/images/picture-gallary-images/beads-accessories.jpg';
+import recyclingImage from '../../assets/images/picture-gallary-images/recycling.jpg';
+import perlerBeadsImage from '../../assets/images/picture-gallary-images/perler-beads.jpg';
+import threeDPenImage from '../../assets/images/picture-gallary-images/3D-pen-letters.jpg';
+import miniatureWondersImage from '../../assets/images/picture-gallary-images/miniature-wonders.jpg';
+import scienceImage from '../../assets/images/picture-gallary-images/science.png';
+import tipsTricksImage from '../../assets/images/picture-gallary-images/tips-and-tricks.jpg';
 
 const PicturesPage = () => {
   const { t } = useTranslation();
@@ -42,7 +48,8 @@ const PicturesPage = () => {
       key: 'recyclingArt',
       color: 'bg-green-50 border-green-200 hover:bg-green-100',
       textColor: 'text-green-800',
-      iconBg: 'bg-green-100'
+      iconBg: 'bg-green-100',
+      backgroundImage: recyclingImage
     },
     {
       id: 4,
@@ -73,35 +80,40 @@ const PicturesPage = () => {
       key: 'perlerBeads',
       color: 'bg-indigo-50 border-indigo-200 hover:bg-indigo-100',
       textColor: 'text-indigo-800',
-      iconBg: 'bg-indigo-100'
+      iconBg: 'bg-indigo-100',
+      backgroundImage: perlerBeadsImage
     },
     {
       id: 8,
       key: '3dPenFun',
       color: 'bg-teal-50 border-teal-200 hover:bg-teal-100',
       textColor: 'text-teal-800',
-      iconBg: 'bg-teal-100'
+      iconBg: 'bg-teal-100',
+      backgroundImage: threeDPenImage
     },
     {
       id: 9,
       key: 'miniatureWonders',
       color: 'bg-red-50 border-red-200 hover:bg-red-100',
       textColor: 'text-red-800',
-      iconBg: 'bg-red-100'
+      iconBg: 'bg-red-100',
+      backgroundImage: miniatureWondersImage
     },
     {
       id: 10,
       key: 'scienceDiyExperiments',
       color: 'bg-cyan-50 border-cyan-200 hover:bg-cyan-100',
       textColor: 'text-cyan-800',
-      iconBg: 'bg-cyan-100'
+      iconBg: 'bg-cyan-100',
+      backgroundImage: scienceImage
     },
     {
       id: 11,
       key: 'tipsTricks',
       color: 'bg-gray-50 border-gray-200 hover:bg-gray-100',
       textColor: 'text-gray-800',
-      iconBg: 'bg-gray-100'
+      iconBg: 'bg-gray-100',
+      backgroundImage: tipsTricksImage
     }
   ];
 
@@ -140,7 +152,7 @@ const PicturesPage = () => {
             <div
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
-              className="bg-white border-2 border-gray-200 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg overflow-hidden h-80 flex flex-col"
+              className="bg-white border-2 border-gray-200 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg overflow-hidden h-96 flex flex-col"
             >
               {/* Image Section - أكبر ارتفاع */}
               {category.backgroundImage ? (

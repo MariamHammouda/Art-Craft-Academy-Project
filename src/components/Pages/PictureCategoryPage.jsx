@@ -8,6 +8,12 @@ import origamiImage from '../../assets/images/picture-gallary-images/orgami.jpg'
 import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
 import clayImage from '../../assets/images/picture-gallary-images/clay.jpg';
 import beadsAccessoriesImage from '../../assets/images/picture-gallary-images/beads-accessories.jpg';
+import recyclingImage from '../../assets/images/picture-gallary-images/recycling.jpg';
+import perlerBeadsImage from '../../assets/images/picture-gallary-images/perler-beads.jpg';
+import threeDPenImage from '../../assets/images/picture-gallary-images/3D-pen-letters.jpg';
+import miniatureWondersImage from '../../assets/images/picture-gallary-images/miniature-wonders.jpg';
+import scienceImage from '../../assets/images/picture-gallary-images/science.png';
+import tipsTricksImage from '../../assets/images/picture-gallary-images/tips-and-tricks.jpg';
 
 // Import drawing gallery images
 import drawingImg1 from '../../assets/images/picture-gallary-images/drawing-images/img1.jpg';
@@ -28,15 +34,15 @@ const PictureCategoryPage = () => {
   const pictureCategories = [
     { id: 1, key: 'origamiPaperCrafts', color: 'bg-pink-50', textColor: 'text-pink-800', backgroundImage: origamiImage },
     { id: 2, key: 'drawing', color: 'bg-blue-50', textColor: 'text-blue-800', backgroundImage: drawingImage },
-    { id: 3, key: 'recyclingArt', color: 'bg-green-50', textColor: 'text-green-800' },
+    { id: 3, key: 'recyclingArt', color: 'bg-green-50', textColor: 'text-green-800', backgroundImage: recyclingImage },
     { id: 4, key: 'beadsAccessories', color: 'bg-purple-50', textColor: 'text-purple-800', backgroundImage: beadsAccessoriesImage },
     { id: 5, key: 'clayCreations', color: 'bg-orange-50', textColor: 'text-orange-800', backgroundImage: clayImage },
     { id: 6, key: 'preschoolCrafts', color: 'bg-yellow-50', textColor: 'text-yellow-800', backgroundImage: preschoolImage },
-    { id: 7, key: 'perlerBeads', color: 'bg-indigo-50', textColor: 'text-indigo-800' },
-    { id: 8, key: '3dPenFun', color: 'bg-teal-50', textColor: 'text-teal-800' },
-    { id: 9, key: 'miniatureWonders', color: 'bg-red-50', textColor: 'text-red-800' },
-    { id: 10, key: 'scienceDiyExperiments', color: 'bg-cyan-50', textColor: 'text-cyan-800' },
-    { id: 11, key: 'tipsTricks', color: 'bg-gray-50', textColor: 'text-gray-800' }
+    { id: 7, key: 'perlerBeads', color: 'bg-indigo-50', textColor: 'text-indigo-800', backgroundImage: perlerBeadsImage },
+    { id: 8, key: '3dPenFun', color: 'bg-teal-50', textColor: 'text-teal-800', backgroundImage: threeDPenImage },
+    { id: 9, key: 'miniatureWonders', color: 'bg-red-50', textColor: 'text-red-800', backgroundImage: miniatureWondersImage },
+    { id: 10, key: 'scienceDiyExperiments', color: 'bg-cyan-50', textColor: 'text-cyan-800', backgroundImage: scienceImage },
+    { id: 11, key: 'tipsTricks', color: 'bg-gray-50', textColor: 'text-gray-800', backgroundImage: tipsTricksImage }
   ];
 
   // Drawing gallery images data
@@ -93,7 +99,7 @@ const PictureCategoryPage = () => {
       <div>
         {/* Image Section */}
         {currentCategory.backgroundImage && (
-          <div className="h-96 w-full overflow-hidden relative">
+          <div className="h-[50rem] w-full overflow-hidden relative">
             <img
               src={currentCategory.backgroundImage}
               alt={t(`pictures.categories.${currentCategory.key}`)}
