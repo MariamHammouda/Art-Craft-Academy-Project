@@ -132,26 +132,6 @@ export const videosData = [
     categoryId: 7,
     categoryTitle: "Science DIY"
   },
-  
-  
-  // Popsicle Sticks Videos
-  {
-    id: 16,
-    url: "https://www.youtube.com/embed/NYp0VdQlfx4?si=sticks1",
-    title: "Popsicle Stick House",
-    views: 50980,
-    categoryId: 8,
-    categoryTitle: "Popsicle Sticks"
-  },
-  {
-    id: 17,
-    url: "https://www.youtube.com/embed/55Rm_sfnuxE?si=sticks2",
-    title: "Craft Stick Windmill",
-    views: 22450,
-    categoryId: 8,
-    categoryTitle: "Popsicle Sticks"
-  },
-
   {
     id: 18,
     url: "https://www.youtube.com/embed/X1Bc8XR96eI?si=kWaxrweQqBCBdGCO",

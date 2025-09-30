@@ -247,7 +247,6 @@ export const useVideosByCategory = (categoryId, maxResults = 10) => {
         5: import.meta.env.VITE_RECYCLING_PLAYLIST_ID, // Recycling Art
         6: import.meta.env.VITE_PRESCHOOL_PLAYLIST_ID, // Preschool Crafts
         7: import.meta.env.VITE_SCIENCE_PLAYLIST_ID, // Science DIY
-        8: import.meta.env.VITE_POPSICLE_PLAYLIST_ID, // Popsicle Sticks
         9: import.meta.env.VITE_PERLER_BEADS_PLAYLIST_ID, // Perler Beads
         10: import.meta.env.VITE_3D_PEN_FUN_PLAYLIST_ID, // 3D Pen Fun
         11: import.meta.env.VITE_MINIATURE_WONDERS_PLAYLIST_ID, // Miniature Wonders

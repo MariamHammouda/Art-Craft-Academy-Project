@@ -5,7 +5,6 @@ import clay from "../assets/images/clay.png"
 import preschool from "../assets/images/preschool.png"
 import recycleing from "../assets/images/recycleing.png"
 import science from "../assets/images/science.png"
-import sticks from "../assets/images/sticks.png"
 import perlerBeads from "../assets/images/perler-beads.png"
 import threeDPenFun from "../assets/images/3d-pen-fun.png"
 import miniatureWonders from "../assets/images/miniature-wonders.png"
@@ -78,14 +77,6 @@ export const categoriesData = [
     icon: science,
     bannerImage: science,
     descriptionKey: "categories.descriptions.scienceDiy",
-  },
-  {
-    id: 8,
-    titleKey: "categories.popsicleSticks",
-    color: "#FDBA74", // orange
-    icon: sticks,
-    bannerImage: sticks,
-    descriptionKey: "categories.descriptions.popsicleSticks",
   },
   {
     id: 9,
