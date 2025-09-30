@@ -402,6 +402,130 @@ export const videosData = [
     categoryId: 10,
     categoryTitleKey: "categories.threeDPenFun",
     categoryTitle: "3D Pen Fun"
+  },
+
+  // Miniature Wonders Videos
+  {
+    id: 45,
+    url: "https://www.youtube.com/embed/gjqDo2LcBf4?si=mini1",
+    titleKey: "videos.titles.miniatureDollhouse",
+    title: "Miniature Dollhouse Tutorial",
+    views: 124560,
+    categoryId: 11,
+    categoryTitleKey: "categories.miniatureWonders",
+    categoryTitle: "Miniature Wonders"
+  },
+  {
+    id: 46,
+    url: "https://www.youtube.com/embed/WH37GeN77q8?si=mini2",
+    titleKey: "videos.titles.miniatureFurniture",
+    title: "Tiny Furniture Making",
+    views: 87340,
+    categoryId: 11,
+    categoryTitleKey: "categories.miniatureWonders",
+    categoryTitle: "Miniature Wonders"
+  },
+  {
+    id: 47,
+    url: "https://www.youtube.com/embed/JFEui1Ti2F0?si=mini3",
+    titleKey: "videos.titles.miniatureGarden",
+    title: "Miniature Fairy Garden",
+    views: 95670,
+    categoryId: 11,
+    categoryTitleKey: "categories.miniatureWonders",
+    categoryTitle: "Miniature Wonders"
+  },
+  {
+    id: 48,
+    url: "https://www.youtube.com/embed/X1Bc8XR96eI?si=mini4",
+    titleKey: "videos.titles.miniatureFood",
+    title: "Polymer Clay Miniature Food",
+    views: 156890,
+    categoryId: 11,
+    categoryTitleKey: "categories.miniatureWonders",
+    categoryTitle: "Miniature Wonders"
+  },
+  {
+    id: 49,
+    url: "https://www.youtube.com/embed/Q4-VuXr8Rn0?si=mini5",
+    titleKey: "videos.titles.miniatureBooks",
+    title: "Tiny Books and Library",
+    views: 67230,
+    categoryId: 11,
+    categoryTitleKey: "categories.miniatureWonders",
+    categoryTitle: "Miniature Wonders"
+  },
+  {
+    id: 50,
+    url: "https://www.youtube.com/embed/NYp0VdQlfx4?si=mini6",
+    titleKey: "videos.titles.miniatureWorld",
+    title: "Complete Miniature World Scene",
+    views: 203450,
+    categoryId: 11,
+    categoryTitleKey: "categories.miniatureWonders",
+    categoryTitle: "Miniature Wonders"
+  },
+
+  // Tips & Tricks Videos
+  {
+    id: 51,
+    url: "https://www.youtube.com/embed/gjqDo2LcBf4?si=tips1",
+    titleKey: "videos.titles.craftingHacks",
+    title: "Essential Crafting Hacks & Tips",
+    views: 178920,
+    categoryId: 12,
+    categoryTitleKey: "categories.tipsTricks",
+    categoryTitle: "Tips & Tricks"
+  },
+  {
+    id: 52,
+    url: "https://www.youtube.com/embed/WH37GeN77q8?si=tips2",
+    titleKey: "videos.titles.toolTips",
+    title: "Craft Tool Tips & Maintenance",
+    views: 92340,
+    categoryId: 12,
+    categoryTitleKey: "categories.tipsTricks",
+    categoryTitle: "Tips & Tricks"
+  },
+  {
+    id: 53,
+    url: "https://www.youtube.com/embed/JFEui1Ti2F0?si=tips3",
+    titleKey: "videos.titles.organizationTips",
+    title: "Craft Room Organization Ideas",
+    views: 145670,
+    categoryId: 12,
+    categoryTitleKey: "categories.tipsTricks",
+    categoryTitle: "Tips & Tricks"
+  },
+  {
+    id: 54,
+    url: "https://www.youtube.com/embed/X1Bc8XR96eI?si=tips4",
+    titleKey: "videos.titles.budgetCrafting",
+    title: "Budget-Friendly Crafting Tips",
+    views: 234560,
+    categoryId: 12,
+    categoryTitleKey: "categories.tipsTricks",
+    categoryTitle: "Tips & Tricks"
+  },
+  {
+    id: 55,
+    url: "https://www.youtube.com/embed/Q4-VuXr8Rn0?si=tips5",
+    titleKey: "videos.titles.troubleshooting",
+    title: "Common Craft Problems & Solutions",
+    views: 167890,
+    categoryId: 12,
+    categoryTitleKey: "categories.tipsTricks",
+    categoryTitle: "Tips & Tricks"
+  },
+  {
+    id: 56,
+    url: "https://www.youtube.com/embed/NYp0VdQlfx4?si=tips6",
+    titleKey: "videos.titles.timeManagement",
+    title: "Time Management for Crafters",
+    views: 89450,
+    categoryId: 12,
+    categoryTitleKey: "categories.tipsTricks",
+    categoryTitle: "Tips & Tricks"
   }
 
 ];

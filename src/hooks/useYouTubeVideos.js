@@ -250,6 +250,8 @@ export const useVideosByCategory = (categoryId, maxResults = 10) => {
         8: import.meta.env.VITE_POPSICLE_PLAYLIST_ID, // Popsicle Sticks
         9: import.meta.env.VITE_PERLER_BEADS_PLAYLIST_ID, // Perler Beads
         10: import.meta.env.VITE_3D_PEN_FUN_PLAYLIST_ID, // 3D Pen Fun
+        11: import.meta.env.VITE_MINIATURE_WONDERS_PLAYLIST_ID, // Miniature Wonders
+        12: import.meta.env.VITE_TIPS_TRICKS_PLAYLIST_ID, // Tips & Tricks
         // Add more categories as needed
       };
       

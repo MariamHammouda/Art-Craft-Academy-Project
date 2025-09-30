@@ -32,6 +32,8 @@
     "popsicleSticks": "Popsicle Sticks",
     "perlerBeads": "Perler Beads",
     "threeDPenFun": "3D Pen Fun",
+    "miniatureWonders": "Miniature Wonders",
+    "tipsTricks": "Tips & Tricks",
     "descriptions": {
       "origamiWorld": "Discover the ancient art of paper folding with our step-by-step origami tutorials. From simple cranes to complex flowers, learn to create beautiful paper sculptures that will amaze your friends and family.",
       "drawing": "Unleash your creativity with our comprehensive drawing tutorials. Learn fundamental techniques, shading, perspective, and various drawing styles from beginner to advanced levels.",
@@ -42,7 +44,9 @@
       "recyclingArt": "Turn everyday waste into beautiful art pieces. Learn eco-friendly crafting techniques using recycled materials to create unique decorations and functional items.",
       "popsicleSticks": "Amazing projects using simple popsicle sticks! Create structures, decorations, and functional items with this versatile and affordable crafting material.",
       "perlerBeads": "Create amazing pixel art and 3D designs with colorful Perler beads! Learn to make keychains, coasters, characters, and decorative items using this fun melting bead technique.",
-      "threeDPenFun": "Discover the world of 3D printing with a pen! Create incredible three-dimensional sculptures, jewelry, architectural models, and artistic designs using 3D printing pen technology."
+      "threeDPenFun": "Discover the world of 3D printing with a pen! Create incredible three-dimensional sculptures, jewelry, architectural models, and artistic designs using 3D printing pen technology.",
+      "miniatureWonders": "Enter the enchanting world of miniatures! Learn to create tiny detailed crafts, dollhouses, furniture, fairy gardens, and complete miniature worlds that capture imagination in small scale.",
+      "tipsTricks": "Master your crafting skills with expert tips and tricks! Learn essential techniques, organization hacks, budget-friendly solutions, and troubleshooting advice to become a more efficient and creative crafter."
     }
   },
     "videos": {
@@ -99,13 +103,24 @@
       "threeDPenAnimals": "3D Pen Animal Sculptures",
       "threeDPenJewelry": "3D Pen Jewelry Making",
       "threeDPenFlowers": "3D Pen Flower Bouquet",
-      "threeDPenArchitecture": "3D Pen Architecture Models"
+      "threeDPenArchitecture": "3D Pen Architecture Models",
+      "miniatureDollhouse": "Miniature Dollhouse Tutorial",
+      "miniatureFurniture": "Tiny Furniture Making",
+      "miniatureGarden": "Miniature Fairy Garden",
+      "miniatureFood": "Polymer Clay Miniature Food",
+      "miniatureBooks": "Tiny Books and Library",
+      "miniatureWorld": "Complete Miniature World Scene",
+      "craftingHacks": "Essential Crafting Hacks & Tips",
+      "toolTips": "Craft Tool Tips & Maintenance",
+      "organizationTips": "Craft Room Organization ideas",
+      "budgetCrafting": "Budget-Friendly crafting Tips",
+      "troubleshooting": "Common Craft Problems & Solutions",
+      "timeManagement": "Time Management for Crafters"
     }
   },
   "stories": {
     "featured": "Featured Stories",
     "shorts": "Short Stories",
-    "readFull": "Read Full Story",
     "author": "By",
     "publishedOn": "Published on",
     "inspiration": "Inspiration",
