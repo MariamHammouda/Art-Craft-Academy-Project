@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 // Import gallery images
 import drawingImage from '../../assets/images/picture-gallary-images/drawing.jpg';
@@ -14,6 +15,9 @@ import threeDPenImage from '../../assets/images/picture-gallary-images/3D-pen-le
 import miniatureWondersImage from '../../assets/images/picture-gallary-images/miniature-wonders.jpg';
 import scienceImage from '../../assets/images/picture-gallary-images/science.png';
 import tipsTricksImage from '../../assets/images/picture-gallary-images/tips-and-tricks.jpg';
+
+// Import header image
+import drawingCategoryHeaderImg from '../../assets/images/navbar-elements-image/drawing-category-img.jpg';
 
 const PicturesPage = () => {
   const { t } = useTranslation();
@@ -126,27 +130,38 @@ const PicturesPage = () => {
   try {
     return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-yellow-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="flex items-center gap-4 mb-4">
+      {/* Hero Header with Image */}
+      <div className="relative">
+        {/* Header Image */}
+        <div className="h-80 w-full overflow-hidden relative">
+          <img
+            src={drawingCategoryHeaderImg}
+            alt="Picture Gallery Header"
+            className="w-full h-full object-cover"
+          />
+          {/* Gradient overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
+        </div>
+        
+        {/* Header Content Over Image */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
+          <div className="text-center px-6">
+            <h1 className="text-5xl font-bold mb-4 drop-shadow-lg">{t('pictures.title')}</h1>
+            <p className="text-xl mb-8 drop-shadow-md max-w-2xl">{t('pictures.subtitle')}</p>
             <button
               onClick={() => navigate("/")}
-              className="text-[#59ACBE] hover:text-[#FCD11A] font-medium transition-colors duration-200"
+              className="inline-flex items-center px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200 font-medium shadow-lg"
             >
               ← {t('common.backToHome')}
             </button>
-          </div>
-          
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">{t('pictures.title')}</h1>
-            <p className="text-gray-600 text-lg">{t('pictures.subtitle')}</p>
           </div>
         </div>
       </div>
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Breadcrumbs */}
+        <Breadcrumbs />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {pictureCategories.map((category) => (
             <div
@@ -175,7 +190,6 @@ const PicturesPage = () => {
                 </div>
               )}
               
-              {/* Text Content في النهاية - ارتفاع ثابت ومضغوط */}
               <div className="p-4 bg-white mt-auto shadow-lg">
                 {/* Category Title */}
                 <h3 className={`text-lg font-bold ${category.textColor} text-center mb-2`}>

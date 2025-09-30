@@ -50,13 +50,7 @@ function App() {
           } />
           <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/video/:videoId" element={<VideoDetailPage />} />
-          <Route path="/pictures" element={
-            <div style={{padding: '20px'}}>
-              <h1>Pictures Page Test</h1>
-              <p>If you see this, routing works!</p>
-              <PicturesPage />
-            </div>
-          } />
+          <Route path="/pictures" element={<PicturesPage />} />
           <Route path="/pictures/category/:categoryId" element={<PictureCategoryPage />} />
           <Route path="/pictures/drawing/:drawingId" element={<DrawingDetailPage />} />
           <Route path="/courses" element={<CoursesPage />} />

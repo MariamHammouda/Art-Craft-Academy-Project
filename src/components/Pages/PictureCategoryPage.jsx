@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 // Import gallery images
 import drawingImage from '../../assets/images/picture-gallary-images/drawing.jpg';
@@ -136,6 +137,14 @@ const PictureCategoryPage = () => {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Breadcrumbs */}
+        <Breadcrumbs 
+          customBreadcrumbs={[
+            { label: t('nav.home'), link: '/' },
+            { label: t('nav.pictures'), link: '/pictures' },
+            { label: t(`pictures.categories.${currentCategory.key}`), link: null }
+          ]}
+        />
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {galleryImages.map((image) => (

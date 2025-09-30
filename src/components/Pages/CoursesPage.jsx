@@ -1,6 +1,7 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from 'react-router-dom';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 const CoursesPage = () => {
   const { t } = useTranslation();
@@ -29,6 +30,8 @@ const CoursesPage = () => {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Breadcrumbs */}
+        <Breadcrumbs />
         <div className="text-center">
           <div className="bg-white rounded-lg shadow-lg p-12">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Course Categories</h2>
