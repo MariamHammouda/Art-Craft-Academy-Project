@@ -280,11 +280,128 @@ export const videosData = [
   categoryTitle: "Origami World"
 },
 
-  
-  
+  // Perler Beads Videos
+  {
+    id: 33,
+    url: "https://www.youtube.com/embed/gjqDo2LcBf4?si=perler1",
+    titleKey: "videos.titles.perlerPixelArt",
+    title: "Perler Bead Pixel Art Tutorial",
+    views: 45670,
+    categoryId: 9,
+    categoryTitleKey: "categories.perlerBeads",
+    categoryTitle: "Perler Beads"
+  },
+  {
+    id: 34,
+    url: "https://www.youtube.com/embed/WH37GeN77q8?si=perler2",
+    titleKey: "videos.titles.perlerKeychains",
+    title: "DIY Perler Bead Keychains",
+    views: 32890,
+    categoryId: 9,
+    categoryTitleKey: "categories.perlerBeads",
+    categoryTitle: "Perler Beads"
+  },
+  {
+    id: 35,
+    url: "https://www.youtube.com/embed/JFEui1Ti2F0?si=perler3",
+    titleKey: "videos.titles.perlerCharacters",
+    title: "Perler Bead Character Designs",
+    views: 67540,
+    categoryId: 9,
+    categoryTitleKey: "categories.perlerBeads",
+    categoryTitle: "Perler Beads"
+  },
+  {
+    id: 36,
+    url: "https://www.youtube.com/embed/X1Bc8XR96eI?si=perler4",
+    titleKey: "videos.titles.perlerCoasters",
+    title: "Perler Bead Coasters DIY",
+    views: 28450,
+    categoryId: 9,
+    categoryTitleKey: "categories.perlerBeads",
+    categoryTitle: "Perler Beads"
+  },
+  {
+    id: 37,
+    url: "https://www.youtube.com/embed/Q4-VuXr8Rn0?si=perler5",
+    titleKey: "videos.titles.perlerMagnets",
+    title: "Perler Bead Fridge Magnets",
+    views: 19870,
+    categoryId: 9,
+    categoryTitleKey: "categories.perlerBeads",
+    categoryTitle: "Perler Beads"
+  },
+  {
+    id: 38,
+    url: "https://www.youtube.com/embed/NYp0VdQlfx4?si=perler6",
+    titleKey: "videos.titles.perlerBowls",
+    title: "3D Perler Bead Bowls",
+    views: 41230,
+    categoryId: 9,
+    categoryTitleKey: "categories.perlerBeads",
+    categoryTitle: "Perler Beads"
+  },
+
+  // 3D Pen Fun Videos
+  {
+    id: 39,
+    url: "https://www.youtube.com/embed/gjqDo2LcBf4?si=3dpen1",
+    titleKey: "videos.titles.threeDPenBasics",
+    title: "3D Pen Basics for Beginners",
+    views: 89340,
+    categoryId: 10,
+    categoryTitleKey: "categories.threeDPenFun",
+    categoryTitle: "3D Pen Fun"
+  },
+  {
+    id: 40,
+    url: "https://www.youtube.com/embed/WH37GeN77q8?si=3dpen2",
+    titleKey: "videos.titles.threeDPenTower",
+    title: "3D Pen Eiffel Tower Tutorial",
+    views: 156780,
+    categoryId: 10,
+    categoryTitleKey: "categories.threeDPenFun",
+    categoryTitle: "3D Pen Fun"
+  },
+  {
+    id: 41,
+    url: "https://www.youtube.com/embed/JFEui1Ti2F0?si=3dpen3",
+    titleKey: "videos.titles.threeDPenAnimals",
+    title: "3D Pen Animal Sculptures",
+    views: 73420,
+    categoryId: 10,
+    categoryTitleKey: "categories.threeDPenFun",
+    categoryTitle: "3D Pen Fun"
+  },
+  {
+    id: 42,
+    url: "https://www.youtube.com/embed/X1Bc8XR96eI?si=3dpen4",
+    titleKey: "videos.titles.threeDPenJewelry",
+    title: "3D Pen Jewelry Making",
+    views: 45890,
+    categoryId: 10,
+    categoryTitleKey: "categories.threeDPenFun",
+    categoryTitle: "3D Pen Fun"
+  },
+  {
+    id: 43,
+    url: "https://www.youtube.com/embed/Q4-VuXr8Rn0?si=3dpen5",
+    titleKey: "videos.titles.threeDPenFlowers",
+    title: "3D Pen Flower Bouquet",
+    views: 62150,
+    categoryId: 10,
+    categoryTitleKey: "categories.threeDPenFun",
+    categoryTitle: "3D Pen Fun"
+  },
+  {
+    id: 44,
+    url: "https://www.youtube.com/embed/NYp0VdQlfx4?si=3dpen6",
+    titleKey: "videos.titles.threeDPenArchitecture",
+    title: "3D Pen Architecture Models",
+    views: 38760,
+    categoryId: 10,
+    categoryTitleKey: "categories.threeDPenFun",
+    categoryTitle: "3D Pen Fun"
+  }
 
 ];
-
-
-
-// 

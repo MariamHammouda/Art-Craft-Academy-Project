@@ -29,7 +29,21 @@
     "preschoolCrafts": "Artisanat Préscolaire",
     "scienceDiy": "Science et Expériences DIY",
     "recyclingArt": "Art du Recyclage",
-    "popsicleSticks": "Bâtons de Glace"
+    "popsicleSticks": "Bâtons de Glace",
+    "perlerBeads": "Perles Perler",
+    "threeDPenFun": "Amusement Stylo 3D",
+    "descriptions": {
+      "origamiWorld": "Découvrez l'art ancien du pliage de papier avec nos tutoriels d'origami étape par étape. Des grues simples aux fleurs complexes, apprenez à créer de belles sculptures en papier qui émerveilleront vos amis et votre famille.",
+      "drawing": "Libérez votre créativité avec nos tutoriels de dessin complets. Apprenez les techniques fondamentales, l'ombrage, la perspective et divers styles de dessin du niveau débutant au niveau avancé.",
+      "beadsJewelry": "Créez de superbes bijoux et accessoires avec nos tutoriels d'artisanat de perles. Apprenez différentes techniques pour fabriquer des bracelets, des colliers, des boucles d'oreilles et des objets décoratifs en utilisant divers types de perles.",
+      "clay": "Explorez le monde de l'artisanat de l'argile et de la poterie. Apprenez les techniques de construction à la main, la sculpture et la création de pièces en céramique fonctionnelles et décoratives des projets de base aux projets avancés.",
+      "preschoolCrafts": "Activités d'artisanat amusantes et éducatives conçues spécifiquement pour les jeunes enfants. Projets sûrs et simples qui aident à développer la motricité fine et la créativité chez les enfants d'âge préscolaire.",
+      "scienceDiy": "Combinez l'apprentissage et le plaisir grâce à des expériences scientifiques passionnantes et des projets DIY. Explorez les concepts de physique, chimie et biologie à travers des activités et expériences pratiques.",
+      "recyclingArt": "Transformez les déchets du quotidien en belles œuvres d'art. Apprenez les techniques d'artisanat respectueuses de l'environnement en utilisant des matériaux recyclés pour créer des décorations uniques et des objets fonctionnels.",
+      "popsicleSticks": "Projets incroyables utilisant de simples bâtons de glace ! Créez des structures, des décorations et des objets fonctionnels avec ce matériau d'artisanat polyvalent et abordable.",
+      "perlerBeads": "Créez un art pixel incroyable et des designs 3D avec des perles Perler colorées ! Apprenez à fabriquer des porte-clés, des dessous de verre, des personnages et des objets décoratifs en utilisant cette technique amusante de perles fondues.",
+      "threeDPenFun": "Découvrez le monde de l'impression 3D avec un stylo ! Créez d'incroyables sculptures tridimensionnelles, bijoux, modèles architecturaux et designs artistiques en utilisant la technologie du stylo d'impression 3D."
+    }
   },
   "videos": {
     "latest": "Dernières Vidéos",
@@ -55,7 +69,38 @@
     "showMore": "Voir Plus",
     "showLess": "Voir Moins",
     "available": "Vidéos Disponibles",
-    "totalViews": "Vues Totales"
+    "totalViews": "Vues Totales",
+    "titles": {
+      "paperPencilCase": "Trousse en Papier",
+      "origamiRose": "Rose Origami en Papier",
+      "origamiCrane": "Tutoriel Grue Origami",
+      "basicDrawing": "Techniques de Dessin de Base",
+      "watercolorBasics": "Bases de la Peinture à l'Aquarelle",
+      "labubuBeads": "Fabrication de Labubu avec des Perles",
+      "beadedBracelet": "Bracelet en Perles DIY",
+      "clayPottery": "Bases de la Poterie d'Argile",
+      "clayPot": "Fabrication de Pot en Argile",
+      "preschoolCrafts": "Artisanat Amusant Préscolaire",
+      "preschoolPainting": "Peinture Amusante Préscolaire",
+      "scienceExperiment": "Expérience Science DIY",
+      "volcanoExperiment": "Expérience Volcan DIY",
+      "recycledArt": "Projet d'Art Recyclé",
+      "bottleArt": "Art de Bouteille Recyclée",
+      "popsicleHouse": "Maison en Bâtons de Glace",
+      "popsicleFrame": "Cadre Photo en Bâtons de Glace",
+      "perlerPixelArt": "Tutoriel Art Pixel Perles Perler",
+      "perlerKeychains": "Porte-clés DIY Perles Perler",
+      "perlerCharacters": "Designs de Personnages Perles Perler",
+      "perlerCoasters": "Dessous de Verre DIY Perles Perler",
+      "perlerMagnets": "Aimants de Frigo Perles Perler",
+      "perlerBowls": "Bols 3D Perles Perler",
+      "threeDPenBasics": "Bases du Stylo 3D pour Débutants",
+      "threeDPenTower": "Tutoriel Tour Eiffel au Stylo 3D",
+      "threeDPenAnimals": "Sculptures d'Animaux au Stylo 3D",
+      "threeDPenJewelry": "Fabrication de Bijoux au Stylo 3D",
+      "threeDPenFlowers": "Bouquet de Fleurs au Stylo 3D",
+      "threeDPenArchitecture": "Modèles d'Architecture au Stylo 3D"
+    }
   },
   "pictures": {
     "title": "Galerie d'Images",

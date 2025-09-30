@@ -6,11 +6,15 @@ import preschool from "../assets/images/preschool.png"
 import recycleing from "../assets/images/recycleing.png"
 import science from "../assets/images/science.png"
 import sticks from "../assets/images/sticks.png"
+import perlerBeads from "../assets/images/perler-beads.png"
+import threeDPenFun from "../assets/images/3d-pen-fun.png"
 
 // Category banner images
 import origamiCategory from "../assets/images/category-images/orgami-category.jpg"
 import drawingCategory from "../assets/images/category-images/drawing-category.jpg"
 import beadsCategory from "../assets/images/category-images/beads-category.jpg"
+import perlerBeadsCategory from "../assets/images/picture-gallary-images/perler-beads.jpg"
+import threeDPenCategory from "../assets/images/picture-gallary-images/3D-pen-letters.jpg"
 
 
 
@@ -78,5 +82,21 @@ export const categoriesData = [
     icon: sticks,
     bannerImage: sticks,
     descriptionKey: "categories.descriptions.popsicleSticks",
+  },
+  {
+    id: 9,
+    titleKey: "categories.perlerBeads",
+    color: "#DDD6FE", // light purple
+    icon: perlerBeads,
+    bannerImage: perlerBeadsCategory,
+    descriptionKey: "categories.descriptions.perlerBeads",
+  },
+  {
+    id: 10,
+    titleKey: "categories.threeDPenFun",
+    color: "#FEF3C7", // light yellow
+    icon: threeDPenFun,
+    bannerImage: threeDPenCategory,
+    descriptionKey: "categories.descriptions.threeDPenFun",
   },
 ];

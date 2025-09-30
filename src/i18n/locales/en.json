@@ -30,6 +30,8 @@
     "scienceDiy": "Science & DIY Experiments",
     "recyclingArt": "Recycling Art",
     "popsicleSticks": "Popsicle Sticks",
+    "perlerBeads": "Perler Beads",
+    "threeDPenFun": "3D Pen Fun",
     "descriptions": {
       "origamiWorld": "Discover the ancient art of paper folding with our step-by-step origami tutorials. From simple cranes to complex flowers, learn to create beautiful paper sculptures that will amaze your friends and family.",
       "drawing": "Unleash your creativity with our comprehensive drawing tutorials. Learn fundamental techniques, shading, perspective, and various drawing styles from beginner to advanced levels.",
@@ -38,7 +40,9 @@
       "preschoolCrafts": "Fun and educational craft activities designed specifically for young children. Safe, simple projects that help develop fine motor skills and creativity in preschoolers.",
       "scienceDiy": "Combine learning with fun through exciting science experiments and DIY projects. Explore physics, chemistry, and biology concepts through hands-on activities and experiments.",
       "recyclingArt": "Turn everyday waste into beautiful art pieces. Learn eco-friendly crafting techniques using recycled materials to create unique decorations and functional items.",
-      "popsicleSticks": "Amazing projects using simple popsicle sticks! Create structures, decorations, and functional items with this versatile and affordable crafting material."
+      "popsicleSticks": "Amazing projects using simple popsicle sticks! Create structures, decorations, and functional items with this versatile and affordable crafting material.",
+      "perlerBeads": "Create amazing pixel art and 3D designs with colorful Perler beads! Learn to make keychains, coasters, characters, and decorative items using this fun melting bead technique.",
+      "threeDPenFun": "Discover the world of 3D printing with a pen! Create incredible three-dimensional sculptures, jewelry, architectural models, and artistic designs using 3D printing pen technology."
     }
   },
     "videos": {
@@ -83,13 +87,24 @@
       "recycledArt": "Recycled Art Project",
       "bottleArt": "Recycled Bottle Art",
       "popsicleHouse": "Popsicle Stick House",
-      "popsicleFrame": "Popsicle Stick Photo Frame"
+      "popsicleFrame": "Popsicle Stick Photo Frame",
+      "perlerPixelArt": "Perler Bead Pixel Art Tutorial",
+      "perlerKeychains": "DIY Perler Bead Keychains",
+      "perlerCharacters": "Perler Bead Character Designs",
+      "perlerCoasters": "Perler Bead Coasters DIY",
+      "perlerMagnets": "Perler Bead Fridge Magnets",
+      "perlerBowls": "3D Perler Bead Bowls",
+      "threeDPenBasics": "3D Pen Basics for Beginners",
+      "threeDPenTower": "3D Pen Eiffel Tower Tutorial",
+      "threeDPenAnimals": "3D Pen Animal Sculptures",
+      "threeDPenJewelry": "3D Pen Jewelry Making",
+      "threeDPenFlowers": "3D Pen Flower Bouquet",
+      "threeDPenArchitecture": "3D Pen Architecture Models"
     }
   },
   "stories": {
     "featured": "Featured Stories",
     "shorts": "Short Stories",
-    "readMore": "Read More",
     "readFull": "Read Full Story",
     "author": "By",
     "publishedOn": "Published on",
