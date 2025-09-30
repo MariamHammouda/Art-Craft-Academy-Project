@@ -25,7 +25,7 @@ const HeroSection = () => {
               </div>
               
               <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
                   {t('hero.title')} 
                   <span className="text-[#FCD11A] block sm:inline"> {t('hero.titleHighlight')}</span> 
                   {t('hero.titleEnd') && <span className="block">{t('hero.titleEnd')}</span>}

@@ -16,8 +16,8 @@ import miniatureWondersImage from '../../assets/images/picture-gallary-images/mi
 import scienceImage from '../../assets/images/picture-gallary-images/science.png';
 import tipsTricksImage from '../../assets/images/picture-gallary-images/tips-and-tricks.jpg';
 
-// Import header image
-import drawingCategoryHeaderImg from '../../assets/images/navbar-elements-image/drawing-category-img.jpg';
+// Import header image (using existing image as placeholder)
+import drawingCategoryHeaderImg from '../../assets/images/hero-images/girl.jpg';
 
 const PicturesPage = () => {
   const { t } = useTranslation();
@@ -29,7 +29,7 @@ const PicturesPage = () => {
     console.log("Navigate function available:", typeof navigate);
   }, [t, navigate]);
 
-  // Picture categories data
+  // Picture categories data with multiple images for Pinterest-style cards
   const pictureCategories = [
     {
       id: 1,
@@ -37,7 +37,8 @@ const PicturesPage = () => {
       color: 'bg-pink-50 border-pink-200 hover:bg-pink-100',
       textColor: 'text-pink-800',
       iconBg: 'bg-pink-100',
-      backgroundImage: origamiImage
+      backgroundImage: origamiImage,
+      images: [origamiImage, drawingImage, clayImage]
     },
     {
       id: 2,
@@ -45,7 +46,8 @@ const PicturesPage = () => {
       color: 'bg-blue-50 border-blue-200 hover:bg-blue-100',
       textColor: 'text-[#59ACBE]',
       iconBg: 'bg-blue-100',
-      backgroundImage: drawingImage
+      backgroundImage: drawingImage,
+      images: [drawingImage, origamiImage, perlerBeadsImage]
     },
     {
       id: 3,
@@ -53,7 +55,8 @@ const PicturesPage = () => {
       color: 'bg-green-50 border-green-200 hover:bg-green-100',
       textColor: 'text-green-800',
       iconBg: 'bg-green-100',
-      backgroundImage: recyclingImage
+      backgroundImage: recyclingImage,
+      images: [recyclingImage, beadsAccessoriesImage, threeDPenImage]
     },
     {
       id: 4,
@@ -61,7 +64,8 @@ const PicturesPage = () => {
       color: 'bg-purple-50 border-purple-200 hover:bg-purple-100',
       textColor: 'text-purple-800',
       iconBg: 'bg-purple-100',
-      backgroundImage: beadsAccessoriesImage
+      backgroundImage: beadsAccessoriesImage,
+      images: [beadsAccessoriesImage, clayImage, miniatureWondersImage]
     },
     {
       id: 5,
@@ -69,7 +73,8 @@ const PicturesPage = () => {
       color: 'bg-orange-50 border-orange-200 hover:bg-orange-100',
       textColor: 'text-orange-800',
       iconBg: 'bg-orange-100',
-      backgroundImage: clayImage
+      backgroundImage: clayImage,
+      images: [clayImage, preschoolImage, scienceImage]
     },
     {
       id: 6,
@@ -77,7 +82,8 @@ const PicturesPage = () => {
       color: 'bg-yellow-50 border-yellow-200 hover:bg-yellow-100',
       textColor: 'text-yellow-800',
       iconBg: 'bg-yellow-100',
-      backgroundImage: preschoolImage
+      backgroundImage: preschoolImage,
+      images: [preschoolImage, tipsTricksImage, origamiImage]
     },
     {
       id: 7,
@@ -85,7 +91,8 @@ const PicturesPage = () => {
       color: 'bg-indigo-50 border-indigo-200 hover:bg-indigo-100',
       textColor: 'text-indigo-800',
       iconBg: 'bg-indigo-100',
-      backgroundImage: perlerBeadsImage
+      backgroundImage: perlerBeadsImage,
+      images: [perlerBeadsImage, drawingImage, recyclingImage]
     },
     {
       id: 8,
@@ -93,7 +100,8 @@ const PicturesPage = () => {
       color: 'bg-teal-50 border-teal-200 hover:bg-teal-100',
       textColor: 'text-teal-800',
       iconBg: 'bg-teal-100',
-      backgroundImage: threeDPenImage
+      backgroundImage: threeDPenImage,
+      images: [threeDPenImage, beadsAccessoriesImage, clayImage]
     },
     {
       id: 9,
@@ -101,7 +109,8 @@ const PicturesPage = () => {
       color: 'bg-red-50 border-red-200 hover:bg-red-100',
       textColor: 'text-red-800',
       iconBg: 'bg-red-100',
-      backgroundImage: miniatureWondersImage
+      backgroundImage: miniatureWondersImage,
+      images: [miniatureWondersImage, origamiImage, preschoolImage]
     },
     {
       id: 10,
@@ -109,7 +118,8 @@ const PicturesPage = () => {
       color: 'bg-cyan-50 border-cyan-200 hover:bg-cyan-100',
       textColor: 'text-cyan-800',
       iconBg: 'bg-cyan-100',
-      backgroundImage: scienceImage
+      backgroundImage: scienceImage,
+      images: [scienceImage, tipsTricksImage, perlerBeadsImage]
     },
     {
       id: 11,
@@ -117,7 +127,8 @@ const PicturesPage = () => {
       color: 'bg-gray-50 border-gray-200 hover:bg-gray-100',
       textColor: 'text-gray-800',
       iconBg: 'bg-gray-100',
-      backgroundImage: tipsTricksImage
+      backgroundImage: tipsTricksImage,
+      images: [tipsTricksImage, threeDPenImage, miniatureWondersImage]
     }
   ];
 
@@ -137,7 +148,7 @@ const PicturesPage = () => {
           <img
             src={drawingCategoryHeaderImg}
             alt="Picture Gallery Header"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-125 transform"
           />
           {/* Gradient overlay for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
@@ -146,14 +157,7 @@ const PicturesPage = () => {
         {/* Header Content Over Image */}
         <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
           <div className="text-center px-6">
-            <h1 className="text-5xl font-bold mb-4 drop-shadow-lg">{t('pictures.title')}</h1>
-            <p className="text-xl mb-8 drop-shadow-md max-w-2xl">{t('pictures.subtitle')}</p>
-            <button
-              onClick={() => navigate("/")}
-              className="inline-flex items-center px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200 font-medium shadow-lg"
-            >
-              ← {t('common.backToHome')}
-            </button>
+            {/* Content removed as requested */}
           </div>
         </div>
       </div>
@@ -162,45 +166,81 @@ const PicturesPage = () => {
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Breadcrumbs */}
         <Breadcrumbs />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Pinterest-style Masonry Grid */}
+        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
           {pictureCategories.map((category) => (
             <div
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
-              className="bg-white border-2 border-gray-200 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-lg overflow-hidden h-96 flex flex-col"
+              className="bg-white rounded-xl cursor-pointer transition-all duration-300 hover:shadow-xl overflow-hidden break-inside-avoid mb-6 border border-gray-200 hover:border-[#59ACBE]"
             >
-              {/* Image Section - أكبر ارتفاع */}
-              {category.backgroundImage ? (
-                <div className="flex-grow overflow-hidden relative">
-                  <img
-                    src={category.backgroundImage}
-                    alt={t(`pictures.categories.${category.key}`)}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                  />
-                  {/* Image overlay for better text readability */}
-                  <div className="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300"></div>
-                </div>
-              ) : (
-                <div className={`flex-grow ${category.color} flex items-center justify-center`}>
-                  <div className={`${category.iconBg} w-20 h-20 rounded-full flex items-center justify-center`}>
-                    <div className={`w-10 h-10 ${category.textColor} flex items-center justify-center text-3xl font-bold`}>
-                      {category.id}
+              {/* Pinterest-style Image Layout */}
+              {category.images && category.images.length >= 3 ? (
+                <div className="relative">
+                  {/* Main large image */}
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={category.images[0]}
+                      alt={t(`pictures.categories.${category.key}`)}
+                      className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                  
+                  {/* Two smaller images side by side */}
+                  <div className="flex">
+                    <div className="flex-1 relative overflow-hidden">
+                      <img
+                        src={category.images[1]}
+                        alt={t(`pictures.categories.${category.key}`)}
+                        className="w-full h-32 object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    </div>
+                    <div className="flex-1 relative overflow-hidden">
+                      <img
+                        src={category.images[2]}
+                        alt={t(`pictures.categories.${category.key}`)}
+                        className="w-full h-32 object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                      {/* Overlay with count if more images */}
+                      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <span className="text-white font-bold text-lg">+{category.images.length - 3}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+              ) : (
+                /* Fallback single image */
+                <div className="relative overflow-hidden">
+                  <img
+                    src={category.backgroundImage}
+                    alt={t(`pictures.categories.${category.key}`)}
+                    className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
               )}
               
-              <div className="p-4 bg-white mt-auto shadow-lg">
+              {/* Card Footer */}
+              <div className="p-4">
                 {/* Category Title */}
-                <h3 className={`text-lg font-bold ${category.textColor} text-center mb-2`}>
+                <h3 className={`text-lg font-bold ${category.textColor} mb-2`}>
                   {t(`pictures.categories.${category.key}`)}
                 </h3>
                 
-                {/* View Gallery Button */}
-                <div className="text-center">
-                  <span className={`inline-block px-4 py-2 ${category.textColor} bg-white border-2 border-current rounded-full text-sm font-medium transition-all duration-200 hover:bg-current hover:text-white shadow-sm`}>
+                {/* Category Description */}
+                <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                  {t(`pictures.descriptions.${category.key}`) || 'Explore beautiful craft ideas and tutorials'}
+                </p>
+                
+                {/* Stats and Action */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-xs text-gray-500">
+                    <span>📸 {category.images?.length || 1} photos</span>
+                  </div>
+                  <button className={`px-3 py-1 ${category.textColor} bg-transparent border border-current rounded-full text-xs font-medium hover:bg-current hover:text-white transition-all duration-200`}>
                     {t('pictures.viewGallery')}
-                  </span>
+                  </button>
                 </div>
               </div>
             </div>
