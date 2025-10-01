@@ -6,7 +6,7 @@ import NavBar from './components/Navbar/NavBar.jsx'
 import HeroSection from './components/HeroSection/HeroSection'
 import CategoriesBar from "./components/Categories/CategoriesBar"
 import { VideosByCategory } from "./components/Videos/VideosByCategory"
-import LatestVideosSimple from './components/Videos/LatestVideosSimple'
+import LatestVideos from './components/Videos/LatestVideos'
 import FeaturedStories from './components/Stories/FeaturedStories'
 import ShortsStories from './components/Stories/ShortsStories'
 import CategoryPage from './components/CategoryPage/CategoryPage'
@@ -43,7 +43,7 @@ function App() {
             <>
               <HeroSection/>
               <ErrorBoundary fallbackMessage="Unable to load latest videos. Please try refreshing the page.">
-                <LatestVideosSimple />
+                <LatestVideos />
               </ErrorBoundary>
               <CategoriesBar />
               <ErrorBoundary fallbackMessage="Unable to load video categories. Please try refreshing the page.">
