@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     port: 5174,
     open: true,
+    base:process.env.VITE_BASE_PATH || "/Art-Craft-Academy-Project"
   },
   build: {
     rollupOptions: {
