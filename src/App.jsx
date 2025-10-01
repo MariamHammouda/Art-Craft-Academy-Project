@@ -2,13 +2,13 @@ import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-d
 import { useEffect } from 'react'
 import './App.css'
 import './i18n/i18n' // Initialize i18n
-import NavBar from './components/Navbar/NavBar.jsx'
+import NavBar from './components/NavBar/NavBar.jsx'
 import HeroSection from './components/HeroSection/HeroSection.jsx'
 import CategoriesBar from "./components/Categories/CategoriesBar.jsx"
 import { VideosByCategory } from "./components/Videos/VideosByCategory.jsx"
 import LatestVideos from './components/Videos/LatestVideos.jsx'
-import FeaturedStories from './components/Stories/FeaturedStories'
-import ShortsStories from './components/Stories/ShortsStories'
+import FeaturedStories from './components/Stories/FeaturedStories.jsx'
+import ShortsStories from './components/Stories/ShortsStories.jsx'
 import CategoryPage from './components/CategoryPage/CategoryPage.jsx'
 import VideoDetailPage from './components/VideoDetail/VideoDetailPage.jsx'
 import AboutPage from './components/Pages/AboutPage.jsx'
