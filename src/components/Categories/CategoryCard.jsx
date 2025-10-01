@@ -1,10 +1,8 @@
 import { memo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const CategoryCard = ({ titleKey, icon, color, id }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   
   const title = t(titleKey);
 
@@ -14,12 +12,21 @@ const CategoryCard = ({ titleKey, icon, color, id }) => {
     console.log('Category clicked:', id, title);
     
     try {
-      // Navigate directly to category page
-      navigate(`/category/${id}`);
+      // Scroll to the video category section
+      const targetElement = document.getElementById(`cat-${id}`);
+      if (targetElement) {
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+      } else {
+        console.warn(`Category section with id 'cat-${id}' not found`);
+      }
     } catch (error) {
-      console.error('Navigation error:', error);
+      console.error('Scroll error:', error);
     }
-  }, [id, title, navigate]);
+  }, [id, title]);
 
   return (
     <div 
@@ -40,9 +47,9 @@ const CategoryCard = ({ titleKey, icon, color, id }) => {
           className="w-20 h-20 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 group-hover:scale-105 group-hover:shadow-xl mb-2"
           style={{ backgroundColor: color }}
         >
-          <img src={icon} alt={title} className="w-10 h-10" />
+          <img src={icon} alt={title} className="w-8 h-8" />
         </div>
-        <p className="text-sm font-semibold text-gray-700 group-hover:text-[#003FBC] transition-colors duration-200">
+        <p className="text-sm font-semibold text-gray-700 group-hover:text-[#003FBC] transition-colors duration-200 whitespace-nowrap">
           {title}
         </p>
       </div>

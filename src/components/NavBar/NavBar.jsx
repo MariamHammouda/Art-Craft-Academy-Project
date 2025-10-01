@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../Button/Button.jsx";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { useTranslation } from 'react-i18next';
 import NavbarLogo from "../../assets/images/hero-images/navbar-logo.png";
@@ -9,25 +9,32 @@ import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 const NavBar = () => {
   const { t } = useTranslation();
+  const location = useLocation();
+  
+  // Check if we're on the home page (HashRouter consideration)
+  const isHomePage = location.pathname === '/' || location.pathname === '';
+  const showLogo = !isHomePage; // Show logo on all pages EXCEPT home
 
   return (
     <nav className="bg-[#59ACBE] shadow-lg">
       <div className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between relative">
 
-          {/* Logo */}
-          <div className="flex-shrink-0 -my-3">
-            <Link to="/" className="flex items-center">
-              <img 
-                src={NavbarLogo} 
-                alt="Art Craft Academy" 
-                className="h-40 w-auto hover:scale-105 transition-transform duration-300"
-              />
-            </Link>
-          </div>
+          {/* Logo - Show on all pages EXCEPT home */}
+          {showLogo && (
+            <div className="flex-shrink-0 -my-3">
+              <Link to="/" className="flex items-center">
+                <img 
+                  src={NavbarLogo} 
+                  alt="Art Craft Academy" 
+                  className="h-40 w-auto hover:scale-105 transition-transform duration-300"
+                />
+              </Link>
+            </div>
+          )}
 
           {/* Navigation Links */}
-          <div className="absolute left-1/2 transform -translate-x-1/2">
+          <div className={`${showLogo ? 'absolute left-1/2 transform -translate-x-1/2' : 'flex-1 flex justify-center'}`}>
             <ul className="hidden md:flex items-center gap-8 text-white">
               <li>
                 <Link 

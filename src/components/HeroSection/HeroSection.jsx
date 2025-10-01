@@ -16,7 +16,7 @@ const HeroSection = () => {
             {/* Text Content Column */}
             <div className="space-y-8 text-center lg:text-left">
               {/* Big Logo */}
-              <div className="flex justify-center lg:justify-start mb-8">
+              <div className="flex justify-center lg:justify-start mb-6 -mt-8">
                 <img 
                   src={Artlogo} 
                   alt="Academy of Art and Craft Logo" 
@@ -40,10 +40,12 @@ const HeroSection = () => {
             
             {/* Image Slider Column */}
             <div className="flex justify-center items-center">
-              <div className="w-full max-w-lg">
+              <div className="w-full max-w-2xl">
                 <HeroSlider />
               </div>
             </div>
+
+            
             
           </div>
         </div>
