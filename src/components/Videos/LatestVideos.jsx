@@ -1,84 +1,50 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState, useMemo } from "react";
 import { useTranslation } from 'react-i18next';
-import { useLatestVideos } from "../../hooks/useYouTubeVideos.js";
 import VideoCard from "./VideoCard.jsx";
 import { videosData } from "../../mockData/videosData.js";
 
 const LatestVideos = () => {
   const { t } = useTranslation();
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   
-  // Safe hook usage with error handling
-  let videos = [], loading = true, error = null;
-  
-  try {
-    const result = useLatestVideos(15);
-    videos = result.videos || [];
-    loading = result.loading;
-    error = result.error;
-  } catch (hookError) {
-    console.error('❌ Error in useLatestVideos hook:', hookError);
-    loading = false;
-    error = 'Failed to load videos';
-    // Use fallback data
-    videos = videosData.slice(0, 4);
-  }
-  
-  // If no videos after hook execution, use fallback
-  if (videos.length === 0 && !loading) {
-    videos = videosData.slice(0, 4);
-  }
-  
-  // TEMPORARY: Force loading to false after 5 seconds for better UX
-  const [forceLoaded, setForceLoaded] = useState(false);
+  // Initialize with fallback data to prevent errors
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (loading && !forceLoaded) {
-        console.log('🚨 LatestVideos: Forcing loaded state after 5 seconds');
-        setForceLoaded(true);
-      }
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [loading, forceLoaded]);
-  
-  const isActuallyLoading = loading && !forceLoaded;
-  
-  console.log('🎬 LatestVideos Debug:', { 
-    videosCount: videos.length, 
-    loading, 
-    error,
-    sampleVideo: videos[0],
-    allVideos: videos.map(v => ({ id: v.id, title: v.title, categoryId: v.categoryId }))
-  });
-  
-  // Force render after 10 seconds if still loading (for debugging)
-  useEffect(() => {
-    if (loading) {
-      const timer = setTimeout(() => {
-        console.log('🚨 LatestVideos still loading after 10 seconds - this indicates a problem');
-      }, 10000);
-      return () => clearTimeout(timer);
+    try {
+      // Use fallback data for now to prevent errors
+      const fallbackVideos = videosData.slice(0, 15);
+      setVideos(fallbackVideos);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error initializing LatestVideos:', err);
+      setError('Failed to load videos');
+      setLoading(false);
     }
-  }, [loading]);
+  }, []);
   
-  // Sort by publication date (most recent first) instead of views
-  const topVideos = [...videos]
-    .sort((a, b) => {
-      // First try to sort by publication date
-      if (a.publishedAt && b.publishedAt) {
-        return new Date(b.publishedAt) - new Date(a.publishedAt);
-      }
-      // Fallback to views if dates are not available
-      return (b.views ?? 0) - (a.views ?? 0);
-    })
-    .slice(0, 4);
+  // Memoized sorting by publication date (most recent first) instead of views
+  const topVideos = useMemo(() => {
+    if (!videos || videos.length === 0) return [];
     
-  console.log('📊 Top videos selected:', topVideos.map(v => ({ 
-    title: v.title, 
-    publishedAt: v.publishedAt, 
-    views: v.views 
-  })));
+    try {
+      return [...videos]
+        .sort((a, b) => {
+          // First try to sort by publication date
+          if (a?.publishedAt && b?.publishedAt) {
+            return new Date(b.publishedAt) - new Date(a.publishedAt);
+          }
+          // Fallback to views if dates are not available
+          return (b?.views ?? 0) - (a?.views ?? 0);
+        })
+        .slice(0, 4);
+    } catch (err) {
+      console.error('Error sorting videos:', err);
+      return videos.slice(0, 4); // Return unsorted if sorting fails
+    }
+  }, [videos]);
 
-  if (loading && videos.length === 0) {
+  if (loading) {
     return (
       <section className="py-10 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -114,7 +80,7 @@ const LatestVideos = () => {
   }
 
   // If no videos available, show message
-  if (!isActuallyLoading && topVideos.length === 0) {
+  if (!loading && (!topVideos || topVideos.length === 0)) {
     return (
       <section className="py-10 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -133,17 +99,24 @@ const LatestVideos = () => {
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold mb-6">{t('videos.latest')}</h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {topVideos.map((video) => (
-            <VideoCard
-              key={video.id}
-              id={video.id}
-              url={video.url}
-              titleKey={video.titleKey}
-              categoryTitleKey={video.categoryTitleKey}
-              title={video.title}
-              categoryTitle={video.categoryTitle}
-            />
-          ))}
+          {topVideos && topVideos.length > 0 ? topVideos.map((video) => {
+            if (!video || !video.id) return null;
+            return (
+              <VideoCard
+                key={video.id}
+                id={video.id}
+                url={video.url || ''}
+                titleKey={video.titleKey}
+                categoryTitleKey={video.categoryTitleKey}
+                title={video.title || 'Untitled Video'}
+                categoryTitle={video.categoryTitle}
+              />
+            );
+          }) : (
+            <div className="col-span-full text-center py-8">
+              <p className="text-gray-500">No videos available</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

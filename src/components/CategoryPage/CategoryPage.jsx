@@ -65,7 +65,7 @@ const CategoryPage = () => {
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Category Not Found</h1>
           <button
             onClick={() => navigate("/")}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="px-6 py-2 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors"
           >
             Back to Home
           </button>

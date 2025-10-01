@@ -1,11 +1,20 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 // Import gallery images
 import drawingImage from '../../assets/images/picture-gallary-images/drawing.jpg';
 import origamiImage from '../../assets/images/picture-gallary-images/orgami.jpg';
 import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
+import clayImage from '../../assets/images/picture-gallary-images/clay.jpg';
+import beadsAccessoriesImage from '../../assets/images/picture-gallary-images/beads-accessories.jpg';
+import recyclingImage from '../../assets/images/picture-gallary-images/recycling.jpg';
+import perlerBeadsImage from '../../assets/images/picture-gallary-images/perler-beads.jpg';
+import threeDPenImage from '../../assets/images/picture-gallary-images/3D-pen-letters.jpg';
+import miniatureWondersImage from '../../assets/images/picture-gallary-images/miniature-wonders.jpg';
+import scienceImage from '../../assets/images/picture-gallary-images/science.png';
+import tipsTricksImage from '../../assets/images/picture-gallary-images/tips-and-tricks.jpg';
 
 // Import drawing gallery images
 import drawingImg1 from '../../assets/images/picture-gallary-images/drawing-images/img1.jpg';
@@ -25,16 +34,16 @@ const PictureCategoryPage = () => {
   // Picture categories data (same as in PicturesPage for consistency)
   const pictureCategories = [
     { id: 1, key: 'origamiPaperCrafts', color: 'bg-pink-50', textColor: 'text-pink-800', backgroundImage: origamiImage },
-    { id: 2, key: 'drawing', color: 'bg-blue-50', textColor: 'text-blue-800', backgroundImage: drawingImage },
-    { id: 3, key: 'recyclingArt', color: 'bg-green-50', textColor: 'text-green-800' },
-    { id: 4, key: 'beadsAccessories', color: 'bg-purple-50', textColor: 'text-purple-800' },
-    { id: 5, key: 'clayCreations', color: 'bg-orange-50', textColor: 'text-orange-800' },
+    { id: 2, key: 'drawing', color: 'bg-blue-50', textColor: 'text-[#59ACBE]', backgroundImage: drawingImage },
+    { id: 3, key: 'recyclingArt', color: 'bg-green-50', textColor: 'text-green-800', backgroundImage: recyclingImage },
+    { id: 4, key: 'beadsAccessories', color: 'bg-purple-50', textColor: 'text-purple-800', backgroundImage: beadsAccessoriesImage },
+    { id: 5, key: 'clayCreations', color: 'bg-orange-50', textColor: 'text-orange-800', backgroundImage: clayImage },
     { id: 6, key: 'preschoolCrafts', color: 'bg-yellow-50', textColor: 'text-yellow-800', backgroundImage: preschoolImage },
-    { id: 7, key: 'perlerBeads', color: 'bg-indigo-50', textColor: 'text-indigo-800' },
-    { id: 8, key: '3dPenFun', color: 'bg-teal-50', textColor: 'text-teal-800' },
-    { id: 9, key: 'miniatureWonders', color: 'bg-red-50', textColor: 'text-red-800' },
-    { id: 10, key: 'scienceDiyExperiments', color: 'bg-cyan-50', textColor: 'text-cyan-800' },
-    { id: 11, key: 'tipsTricks', color: 'bg-gray-50', textColor: 'text-gray-800' }
+    { id: 7, key: 'perlerBeads', color: 'bg-indigo-50', textColor: 'text-indigo-800', backgroundImage: perlerBeadsImage },
+    { id: 8, key: '3dPenFun', color: 'bg-teal-50', textColor: 'text-teal-800', backgroundImage: threeDPenImage },
+    { id: 9, key: 'miniatureWonders', color: 'bg-red-50', textColor: 'text-red-800', backgroundImage: miniatureWondersImage },
+    { id: 10, key: 'scienceDiyExperiments', color: 'bg-cyan-50', textColor: 'text-cyan-800', backgroundImage: scienceImage },
+    { id: 11, key: 'tipsTricks', color: 'bg-gray-50', textColor: 'text-gray-800', backgroundImage: tipsTricksImage }
   ];
 
   // Drawing gallery images data
@@ -60,7 +69,7 @@ const PictureCategoryPage = () => {
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Category Not Found</h1>
           <button
             onClick={() => navigate("/pictures")}
-            className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+            className="px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200"
           >
             {t('pictures.backToPictures')}
           </button>
@@ -91,12 +100,14 @@ const PictureCategoryPage = () => {
       <div>
         {/* Image Section */}
         {currentCategory.backgroundImage && (
-          <div className="h-80 w-full overflow-hidden">
+          <div className="h-[50rem] w-full overflow-hidden relative">
             <img
               src={currentCategory.backgroundImage}
               alt={t(`pictures.categories.${currentCategory.key}`)}
               className="w-full h-full object-cover"
             />
+            {/* Gradient overlay for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
           </div>
         )}
         
@@ -106,7 +117,7 @@ const PictureCategoryPage = () => {
             <div className="flex items-center gap-4 mb-4">
               <button
                 onClick={() => navigate("/pictures")}
-                className="text-[#003FBC] hover:text-[#FCD11A] font-medium transition-colors duration-200"
+                className="text-[#59ACBE] hover:text-[#FCD11A] font-medium transition-colors duration-200"
               >
                 ← {t('pictures.backToPictures')}
               </button>
@@ -126,6 +137,14 @@ const PictureCategoryPage = () => {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Breadcrumbs */}
+        <Breadcrumbs 
+          customBreadcrumbs={[
+            { label: t('nav.home'), link: '/' },
+            { label: t('nav.pictures'), link: '/pictures' },
+            { label: t(`pictures.categories.${currentCategory.key}`), link: null }
+          ]}
+        />
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {galleryImages.map((image) => (
@@ -175,13 +194,13 @@ const PictureCategoryPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                 <button
                   onClick={() => navigate("/pictures")}
-                  className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+                  className="px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200"
                 >
                   {t('pictures.backToPictures')}
                 </button>
                 <button
                   onClick={() => navigate("/")}
-                  className="px-6 py-3 border-2 border-[#003FBC] text-[#003FBC] rounded-lg hover:bg-[#003FBC] hover:text-white transition-colors duration-200"
+                  className="px-6 py-3 border-2 border-[#59ACBE] text-[#59ACBE] rounded-lg hover:bg-[#59ACBE] hover:text-white transition-colors duration-200"
                 >
                   {t('common.backToHome')}
                 </button>
@@ -206,13 +225,13 @@ const PictureCategoryPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
                 <button
                   onClick={() => navigate("/pictures")}
-                  className="px-6 py-3 bg-[#003FBC] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#003FBC] transition-colors duration-200"
+                  className="px-6 py-3 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors duration-200"
                 >
                   {t('pictures.backToPictures')}
                 </button>
                 <button
                   onClick={() => navigate("/")}
-                  className="px-6 py-3 border-2 border-[#003FBC] text-[#003FBC] rounded-lg hover:bg-[#003FBC] hover:text-white transition-colors duration-200"
+                  className="px-6 py-3 border-2 border-[#59ACBE] text-[#59ACBE] rounded-lg hover:bg-[#59ACBE] hover:text-white transition-colors duration-200"
                 >
                   {t('common.backToHome')}
                 </button>

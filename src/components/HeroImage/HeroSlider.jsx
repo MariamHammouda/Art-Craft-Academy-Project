@@ -2,12 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import img1 from "../../assets/images/hero-images/house.jpg";
 import img2 from "../../assets/images/hero-images/accessory.jpg";
 import img3 from "../../assets/images/hero-images/girl.jpg";
-import img4 from "../../assets/images/hero-images/popsicle.jpg";
 
 const SLIDE_INTERVAL_MS = 4000;
 
 const HeroSlider = () => {
-  const images = useMemo(() => [img1, img2, img3, img4], []);
+  const images = useMemo(() => [img1, img2, img3], []);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -18,7 +17,7 @@ const HeroSlider = () => {
   }, [images.length]);
 
   return (
-    <div className="relative w-full h-[260px] sm:h-[320px] md:h-[380px] lg:h-[440px] overflow-hidden rounded-2xl shadow-xl">
+    <div className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] xl:h-[440px] overflow-hidden rounded-2xl shadow-xl">
       {/* Slides */}
       {images.map((src, i) => (
         <img

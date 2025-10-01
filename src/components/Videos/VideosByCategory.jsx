@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useCallback } from "react";
 import { useTranslation } from 'react-i18next';
 import VideoCard from "./VideoCard.jsx";
 import { videosData } from "../../mockData/videosData.js";
@@ -11,29 +11,18 @@ const VideosByCategoryComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Debug: Check if we're in Router context
-  console.log('🔍 Router context check:', { 
-    navigate: typeof navigate, 
-    location: location?.pathname 
-  });
-
-  // Fetch videos from YouTube API with reduced frequency
+  // Fetch videos from YouTube API with caching
   const { videos: apiVideos, loading, error } = useLatestVideos(30);
   
-  // Use API videos if available, otherwise fallback to mock data
+  // Memoized video selection - use API videos if available, otherwise fallback to mock data
   const videosToUse = useMemo(() => {
     return apiVideos.length > 0 ? apiVideos : videosData;
   }, [apiVideos]);
 
-  console.log('🔍 VideosByCategory Debug:', {
-    apiVideosCount: apiVideos.length,
-    videosToUseCount: videosToUse.length,
-    loading,
-    error
-  });
-
-  // Group videos by category (memoized for performance)
+  // Memoized video grouping by category for performance
   const videosByCategory = useMemo(() => {
+    if (!videosToUse || videosToUse.length === 0) return {};
+    
     return videosToUse.reduce((acc, video) => {
       const key = Number(video.categoryId);
       if (!acc[key]) {
@@ -44,20 +33,30 @@ const VideosByCategoryComponent = () => {
     }, {});
   }, [videosToUse]);
 
-  console.log('📊 Videos by category:', videosByCategory);
-
-  const handleCategoryClick = (categoryId, categoryTitle) => {
-    console.log('📂 Category clicked:', { categoryId, categoryTitle, videosCount: (videosByCategory[categoryId] || []).length });
+  // Memoized category click handler to prevent unnecessary re-renders
+  const handleCategoryClick = useCallback((categoryId, categoryTitle) => {
+    const categoryVideos = videosByCategory[categoryId] || [];
     
-    // Use window.location for reliable navigation
-    // Store category data in sessionStorage for the target page
-    sessionStorage.setItem('categoryData', JSON.stringify({
-      categoryTitle,
-      videos: videosByCategory[categoryId] || []
-    }));
+    if (process.env.NODE_ENV === 'development') {
+      console.log('📂 Category clicked:', { categoryId, categoryTitle, videosCount: categoryVideos.length });
+    }
     
-    window.location.href = `/category/${categoryId}`;
-  };
+    // Batch sessionStorage write to avoid blocking main thread
+    requestIdleCallback(() => {
+      sessionStorage.setItem('categoryData', JSON.stringify({
+        categoryTitle,
+        videos: categoryVideos
+      }));
+    });
+    
+    // Navigate using React Router (works with HashRouter)
+    navigate(`/category/${categoryId}`, {
+      state: {
+        categoryTitle,
+        videos: categoryVideos
+      }
+    });
+  }, [videosByCategory, navigate]);
 
   return (
     <section id="video-categories" className="py-12 px-6 bg-gray-50">
@@ -81,16 +80,27 @@ const VideosByCategoryComponent = () => {
       
       <div className="space-y-16">
         {categoriesData.map((category) => {
-          let categoryVideos = videosByCategory[category.id] || [];
+          // Memoized category video processing
+          const categoryData = useMemo(() => {
+            let categoryVideos = videosByCategory[category.id] || [];
+            
+            // If no API videos available, try to use mock data for this category
+            if (categoryVideos.length === 0) {
+              const mockVideosForCategory = videosData.filter(v => v.categoryId === category.id);
+              if (mockVideosForCategory.length === 0) return null;
+              categoryVideos = mockVideosForCategory.slice(0, 4);
+            }
+            
+            const categoryVideosSorted = [...categoryVideos].sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+            return {
+              videos: categoryVideosSorted,
+              hasMore: categoryVideosSorted.length > 4
+            };
+          }, [videosByCategory, category.id]);
           
-          // If no API videos available, try to use mock data for this category
-          if (categoryVideos.length === 0) {
-            const mockVideosForCategory = videosData.filter(v => v.categoryId === category.id);
-            if (mockVideosForCategory.length === 0) return null;
-            categoryVideos = mockVideosForCategory.slice(0, 4);
-          }
+          if (!categoryData) return null;
           
-          const categoryVideosSorted = [...categoryVideos].sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+          const { videos: categoryVideosSorted, hasMore } = categoryData;
           
           return (
             <div key={category.id} id={`cat-${category.id}`} className="max-w-7xl mx-auto">
@@ -106,11 +116,11 @@ const VideosByCategoryComponent = () => {
                   >
                     <img src={category.icon} alt={category.title} className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-2xl font-bold text-gray-800 group-hover:text-[#59ACBE] transition-colors">
                     {t(category.titleKey)}
                   </h3>
                 </div>
-                <div className="text-blue-600 font-medium group-hover:text-blue-800 transition-colors">
+                <div className="text-[#59ACBE] font-medium group-hover:text-[#FCD11A] transition-colors">
                   {t('categories.viewAll')} →
                 </div>
               </div>
@@ -131,11 +141,11 @@ const VideosByCategoryComponent = () => {
               </div>
               
               {/* Show More Button if there are more videos */}
-              {categoryVideosSorted.length > 4 && (
+              {hasMore && (
                 <div className="text-center mt-6">
                   <button
                     onClick={() => handleCategoryClick(category.id, t(category.titleKey))}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-6 py-2 bg-[#59ACBE] text-white rounded-lg hover:bg-[#FCD11A] hover:text-[#59ACBE] transition-colors"
                   >
                     {t('categories.viewAll')} {categoryVideosSorted.length - 4} {t('videos.loadMore')}
                   </button>

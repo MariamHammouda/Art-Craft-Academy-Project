@@ -1,7 +1,8 @@
-import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import './App.css'
 import './i18n/i18n' // Initialize i18n
-import NavBar from './components/Navbar/NavBar'
+import NavBar from './components/Navbar/NavBar.jsx'
 import HeroSection from './components/HeroSection/HeroSection'
 import CategoriesBar from "./components/Categories/CategoriesBar"
 import { VideosByCategory } from "./components/Videos/VideosByCategory"
@@ -10,29 +11,44 @@ import FeaturedStories from './components/Stories/FeaturedStories'
 import ShortsStories from './components/Stories/ShortsStories'
 import CategoryPage from './components/CategoryPage/CategoryPage'
 import VideoDetailPage from './components/VideoDetail/VideoDetailPage'
+import AboutPage from './components/Pages/AboutPage'
 import CoursesPage from './components/Pages/CoursesPage'
 import ShopPage from './components/Pages/ShopPage'
-import AboutPage from './components/Pages/AboutPage'
 import PicturesPage from './components/Pages/PicturesPage'
 import PictureCategoryPage from './components/Pages/PictureCategoryPage'
 import DrawingDetailPage from './components/Pages/DrawingDetailPage'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import Footer from './components/Footer/Footer'
 import QuotaManager from './components/Debug/QuotaManager'
 
+// Component to track navigation changes
+function NavigationTracker() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    console.log('🧭 Navigation changed to:', location.pathname, location.hash);
+  }, [location]);
+  
+  return null;
+}
 
 function App() {
   return (
     <Router>
       <div className='overflow-x-hidden'>
+        <NavigationTracker />
         <NavBar/>
         <Routes>
           <Route path="/" element={
             <>
               <HeroSection/>
-              <LatestVideos />
-        
+              <ErrorBoundary fallbackMessage="Unable to load latest videos. Please try refreshing the page.">
+                <LatestVideos />
+              </ErrorBoundary>
               <CategoriesBar />
-              <VideosByCategory />
+              <ErrorBoundary fallbackMessage="Unable to load video categories. Please try refreshing the page.">
+                <VideosByCategory />
+              </ErrorBoundary>
             </>
           } />
           <Route path="/category/:id" element={<CategoryPage />} />

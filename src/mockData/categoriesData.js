@@ -5,12 +5,19 @@ import clay from "../assets/images/clay.png"
 import preschool from "../assets/images/preschool.png"
 import recycleing from "../assets/images/recycleing.png"
 import science from "../assets/images/science.png"
-import sticks from "../assets/images/sticks.png"
+import perlerBeads from "../assets/images/perler-beads.png"
+import threeDPenFun from "../assets/images/3d-pen-fun.png"
+import miniatureWonders from "../assets/images/miniature-wonders.png"
+import tipsTricks from "../assets/images/tips-tricks.png"
 
 // Category banner images
 import origamiCategory from "../assets/images/category-images/orgami-category.jpg"
 import drawingCategory from "../assets/images/category-images/drawing-category.jpg"
 import beadsCategory from "../assets/images/category-images/beads-category.jpg"
+import perlerBeadsCategory from "../assets/images/picture-gallary-images/perler-beads.jpg"
+import threeDPenCategory from "../assets/images/picture-gallary-images/3D-pen-letters.jpg"
+import miniatureWondersCategory from "../assets/images/picture-gallary-images/miniature-wonders.jpg"
+import tipsTricksCategory from "../assets/images/picture-gallary-images/tips-and-tricks.jpg"
 
 
 
@@ -72,11 +79,35 @@ export const categoriesData = [
     descriptionKey: "categories.descriptions.scienceDiy",
   },
   {
-    id: 8,
-    titleKey: "categories.popsicleSticks",
-    color: "#FDBA74", // orange
-    icon: sticks,
-    bannerImage: sticks,
-    descriptionKey: "categories.descriptions.popsicleSticks",
+    id: 9,
+    titleKey: "categories.perlerBeads",
+    color: "#DDD6FE", // light purple
+    icon: perlerBeads,
+    bannerImage: perlerBeadsCategory,
+    descriptionKey: "categories.descriptions.perlerBeads",
+  },
+  {
+    id: 10,
+    titleKey: "categories.threeDPenFun",
+    color: "#FEF3C7", // light yellow
+    icon: threeDPenFun,
+    bannerImage: threeDPenCategory,
+    descriptionKey: "categories.descriptions.threeDPenFun",
+  },
+  {
+    id: 11,
+    titleKey: "categories.miniatureWonders",
+    color: "#E0E7FF", // light indigo
+    icon: miniatureWonders,
+    bannerImage: miniatureWondersCategory,
+    descriptionKey: "categories.descriptions.miniatureWonders",
+  },
+  {
+    id: 12,
+    titleKey: "categories.tipsTricks",
+    color: "#F3E8FF", // light purple
+    icon: tipsTricks,
+    bannerImage: tipsTricksCategory,
+    descriptionKey: "categories.descriptions.tipsTricks",
   },
 ];

@@ -322,7 +322,6 @@ const getCategoryFromTitle = (title) => {
   if (titleLower.includes('preschool') || titleLower.includes('kids') || titleLower.includes('children')) return 5;
   if (titleLower.includes('science') || titleLower.includes('experiment') || titleLower.includes('diy')) return 6;
   if (titleLower.includes('recycle') || titleLower.includes('upcycle') || titleLower.includes('bottle')) return 7;
-  if (titleLower.includes('popsicle') || titleLower.includes('stick') || titleLower.includes('wood')) return 8;
   
   // Default to origami if no category matches
   return 1;
@@ -343,7 +342,6 @@ const getCategoryTitleKey = (title) => {
     5: 'categories.preschoolCrafts',
     6: 'categories.scienceDiy',
     7: 'categories.recyclingArt',
-    8: 'categories.popsicleSticks'
   };
   
   return categoryMap[categoryId] || 'categories.origamiWorld';
