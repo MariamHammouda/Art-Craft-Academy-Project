@@ -3,23 +3,23 @@ import { useEffect } from 'react'
 import './App.css'
 import './i18n/i18n' // Initialize i18n
 import NavBar from './components/Navbar/NavBar.jsx'
-import HeroSection from './components/HeroSection/HeroSection'
-import CategoriesBar from "./components/Categories/CategoriesBar"
-import { VideosByCategory } from "./components/Videos/VideosByCategory"
-import LatestVideos from './components/Videos/LatestVideos'
+import HeroSection from './components/HeroSection/HeroSection.jsx'
+import CategoriesBar from "./components/Categories/CategoriesBar.jsx"
+import { VideosByCategory } from "./components/Videos/VideosByCategory.jsx"
+import LatestVideos from './components/Videos/LatestVideos.jsx'
 import FeaturedStories from './components/Stories/FeaturedStories'
 import ShortsStories from './components/Stories/ShortsStories'
-import CategoryPage from './components/CategoryPage/CategoryPage'
-import VideoDetailPage from './components/VideoDetail/VideoDetailPage'
-import AboutPage from './components/Pages/AboutPage'
-import CoursesPage from './components/Pages/CoursesPage'
-import ShopPage from './components/Pages/ShopPage'
-import PicturesPage from './components/Pages/PicturesPage'
-import PictureCategoryPage from './components/Pages/PictureCategoryPage'
-import DrawingDetailPage from './components/Pages/DrawingDetailPage'
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
-import Footer from './components/Footer/Footer'
-import QuotaManager from './components/Debug/QuotaManager'
+import CategoryPage from './components/CategoryPage/CategoryPage.jsx'
+import VideoDetailPage from './components/VideoDetail/VideoDetailPage.jsx'
+import AboutPage from './components/Pages/AboutPage.jsx'
+import CoursesPage from './components/Pages/CoursesPage.jsx'
+import ShopPage from './components/Pages/ShopPage.jsx'
+import PicturesPage from './components/Pages/PicturesPage.jsx'
+import PictureCategoryPage from './components/Pages/PictureCategoryPage.jsx'
+import DrawingDetailPage from './components/Pages/DrawingDetailPage.jsx'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.jsx'
+import Footer from './components/Footer/Footer.jsx'
+import QuotaManager from './components/Debug/QuotaManager.jsx'
 
 // Component to track navigation changes
 function NavigationTracker() {
