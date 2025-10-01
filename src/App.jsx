@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import './App.css'
 import './i18n/i18n' // Initialize i18n
@@ -6,20 +6,20 @@ import NavBar from './components/Navbar/NavBar.jsx'
 import HeroSection from './components/HeroSection/HeroSection'
 import CategoriesBar from "./components/Categories/CategoriesBar"
 import { VideosByCategory } from "./components/Videos/VideosByCategory"
-import LatestVideos from './components/Videos/LatestVideos'
+import LatestVideosSimple from './components/Videos/LatestVideosSimple'
 import FeaturedStories from './components/Stories/FeaturedStories'
 import ShortsStories from './components/Stories/ShortsStories'
 import CategoryPage from './components/CategoryPage/CategoryPage'
 import VideoDetailPage from './components/VideoDetail/VideoDetailPage'
+import AboutPage from './components/Pages/AboutPage'
 import CoursesPage from './components/Pages/CoursesPage'
 import ShopPage from './components/Pages/ShopPage'
-import AboutPage from './components/Pages/AboutPage'
 import PicturesPage from './components/Pages/PicturesPage'
 import PictureCategoryPage from './components/Pages/PictureCategoryPage'
 import DrawingDetailPage from './components/Pages/DrawingDetailPage'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import Footer from './components/Footer/Footer'
 import QuotaManager from './components/Debug/QuotaManager'
-
 
 // Component to track navigation changes
 function NavigationTracker() {
@@ -42,10 +42,13 @@ function App() {
           <Route path="/" element={
             <>
               <HeroSection/>
-              <LatestVideos />
-        
+              <ErrorBoundary fallbackMessage="Unable to load latest videos. Please try refreshing the page.">
+                <LatestVideosSimple />
+              </ErrorBoundary>
               <CategoriesBar />
-              <VideosByCategory />
+              <ErrorBoundary fallbackMessage="Unable to load video categories. Please try refreshing the page.">
+                <VideosByCategory />
+              </ErrorBoundary>
             </>
           } />
           <Route path="/category/:id" element={<CategoryPage />} />

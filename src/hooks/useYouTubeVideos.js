@@ -1,7 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { fetchChannelVideos, fetchPlaylistVideos, fetchCategorizedPlaylistVideos } from '../services/youtubeApi.js';
 import { resetForNewApiKey, clearAllCache } from '../services/cacheManager.js';
 import { videosData } from '../mockData/videosData.js'; // Fallback data
+
+// In-memory cache for video data with 5-minute expiration
+const videoCache = new Map();
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+// Cache utilities
+const getCacheKey = (playlists, maxResults) => {
+  return `${JSON.stringify(playlists)}_${maxResults}`;
+};
+
+const getCachedData = (key) => {
+  const cached = videoCache.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    console.log('📦 Using cached video data for key:', key);
+    return cached.data;
+  }
+  return null;
+};
+
+const setCachedData = (key, data) => {
+  videoCache.set(key, {
+    data,
+    timestamp: Date.now()
+  });
+  console.log('💾 Cached video data for key:', key, 'Count:', data.length);
+};
+
+// Global abort controller for managing requests
+let globalAbortController = null;
 
 /**
  * Custom hook for fetching and managing YouTube videos
@@ -60,157 +89,240 @@ export const useYouTubeVideos = (channels, maxResults = 10) => {
 };
 
 /**
- * Hook for fetching latest videos from main channel or playlists
+ * Hook for fetching latest videos from main channel or playlists with optimized caching
  * @param {number} maxResults - Maximum results
  * @returns {Object} { videos, loading, error, refetch }
  */
 export const useLatestVideos = (maxResults = 20) => {
-  // TEMPORARY: Clear cache to ensure fresh data for all playlists
-  useEffect(() => {
-    console.log('🧹 Clearing cache to fetch fresh data for all playlists');
-    clearAllCache();
-  }, []);
-
-  // Try YouTube API with smart caching and quota management
-  const playlists = [
-    {
-      playlistId: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID,
-      categoryId: 1,
-      categoryTitleKey: 'categories.origamiWorld'
-    },
-    {
-      playlistId: import.meta.env.VITE_DRAWING_PLAYLIST_ID,
-      categoryId: 2,
-      categoryTitleKey: 'categories.drawing'
-    },
-    {
-      playlistId: import.meta.env.VITE_BEADS_PLAYLIST_ID,
-      categoryId: 3,
-      categoryTitleKey: 'categories.beadsJewelry'
-    },
-    {
-      playlistId: import.meta.env.VITE_CLAY_PLAYLIST_ID,
-      categoryId: 4,
-      categoryTitleKey: 'categories.clay'
-    },
-    {
-      playlistId: import.meta.env.VITE_RECYCLING_PLAYLIST_ID,
-      categoryId: 5,
-      categoryTitleKey: 'categories.recyclingArt'
-    }
-    // Add more playlists as you configure them
-  ].filter(playlist => playlist.playlistId && !playlist.playlistId.startsWith('your_')); // Filter out unconfigured playlists
-
-  console.log('🎬 useLatestVideos - Configured playlists:', playlists);
-  console.log('📋 Environment variables:', {
-    origami: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID,
-    drawing: import.meta.env.VITE_DRAWING_PLAYLIST_ID,
-    beads: import.meta.env.VITE_BEADS_PLAYLIST_ID,
-    clay: import.meta.env.VITE_CLAY_PLAYLIST_ID,
-    recycling: import.meta.env.VITE_RECYCLING_PLAYLIST_ID
-  });
-
-  const result = usePlaylistVideos(playlists, maxResults);
-  
-  console.log('🎬 useLatestVideos result:', {
-    videosCount: result.videos.length,
-    loading: result.loading,
-    error: result.error,
-    playlistsConfigured: playlists.length,
-    sampleVideos: result.videos.slice(0, 3).map(v => ({ id: v.id, title: v.title, categoryId: v.categoryId }))
-  });
-  
-  // Debug: Log when loading state changes
-  useEffect(() => {
-    console.log('🔄 useLatestVideos loading state changed:', result.loading);
-  }, [result.loading]);
-  
-  return result;
-};
-
-/**
- * Custom hook for fetching and managing YouTube playlist videos
- * @param {Array} playlists - Array of playlist objects
- * @param {number} maxResults - Maximum results per playlist
- * @returns {Object} { videos, loading, error, refetch }
- */
-export const usePlaylistVideos = (playlists, maxResults = 10) => {
-  console.log('🎯 usePlaylistVideos called with:', { 
-    playlistsCount: playlists?.length || 0, 
-    maxResults,
-    playlists: playlists?.map(p => ({ id: p.playlistId, categoryId: p.categoryId }))
-  });
-  useEffect(() => {
-    // TEMPORARY: Reset cache and quota data for the new API key.
-    // This will be removed after confirming the fix.
-    console.log('🔑 TEMPORARILY RESETTING API KEY DATA...');
-    resetForNewApiKey();
-  }, []); // Run only once on mount
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const abortControllerRef = useRef(null);
+  const isMountedRef = useRef(true);
+
+  // Memoize playlists configuration to prevent unnecessary re-renders
+  const playlists = useMemo(() => {
+    return [
+      {
+        playlistId: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID,
+        categoryId: 1,
+        categoryTitleKey: 'categories.origamiWorld'
+      },
+      {
+        playlistId: import.meta.env.VITE_DRAWING_PLAYLIST_ID,
+        categoryId: 2,
+        categoryTitleKey: 'categories.drawing'
+      },
+      {
+        playlistId: import.meta.env.VITE_BEADS_PLAYLIST_ID,
+        categoryId: 3,
+        categoryTitleKey: 'categories.beadsJewelry'
+      },
+      {
+        playlistId: import.meta.env.VITE_CLAY_PLAYLIST_ID,
+        categoryId: 4,
+        categoryTitleKey: 'categories.clay'
+      },
+      {
+        playlistId: import.meta.env.VITE_RECYCLING_PLAYLIST_ID,
+        categoryId: 5,
+        categoryTitleKey: 'categories.recyclingArt'
+      }
+    ].filter(playlist => playlist.playlistId && !playlist.playlistId.startsWith('your_'));
+  }, []);
+
+  // Generate cache key for this specific request
+  const cacheKey = useMemo(() => getCacheKey(playlists, maxResults), [playlists, maxResults]);
 
   const fetchVideos = async () => {
     try {
-      console.log('🚀 usePlaylistVideos: Starting fetch...');
-      console.log('📋 Playlists to fetch:', playlists);
+      // Check cache first
+      const cachedData = getCachedData(cacheKey);
+      if (cachedData && isMountedRef.current) {
+        setVideos(cachedData);
+        setLoading(false);
+        setError(null);
+        return;
+      }
+
+      // Cancel previous request if exists
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+
+      // Create new abort controller with 5-second timeout
+      abortControllerRef.current = new AbortController();
+      const timeoutId = setTimeout(() => {
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort();
+        }
+      }, 5000);
+
+      if (!isMountedRef.current) return;
       
       setLoading(true);
       setError(null);
       
       let fetchedVideos = [];
       
-      if (Array.isArray(playlists)) {
-        console.log('📡 Fetching from playlists...');
-        // Multiple playlists with categories
+      if (Array.isArray(playlists) && playlists.length > 0) {
+        console.log('📡 Fetching fresh video data for', playlists.length, 'playlists');
         fetchedVideos = await fetchCategorizedPlaylistVideos(playlists, maxResults);
-        console.log('✅ Fetched videos count:', fetchedVideos.length);
       }
       
-      // If no videos fetched (API error, no key, etc.), use fallback data
+      clearTimeout(timeoutId);
+      
+      if (!isMountedRef.current) return;
+      
+      // If no videos fetched, use fallback data
       if (fetchedVideos.length === 0) {
         console.log('⚠️ No videos fetched, using fallback data');
-        console.log('📊 Fallback data count:', videosData.length);
-        setVideos(videosData);
-      } else {
-        console.log('✅ Using fetched videos:', fetchedVideos.length);
-        setVideos(fetchedVideos);
+        fetchedVideos = videosData.slice(0, maxResults);
       }
       
-      // Ensure loading is set to false when we have data
+      // Cache the results
+      setCachedData(cacheKey, fetchedVideos);
+      
+      setVideos(fetchedVideos);
       setLoading(false);
       
     } catch (err) {
-      console.error('❌ Error in usePlaylistVideos:', err);
+      if (err.name === 'AbortError') {
+        console.log('🚫 Request aborted due to timeout or cancellation');
+        return;
+      }
+      
+      console.error('❌ Error in useLatestVideos:', err);
+      
+      if (!isMountedRef.current) return;
+      
       setError(err.message);
       // Use fallback data on error
-      console.log('🔄 Using fallback data due to error');
-      setVideos(videosData);
-    } finally {
+      const fallbackData = videosData.slice(0, maxResults);
+      setVideos(fallbackData);
+      setCachedData(cacheKey, fallbackData);
       setLoading(false);
-      console.log('🏁 usePlaylistVideos: Fetch complete');
     }
   };
 
   useEffect(() => {
+    isMountedRef.current = true;
     fetchVideos();
     
-    // Force loading to false after 10 seconds to prevent endless loading
-    const timeoutId = setTimeout(() => {
-      console.log('⏰ TIMEOUT: Forcing loading to false after 10 seconds');
-      setLoading(false);
-      // Use fallback data if no videos were loaded
-      setVideos(prevVideos => {
-        if (prevVideos.length === 0) {
-          console.log('📊 Using fallback data due to timeout');
-          return videosData.slice(0, maxResults);
+    return () => {
+      isMountedRef.current = false;
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, [cacheKey]);
+
+  return {
+    videos,
+    loading,
+    error,
+    refetch: fetchVideos
+  };
+};
+
+/**
+ * Custom hook for fetching and managing YouTube playlist videos with caching
+ * @param {Array} playlists - Array of playlist objects
+ * @param {number} maxResults - Maximum results per playlist
+ * @returns {Object} { videos, loading, error, refetch }
+ */
+export const usePlaylistVideos = (playlists, maxResults = 10) => {
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const abortControllerRef = useRef(null);
+  const isMountedRef = useRef(true);
+
+  // Generate cache key for this specific request
+  const cacheKey = useMemo(() => getCacheKey(playlists, maxResults), [playlists, maxResults]);
+
+  const fetchVideos = async () => {
+    try {
+      // Check cache first
+      const cachedData = getCachedData(cacheKey);
+      if (cachedData && isMountedRef.current) {
+        setVideos(cachedData);
+        setLoading(false);
+        setError(null);
+        return;
+      }
+
+      // Cancel previous request if exists
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+
+      // Create new abort controller with 5-second timeout
+      abortControllerRef.current = new AbortController();
+      const timeoutId = setTimeout(() => {
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort();
         }
-        return prevVideos;
-      });
-    }, 10000);
+      }, 5000);
+
+      if (!isMountedRef.current) return;
+      
+      setLoading(true);
+      setError(null);
+      
+      let fetchedVideos = [];
+      
+      if (Array.isArray(playlists) && playlists.length > 0) {
+        console.log('📡 Fetching fresh playlist data for', playlists.length, 'playlists');
+        fetchedVideos = await fetchCategorizedPlaylistVideos(playlists, maxResults);
+      }
+      
+      clearTimeout(timeoutId);
+      
+      if (!isMountedRef.current) return;
+      
+      // If no videos fetched, use fallback data
+      if (fetchedVideos.length === 0) {
+        console.log('⚠️ No videos fetched, using fallback data');
+        fetchedVideos = videosData.slice(0, maxResults);
+      }
+      
+      // Cache the results
+      setCachedData(cacheKey, fetchedVideos);
+      
+      setVideos(fetchedVideos);
+      setLoading(false);
+      
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        console.log('🚫 Playlist request aborted due to timeout or cancellation');
+        return;
+      }
+      
+      console.error('❌ Error in usePlaylistVideos:', err);
+      
+      if (!isMountedRef.current) return;
+      
+      setError(err.message);
+      // Use fallback data on error
+      const fallbackData = videosData.slice(0, maxResults);
+      setVideos(fallbackData);
+      setCachedData(cacheKey, fallbackData);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    fetchVideos();
     
-    return () => clearTimeout(timeoutId);
-  }, [playlists, maxResults]);
+    return () => {
+      isMountedRef.current = false;
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, [cacheKey]);
 
   return {
     videos,

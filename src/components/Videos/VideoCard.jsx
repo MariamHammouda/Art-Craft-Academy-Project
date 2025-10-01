@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -7,36 +7,58 @@ const VideoCard = ({ id, url, titleKey, categoryTitleKey, title, categoryTitle, 
   const navigate = useNavigate();
   const [showIframe, setShowIframe] = useState(false);
   
-  // Use translation key if available, otherwise fallback to direct title
-  const displayTitle = titleKey ? t(titleKey) : title;
-  const displayCategoryTitle = categoryTitleKey ? t(categoryTitleKey) : categoryTitle;
+  // Safety checks for props
+  if (!id || !url) {
+    console.warn('VideoCard: Missing required props', { id, url });
+    return null;
+  }
   
-  // Extract video ID from URL for thumbnail
+  // Use translation key if available, otherwise fallback to direct title
+  const displayTitle = titleKey ? t(titleKey) : (title || 'Untitled Video');
+  const displayCategoryTitle = categoryTitleKey ? t(categoryTitleKey) : (categoryTitle || '');
+  
+  // Extract video ID from URL for thumbnail with error handling
   const getVideoId = (url) => {
-    const match = url.match(/embed\/([^?]+)/);
-    return match ? match[1] : null;
+    try {
+      if (!url || typeof url !== 'string') return null;
+      const match = url.match(/embed\/([^?]+)/);
+      return match ? match[1] : null;
+    } catch (err) {
+      console.warn('Error extracting video ID:', err);
+      return null;
+    }
   };
   
   const videoId = getVideoId(url);
   const thumbnailUrl = thumbnail || (videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : null);
   
-  const handleClick = () => {
-    console.log('🎬 VideoCard clicked:', { id, title: displayTitle });
+  // Memoized event handlers to prevent unnecessary re-renders
+  const handleClick = useCallback(() => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('🎬 VideoCard clicked:', { id, title: displayTitle });
+    }
     
     // Use React Router navigate for proper HashRouter navigation
     navigate(`/video/${id}`);
-  };
+  }, [id, displayTitle, navigate]);
   
-  const handleYouTubeClick = (e) => {
+  const handleYouTubeClick = useCallback((e) => {
     e.stopPropagation(); // Prevent card click
-    const youtubeUrl = url.replace('/embed/', '/watch?v=').split('?')[0] + '?v=' + getVideoId(url);
-    window.open(youtubeUrl, '_blank');
-  };
+    try {
+      const videoId = getVideoId(url);
+      if (videoId) {
+        const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+        window.open(youtubeUrl, '_blank');
+      }
+    } catch (err) {
+      console.error('Error opening YouTube link:', err);
+    }
+  }, [url]);
   
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
     // Lazy load iframe on hover for better performance
     setShowIframe(true);
-  };
+  }, []);
   
   return (
     <div 
@@ -118,4 +140,16 @@ const VideoCard = ({ id, url, titleKey, categoryTitleKey, title, categoryTitle, 
   );
 }
 
-export default memo(VideoCard)
+// Memoized component with custom comparison for better performance
+export default memo(VideoCard, (prevProps, nextProps) => {
+  // Only re-render if essential props change
+  return (
+    prevProps.id === nextProps.id &&
+    prevProps.url === nextProps.url &&
+    prevProps.title === nextProps.title &&
+    prevProps.titleKey === nextProps.titleKey &&
+    prevProps.categoryTitle === nextProps.categoryTitle &&
+    prevProps.categoryTitleKey === nextProps.categoryTitleKey &&
+    prevProps.thumbnail === nextProps.thumbnail
+  );
+})
