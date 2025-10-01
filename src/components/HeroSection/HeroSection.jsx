@@ -10,31 +10,30 @@ const HeroSection = () => {
   return (
     <>
       <section id="home" className="bg-[#59ACBE] py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-2 sm:px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             
             {/* Text Content Column */}
             <div className="space-y-8 text-center lg:text-left">
               {/* Big Logo */}
               <div className="flex justify-center lg:justify-start mb-6 -mt-8">
                 <img 
-                  src={Artlogo} 
+                  src={Artlogo}
                   alt="Academy of Art and Craft Logo" 
                   className="h-40 sm:h-48 md:h-56 lg:h-64 xl:h-72 2xl:h-80 w-auto object-contain drop-shadow-lg"
                 />
               </div>
               
-              <div className="space-y-4">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+              <div className="space-y-6">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
                   {t('hero.title')} 
                   <span className="text-[#FCD11A] block sm:inline"> {t('hero.titleHighlight')}</span> 
                   {t('hero.titleEnd') && <span className="block">{t('hero.titleEnd')}</span>}
                 </h1>
-                <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                <p className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed max-w-lg mx-auto lg:mx-0">
                   {t('hero.description')}
                 </p>
               </div>
-              
 
             </div>
             
