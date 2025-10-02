@@ -6,23 +6,20 @@ import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 // Import gallery images
 import drawingImage from '../../assets/images/picture-gallary-images/drawing.jpg';
 import origamiImage from '../../assets/images/picture-gallary-images/orgami.jpg';
-import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
+import perlerBeadsImage from '../../assets/images/picture-gallary-images/perler-beads.jpg';
 import clayImage from '../../assets/images/picture-gallary-images/clay.jpg';
 import beadsAccessoriesImage from '../../assets/images/picture-gallary-images/beads-accessories.jpg';
 import recyclingImage from '../../assets/images/picture-gallary-images/recycling.jpg';
-import perlerBeadsImage from '../../assets/images/picture-gallary-images/perler-beads.jpg';
 import threeDPenImage from '../../assets/images/picture-gallary-images/3D-pen-letters.jpg';
-import miniatureWondersImage from '../../assets/images/picture-gallary-images/miniature-wonders.jpg';
+import preschoolImage from '../../assets/images/picture-gallary-images/preschool.jpg';
 import scienceImage from '../../assets/images/picture-gallary-images/science.png';
-import tipsTricksImage from '../../assets/images/picture-gallary-images/tips-and-tricks.jpg';
 
-// Import header image (using existing image as placeholder)
-import drawingCategoryHeaderImg from '../../assets/images/hero-images/girl.jpg';
+// Import header background image
+import picturesBackgroundImg from '../../assets/images/picture-gallary-images/pictures-backgrounds.jpg';
 
 const PicturesPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
   useEffect(() => {
     console.log("PicturesPage component mounted successfully!");
     console.log("Translation function available:", typeof t);
@@ -65,7 +62,7 @@ const PicturesPage = () => {
       textColor: 'text-purple-800',
       iconBg: 'bg-purple-100',
       backgroundImage: beadsAccessoriesImage,
-      images: [beadsAccessoriesImage, clayImage, miniatureWondersImage]
+      images: [beadsAccessoriesImage, clayImage, origamiImage]
     },
     {
       id: 5,
@@ -83,7 +80,7 @@ const PicturesPage = () => {
       textColor: 'text-yellow-800',
       iconBg: 'bg-yellow-100',
       backgroundImage: preschoolImage,
-      images: [preschoolImage, tipsTricksImage, origamiImage]
+      images: [preschoolImage, drawingImage, origamiImage]
     },
     {
       id: 7,
@@ -105,30 +102,12 @@ const PicturesPage = () => {
     },
     {
       id: 9,
-      key: 'miniatureWonders',
-      color: 'bg-red-50 border-red-200 hover:bg-red-100',
-      textColor: 'text-red-800',
-      iconBg: 'bg-red-100',
-      backgroundImage: miniatureWondersImage,
-      images: [miniatureWondersImage, origamiImage, preschoolImage]
-    },
-    {
-      id: 10,
       key: 'scienceDiyExperiments',
       color: 'bg-cyan-50 border-cyan-200 hover:bg-cyan-100',
       textColor: 'text-cyan-800',
       iconBg: 'bg-cyan-100',
       backgroundImage: scienceImage,
-      images: [scienceImage, tipsTricksImage, perlerBeadsImage]
-    },
-    {
-      id: 11,
-      key: 'tipsTricks',
-      color: 'bg-gray-50 border-gray-200 hover:bg-gray-100',
-      textColor: 'text-gray-800',
-      iconBg: 'bg-gray-100',
-      backgroundImage: tipsTricksImage,
-      images: [tipsTricksImage, threeDPenImage, miniatureWondersImage]
+      images: [scienceImage, perlerBeadsImage, drawingImage]
     }
   ];
 
@@ -146,7 +125,7 @@ const PicturesPage = () => {
         {/* Header Image */}
         <div className="h-80 w-full overflow-hidden relative">
           <img
-            src={drawingCategoryHeaderImg}
+            src={picturesBackgroundImg}
             alt="Picture Gallery Header"
             className="w-full h-full object-cover scale-125 transform"
           />
@@ -163,20 +142,20 @@ const PicturesPage = () => {
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 py-12">
         {/* Breadcrumbs */}
         <Breadcrumbs />
-        {/* Pinterest-style Masonry Grid */}
-        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {pictureCategories.map((category) => (
             <div
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
-              className="bg-white rounded-xl cursor-pointer transition-all duration-300 hover:shadow-xl overflow-hidden break-inside-avoid mb-6 border border-gray-200 hover:border-[#59ACBE]"
+              className="bg-white rounded-xl cursor-pointer transition-all duration-300 hover:shadow-xl overflow-hidden border border-gray-200 hover:border-[#59ACBE] h-full flex flex-col"
             >
-              {/* Pinterest-style Image Layout */}
+              {/* Image Layout */}
               {category.images && category.images.length >= 3 ? (
-                <div className="relative">
+                <div className="flex-1 flex flex-col">
                   {/* Main large image */}
                   <div className="relative overflow-hidden">
                     <img
@@ -188,19 +167,19 @@ const PicturesPage = () => {
                   </div>
                   
                   {/* Two smaller images side by side */}
-                  <div className="flex">
+                  <div className="flex flex-1">
                     <div className="flex-1 relative overflow-hidden">
                       <img
                         src={category.images[1]}
                         alt={t(`pictures.categories.${category.key}`)}
-                        className="w-full h-32 object-cover transition-transform duration-300 hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
                     <div className="flex-1 relative overflow-hidden">
                       <img
                         src={category.images[2]}
                         alt={t(`pictures.categories.${category.key}`)}
-                        className="w-full h-32 object-cover transition-transform duration-300 hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                       {/* Overlay with count if more images */}
                       <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
@@ -211,7 +190,7 @@ const PicturesPage = () => {
                 </div>
               ) : (
                 /* Fallback single image */
-                <div className="relative overflow-hidden">
+                <div className="flex-1 relative overflow-hidden">
                   <img
                     src={category.backgroundImage}
                     alt={t(`pictures.categories.${category.key}`)}
@@ -221,27 +200,11 @@ const PicturesPage = () => {
                 </div>
               )}
               
-              {/* Card Footer */}
-              <div className="p-4">
-                {/* Category Title */}
-                <h3 className={`text-lg font-bold ${category.textColor} mb-2`}>
+              {/* Category Title - Centered */}
+              <div className="p-4 text-center">
+                <h3 className={`text-lg font-bold ${category.textColor}`}>
                   {t(`pictures.categories.${category.key}`)}
                 </h3>
-                
-                {/* Category Description */}
-                <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                  {t(`pictures.descriptions.${category.key}`) || 'Explore beautiful craft ideas and tutorials'}
-                </p>
-                
-                {/* Stats and Action */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-xs text-gray-500">
-                    <span>📸 {category.images?.length || 1} photos</span>
-                  </div>
-                  <button className={`px-3 py-1 ${category.textColor} bg-transparent border border-current rounded-full text-xs font-medium hover:bg-current hover:text-white transition-all duration-200`}>
-                    {t('pictures.viewGallery')}
-                  </button>
-                </div>
               </div>
             </div>
           ))}
