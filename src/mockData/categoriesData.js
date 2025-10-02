@@ -5,19 +5,14 @@ import clay from "../assets/images/clay.png"
 import preschool from "../assets/images/preschool.png"
 import recycleing from "../assets/images/recycleing.png"
 import science from "../assets/images/science.png"
-import perlerBeads from "../assets/images/perler-beads.png"
-import threeDPenFun from "../assets/images/3d-pen-fun.png"
-import miniatureWonders from "../assets/images/miniature-wonders.png"
-import tipsTricks from "../assets/images/tips-tricks.png"
-
+import perlerBeads from "../assets/images/perler-beads.ico"
+import threeDPenFun from "../assets/images/3d-pen-fun.ico"
 // Category banner images
 import origamiCategory from "../assets/images/category-images/orgami-category.jpg"
 import drawingCategory from "../assets/images/category-images/drawing-category.jpg"
 import beadsCategory from "../assets/images/category-images/beads-category.jpg"
 import perlerBeadsCategory from "../assets/images/picture-gallary-images/perler-beads.jpg"
 import threeDPenCategory from "../assets/images/picture-gallary-images/3D-pen-letters.jpg"
-import miniatureWondersCategory from "../assets/images/picture-gallary-images/miniature-wonders.jpg"
-import tipsTricksCategory from "../assets/images/picture-gallary-images/tips-and-tricks.jpg"
 
 
 
@@ -40,6 +35,14 @@ export const categoriesData = [
   },
   {
     id: 3,
+    titleKey: "categories.recyclingArt",
+    color: "#BBF7D0", // mint green
+    icon: recycleing,
+    bannerImage: recycleing,
+    descriptionKey: "categories.descriptions.recyclingArt",
+  },
+  {
+    id: 4,
     titleKey: "categories.beadsJewelry",
     color: "#F9A8D4", // pink
     icon: beads,
@@ -47,20 +50,12 @@ export const categoriesData = [
     descriptionKey: "categories.descriptions.beadsJewelry",
   },
   {
-    id: 4,
+    id: 5,
     titleKey: "categories.clay",
     color: "#A7F3D0", // green
     icon: clay,
     bannerImage: clay,
     descriptionKey: "categories.descriptions.clay",
-  },
-  {
-    id: 5,
-    titleKey: "categories.recyclingArt",
-    color: "#BBF7D0", // mint green
-    icon: recycleing,
-    bannerImage: recycleing,
-    descriptionKey: "categories.descriptions.recyclingArt",
   },
   {
     id: 6,
@@ -72,14 +67,6 @@ export const categoriesData = [
   },
   {
     id: 7,
-    titleKey: "categories.scienceDiy",
-    color: "#C7D2FE", // purple
-    icon: science,
-    bannerImage: science,
-    descriptionKey: "categories.descriptions.scienceDiy",
-  },
-  {
-    id: 9,
     titleKey: "categories.perlerBeads",
     color: "#DDD6FE", // light purple
     icon: perlerBeads,
@@ -87,7 +74,7 @@ export const categoriesData = [
     descriptionKey: "categories.descriptions.perlerBeads",
   },
   {
-    id: 10,
+    id: 8,
     titleKey: "categories.threeDPenFun",
     color: "#FEF3C7", // light yellow
     icon: threeDPenFun,
@@ -95,19 +82,11 @@ export const categoriesData = [
     descriptionKey: "categories.descriptions.threeDPenFun",
   },
   {
-    id: 11,
-    titleKey: "categories.miniatureWonders",
-    color: "#E0E7FF", // light indigo
-    icon: miniatureWonders,
-    bannerImage: miniatureWondersCategory,
-    descriptionKey: "categories.descriptions.miniatureWonders",
-  },
-  {
-    id: 12,
-    titleKey: "categories.tipsTricks",
-    color: "#F3E8FF", // light purple
-    icon: tipsTricks,
-    bannerImage: tipsTricksCategory,
-    descriptionKey: "categories.descriptions.tipsTricks",
+    id: 9,
+    titleKey: "categories.scienceDiy",
+    color: "#C7D2FE", // purple
+    icon: science,
+    bannerImage: science,
+    descriptionKey: "categories.descriptions.scienceDiy",
   },
 ];

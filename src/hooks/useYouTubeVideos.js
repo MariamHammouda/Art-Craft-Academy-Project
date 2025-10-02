@@ -114,19 +114,39 @@ export const useLatestVideos = (maxResults = 20) => {
         categoryTitleKey: 'categories.drawing'
       },
       {
-        playlistId: import.meta.env.VITE_BEADS_PLAYLIST_ID,
+        playlistId: import.meta.env.VITE_RECYCLING_PLAYLIST_ID,
         categoryId: 3,
+        categoryTitleKey: 'categories.recyclingArt'
+      },
+      {
+        playlistId: import.meta.env.VITE_BEADS_PLAYLIST_ID,
+        categoryId: 4,
         categoryTitleKey: 'categories.beadsJewelry'
       },
       {
         playlistId: import.meta.env.VITE_CLAY_PLAYLIST_ID,
-        categoryId: 4,
+        categoryId: 5,
         categoryTitleKey: 'categories.clay'
       },
       {
-        playlistId: import.meta.env.VITE_RECYCLING_PLAYLIST_ID,
-        categoryId: 5,
-        categoryTitleKey: 'categories.recyclingArt'
+        playlistId: import.meta.env.VITE_PRESCHOOL_PLAYLIST_ID,
+        categoryId: 6,
+        categoryTitleKey: 'categories.preschoolCrafts'
+      },
+      {
+        playlistId: import.meta.env.VITE_PERLER_BEADS_PLAYLIST_ID,
+        categoryId: 7,
+        categoryTitleKey: 'categories.perlerBeads'
+      },
+      {
+        playlistId: import.meta.env.VITE_3D_PEN_FUN_PLAYLIST_ID,
+        categoryId: 8,
+        categoryTitleKey: 'categories.3dPenFun'
+      },
+      {
+        playlistId: import.meta.env.VITE_SCIENCE_PLAYLIST_ID,
+        categoryId: 9,
+        categoryTitleKey: 'categories.scienceDiy'
       }
     ].filter(playlist => playlist.playlistId && !playlist.playlistId.startsWith('your_'));
   }, []);
@@ -352,18 +372,15 @@ export const useVideosByCategory = (categoryId, maxResults = 10) => {
       
       // Map category IDs to their respective playlists
       const categoryPlaylistMap = {
-        1: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID, // Origami
+        1: import.meta.env.VITE_ORIGAMI_PLAYLIST_ID, // Origami & Paper Crafts
         2: import.meta.env.VITE_DRAWING_PLAYLIST_ID, // Drawing
-        3: import.meta.env.VITE_BEADS_PLAYLIST_ID, // Beads & Jewelry
-        4: import.meta.env.VITE_CLAY_PLAYLIST_ID, // Clay
-        5: import.meta.env.VITE_RECYCLING_PLAYLIST_ID, // Recycling Art
+        3: import.meta.env.VITE_RECYCLING_PLAYLIST_ID, // Recycling Art
+        4: import.meta.env.VITE_BEADS_PLAYLIST_ID, // Beads & Accessories
+        5: import.meta.env.VITE_CLAY_PLAYLIST_ID, // Clay Creations
         6: import.meta.env.VITE_PRESCHOOL_PLAYLIST_ID, // Preschool Crafts
-        7: import.meta.env.VITE_SCIENCE_PLAYLIST_ID, // Science DIY
-        9: import.meta.env.VITE_PERLER_BEADS_PLAYLIST_ID, // Perler Beads
-        10: import.meta.env.VITE_3D_PEN_FUN_PLAYLIST_ID, // 3D Pen Fun
-        11: import.meta.env.VITE_MINIATURE_WONDERS_PLAYLIST_ID, // Miniature Wonders
-        12: import.meta.env.VITE_TIPS_TRICKS_PLAYLIST_ID, // Tips & Tricks
-        // Add more categories as needed
+        7: import.meta.env.VITE_PERLER_BEADS_PLAYLIST_ID, // Perler Beads
+        8: import.meta.env.VITE_3D_PEN_FUN_PLAYLIST_ID, // 3D Pen Fun
+        9: import.meta.env.VITE_SCIENCE_PLAYLIST_ID, // Science & DIY Experiments
       };
       
       const playlistId = categoryPlaylistMap[categoryId];

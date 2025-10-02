@@ -32,8 +32,6 @@
     "recyclingArt": "Recycling Art",
     "perlerBeads": "Perler Beads",
     "threeDPenFun": "3D Pen Fun",
-    "miniatureWonders": "Miniature Wonders",
-    "tipsTricks": "Tips & Tricks",
     "descriptions": {
       "origamiWorld": "Discover the ancient art of paper folding with our step-by-step origami tutorials. From simple cranes to complex flowers, learn to create beautiful paper sculptures that will amaze your friends and family.",
       "drawing": "Unleash your creativity with our comprehensive drawing tutorials. Learn fundamental techniques, shading, perspective, and various drawing styles from beginner to advanced levels.",
@@ -43,9 +41,7 @@
       "scienceDiy": "Combine learning with fun through exciting science experiments and DIY projects. Explore physics, chemistry, and biology concepts through hands-on activities and experiments.",
       "recyclingArt": "Turn everyday waste into beautiful art pieces. Learn eco-friendly crafting techniques using recycled materials to create unique decorations and functional items.",
       "perlerBeads": "Create amazing pixel art and 3D designs with colorful Perler beads! Learn to make keychains, coasters, characters, and decorative items using this fun melting bead technique.",
-      "threeDPenFun": "Discover the world of 3D printing with a pen! Create incredible three-dimensional sculptures, jewelry, architectural models, and artistic designs using 3D printing pen technology.",
-      "miniatureWonders": "Enter the enchanting world of miniatures! Learn to create tiny detailed crafts, dollhouses, furniture, fairy gardens, and complete miniature worlds that capture imagination in small scale.",
-      "tipsTricks": "Master your crafting skills with expert tips and tricks! Learn essential techniques, organization hacks, budget-friendly solutions, and troubleshooting advice to become a more efficient and creative crafter."
+      "threeDPenFun": "Discover the world of 3D printing with a pen! Create incredible three-dimensional sculptures, jewelry, architectural models, and artistic designs using 3D printing pen technology."
     }
   },
     "videos": {
@@ -100,19 +96,7 @@
       "threeDPenAnimals": "3D Pen Animal Sculptures",
       "threeDPenJewelry": "3D Pen Jewelry Making",
       "threeDPenFlowers": "3D Pen Flower Bouquet",
-      "threeDPenArchitecture": "3D Pen Architecture Models",
-      "miniatureDollhouse": "Miniature Dollhouse Tutorial",
-      "miniatureFurniture": "Tiny Furniture Making",
-      "miniatureGarden": "Miniature Fairy Garden",
-      "miniatureFood": "Polymer Clay Miniature Food",
-      "miniatureBooks": "Tiny Books and Library",
-      "miniatureWorld": "Complete Miniature World Scene",
-      "craftingHacks": "Essential Crafting Hacks & Tips",
-      "toolTips": "Craft Tool Tips & Maintenance",
-      "organizationTips": "Craft Room Organization ideas",
-      "budgetCrafting": "Budget-Friendly crafting Tips",
-      "troubleshooting": "Common Craft Problems & Solutions",
-      "timeManagement": "Time Management for Crafters"
+      "threeDPenArchitecture": "3D Pen Architecture Models"
     }
   },
   "stories": {
@@ -188,9 +172,7 @@
       "preschoolCrafts": "Preschool Crafts",
       "perlerBeads": "Perler Beads",
       "3dPenFun": "3D Pen Fun",
-      "miniatureWonders": "Miniature Wonders",
-      "scienceDiyExperiments": "Science & DIY Experiments",
-      "tipsTricks": "Tips & Tricks"
+      "scienceDiyExperiments": "Science & DIY Experiments"
     },
     "descriptions": {
       "origamiPaperCrafts": "Beautiful paper folding creations and paper craft projects",
@@ -201,9 +183,7 @@
       "preschoolCrafts": "Fun and colorful crafts perfect for young children",
       "perlerBeads": "Pixel art and designs created with Perler beads",
       "3dPenFun": "Incredible 3D creations made with 3D pens",
-      "miniatureWonders": "Tiny detailed crafts and miniature worlds",
-      "scienceDiyExperiments": "Educational and fun science experiment results",
-      "tipsTricks": "Helpful techniques and creative solutions for crafting"
+      "scienceDiyExperiments": "Educational and fun science experiment results"
     },
     "viewGallery": "View Gallery",
     "backToPictures": "Back to Pictures",

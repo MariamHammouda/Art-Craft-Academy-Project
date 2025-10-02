@@ -67,7 +67,7 @@ const NavBar = () => {
           )}
 
           {/* Desktop Navigation Links */}
-          <div className={`${showLogo ? 'absolute left-1/2 transform -translate-x-1/2' : 'flex-1 flex justify-center'}`}>
+          <div className={`${showLogo ? 'ml-8 lg:ml-12' : 'flex-1 flex justify-center'}`}>
             <ul className="hidden md:flex items-center gap-4 lg:gap-8 text-white">
               <li>
                 <Link 
