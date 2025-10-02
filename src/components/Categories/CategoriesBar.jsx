@@ -16,11 +16,11 @@ const CategoriesBar = () => {
       const width = window.innerWidth;
       let newCount;
       if (width >= 1280) {
-        newCount = 4; // xl screens - reduced to ensure full visibility
+        newCount = 4; // xl screens
       } else if (width >= 1024) {
-        newCount = 3; // lg screens - reduced
+        newCount = 3; // lg screens
       } else if (width >= 768) {
-        newCount = 2; // md screens - reduced
+        newCount = 2; // md screens
       } else if (width >= 640) {
         newCount = 2; // sm screens
       } else {
@@ -30,7 +30,6 @@ const CategoriesBar = () => {
       setVisibleCount(prev => prev !== newCount ? newCount : prev);
     };
     
-    // Throttle resize events to improve performance
     let timeoutId;
     const throttledResize = () => {
       clearTimeout(timeoutId);
@@ -46,7 +45,9 @@ const CategoriesBar = () => {
   }, []);
   
   const totalCategories = categoriesData.length;
-  const maxIndex = Math.max(0, totalCategories - visibleCount);
+  
+  // ✅ عدلنا هنا +1 عشان آخر كارت يبان كامل
+  const maxIndex = Math.max(0, totalCategories - visibleCount + 1);
   
   const nextSlide = () => {
     setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
@@ -59,8 +60,6 @@ const CategoriesBar = () => {
   const goToSlide = (index) => {
     setCurrentIndex(Math.min(index, maxIndex));
   };
-  
-  // Removed auto-slide to prevent performance issues
   
   const showNavigation = totalCategories > visibleCount;
   const totalDots = Math.max(1, maxIndex + 1);
@@ -82,13 +81,13 @@ const CategoriesBar = () => {
           </button>
         )}
 
-     
-             {/* Categories Container */}
+        {/* Categories Container */}
         <div className="overflow-hidden">
           <div 
-            className="flex transition-transform duration-300 ease-out gap-2"
+            className="flex transition-transform duration-300 ease-out gap-4"
             style={{
-              transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
+              // ✅ زودنا +0.5% كتعويض عن الـ gap
+              transform: `translateX(-${currentIndex * (100 / visibleCount + 0.5)}%)`,
               willChange: 'transform'
             }}
           >

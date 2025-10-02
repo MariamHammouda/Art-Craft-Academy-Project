@@ -56,7 +56,7 @@ const CategoryCard = ({ titleKey, icon, color, id, bannerImage }) => {
         }
       }}
     >
-      <div className="bg-white rounded-2xl shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-105 overflow-hidden w-full m-10">
+      <div className="bg-white rounded-2xl shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:scale-105 overflow-hidden w-full m-10 mr-2">
         {/* Colored Background Section with Icon */}
        <div 
           className="relative h-32 flex items-center justify-center transition-all duration-300"
