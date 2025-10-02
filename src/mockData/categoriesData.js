@@ -84,7 +84,7 @@ export const categoriesData = [
   {
     id: 9,
     titleKey: "categories.scienceDiy",
-    color: "#C7D2FE", // purple
+    color: "#f56263", // red
     icon: science,
     bannerImage: science,
     descriptionKey: "categories.descriptions.scienceDiy",

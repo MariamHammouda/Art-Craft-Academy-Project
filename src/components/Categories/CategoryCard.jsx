@@ -12,12 +12,12 @@ const CategoryCard = ({ titleKey, icon, color, id, bannerImage }) => {
       1: 'bg-[#FFD93D] hover:bg-[#917c24]', // Origami - Yellow
       2: 'bg-[#63C8FF] hover:bg-[#51a2cf]', // Drawing - Orange  
       3: 'bg-[#32CD32] hover:bg-[#28B428]', // Recycling - Green
-      4: 'bg-[#FF6347] hover:bg-[#E5563C]', // Beads - Red/Orange
-      5: 'bg-[#9370DB] hover:bg-[#8060C8]', // Clay - Purple
-      6: 'bg-[#32CD32] hover:bg-[#28B428]', // Preschool - Green
+      4: 'bg-[#F0308F] hover:bg-[#bf2672]', // Beads - Red/Orange
+      5: 'bg-[#5cedab] hover:bg-[#4abd88]', // Clay - Purple
+      6: 'bg-[#F0308F] hover:bg-[#bf2672]', // Preschool - Green
       7: 'bg-[#9370DB] hover:bg-[#8060C8]', // Perler Beads - Purple
       8: 'bg-[#FFA500] hover:bg-[#E6940A]', // 3D Pen - Orange
-      9: 'bg-[#59ACBE] hover:bg-[#4A9BB0]'  // Science - Teal/Blue
+      9: 'bg-[#f5494a] hover:bg-[#d63d3e]'  // Science - Red
     };
     return buttonColors[categoryId] || 'bg-[#59ACBE] hover:bg-[#4A9BB0]';
   };
