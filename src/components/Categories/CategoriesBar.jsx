@@ -9,18 +9,18 @@ const CategoriesBar = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   // Show different number of categories based on screen size
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [visibleCount, setVisibleCount] = useState(3);
   
   useEffect(() => {
     const updateVisibleCount = () => {
       const width = window.innerWidth;
       let newCount;
       if (width >= 1280) {
-        newCount = 5; // xl screens - fewer cards due to wider design
+        newCount = 4; // xl screens - reduced to ensure full visibility
       } else if (width >= 1024) {
-        newCount = 4; // lg screens
+        newCount = 3; // lg screens - reduced
       } else if (width >= 768) {
-        newCount = 3; // md screens
+        newCount = 2; // md screens - reduced
       } else if (width >= 640) {
         newCount = 2; // sm screens
       } else {
@@ -66,11 +66,11 @@ const CategoriesBar = () => {
   const totalDots = Math.max(1, maxIndex + 1);
   
   return (
-    <section id="categories" className="p-8">
+    <section id="categories" className="p-10 m-10 w-full" >
       <h2 className="text-2xl font-bold mb-6 text-center">{t('categories.title')}</h2>
       <p className="text-gray-600 text-center mb-8">{t('categories.subtitle')}</p>
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto px-8">
         {/* Previous Button */}
         {showNavigation && currentIndex > 0 && (
           <button
@@ -82,10 +82,11 @@ const CategoriesBar = () => {
           </button>
         )}
 
-        {/* Categories Container */}
+     
+             {/* Categories Container */}
         <div className="overflow-hidden">
           <div 
-            className="flex transition-transform duration-300 ease-out gap-4"
+            className="flex transition-transform duration-300 ease-out gap-2"
             style={{
               transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
               willChange: 'transform'
@@ -94,8 +95,10 @@ const CategoriesBar = () => {
             {categoriesData.map((cat) => (
               <div 
                 key={cat.id} 
-                className="flex-shrink-0 px-2"
-                style={{ width: `${100 / visibleCount}%` }}
+                className="flex-shrink-0"
+                style={{ 
+                  width: `calc((100% - ${(visibleCount - 1) * 8}px) / ${visibleCount})`
+                }}
               >
                 <CategoryCard
                   id={cat.id}
