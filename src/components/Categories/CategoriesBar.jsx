@@ -9,20 +9,22 @@ const CategoriesBar = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   // Show different number of categories based on screen size
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(4);
   
   useEffect(() => {
     const updateVisibleCount = () => {
       const width = window.innerWidth;
       let newCount;
       if (width >= 1280) {
-        newCount = 8; // xl screens
+        newCount = 5; // xl screens - fewer cards due to wider design
       } else if (width >= 1024) {
-        newCount = 6; // lg screens
+        newCount = 4; // lg screens
       } else if (width >= 768) {
-        newCount = 4; // md screens
-      } else {
+        newCount = 3; // md screens
+      } else if (width >= 640) {
         newCount = 2; // sm screens
+      } else {
+        newCount = 1; // xs screens
       }
       
       setVisibleCount(prev => prev !== newCount ? newCount : prev);
@@ -76,14 +78,14 @@ const CategoriesBar = () => {
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors duration-200"
             aria-label="Previous categories"
           >
-            <FiChevronLeft className="w-6 h-6 text-[#003FBC]" />
+            <FiChevronLeft className="w-6 h-6 text-[#59ACBE]" />
           </button>
         )}
 
         {/* Categories Container */}
         <div className="overflow-hidden">
           <div 
-            className="flex transition-transform duration-300 ease-out gap-6"
+            className="flex transition-transform duration-300 ease-out gap-4"
             style={{
               transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
               willChange: 'transform'
@@ -92,7 +94,7 @@ const CategoriesBar = () => {
             {categoriesData.map((cat) => (
               <div 
                 key={cat.id} 
-                className="flex-shrink-0"
+                className="flex-shrink-0 px-2"
                 style={{ width: `${100 / visibleCount}%` }}
               >
                 <CategoryCard
@@ -100,6 +102,7 @@ const CategoriesBar = () => {
                   titleKey={cat.titleKey}
                   icon={cat.icon}
                   color={cat.color}
+                  bannerImage={cat.bannerImage}
                 />
               </div>
             ))}
@@ -113,7 +116,7 @@ const CategoriesBar = () => {
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors duration-200"
             aria-label="Next categories"
           >
-            <FiChevronRight className="w-6 h-6 text-[#003FBC]" />
+            <FiChevronRight className="w-6 h-6 text-[#59ACBE]" />
           </button>
         )}
       </div>
@@ -127,7 +130,7 @@ const CategoriesBar = () => {
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                 index === currentIndex 
-                  ? 'bg-[#003FBC]' 
+                  ? 'bg-[#59ACBE]' 
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
               aria-label={`Go to slide ${index + 1}`}

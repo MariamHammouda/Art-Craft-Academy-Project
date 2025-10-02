@@ -218,7 +218,8 @@
     "delete": "حذف",
     "confirm": "تأكيد",
     "back": "رجوع",
-    "backToHome": "العودة للرئيسية"
+    "backToHome": "العودة للرئيسية",
+    "explore": "استكشف"
   },
   "materials": {
     "origamiPaper": "ورق الأوريجامي",
