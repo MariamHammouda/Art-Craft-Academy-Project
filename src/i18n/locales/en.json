@@ -163,6 +163,11 @@
   "pictures": {
     "title": "Picture Gallery",
     "subtitle": "Explore our collection of inspiring craft pictures",
+    "latest": "Latest Pictures",
+    "latestDescription": "Discover the most recent creative projects from our community",
+    "noPictures": "No pictures available",
+    "comingSoon": "New pictures coming soon!",
+    "exploreMore": "Explore More Pictures",
     "categories": {
       "origamiPaperCrafts": "Origami & Paper Crafts",
       "drawing": "Drawing",
@@ -187,7 +192,44 @@
     },
     "viewGallery": "View Gallery",
     "backToPictures": "Back to Pictures",
-    "noImages": "No images available in this category yet"
+    "noImages": "No images available in this category yet",
+    "origami": {
+      "colorfulCranes": "Colorful Paper Cranes Collection",
+      "paperFlowers": "Delicate Paper Flowers",
+      "butterfly": "Origami Butterfly Garden"
+    },
+    "drawing": {
+      "portraitSketch": "Portrait Sketching Techniques",
+      "landscapeArt": "Landscape Drawing Collection"
+    },
+    "recycling": {
+      "bottleGarden": "Plastic Bottle Garden"
+    },
+    "beads": {
+      "jewelrySet": "Handmade Jewelry Set",
+      "bracelet": "Friendship Bracelet Collection"
+    },
+    "clay": {
+      "potteryBowl": "Ceramic Pottery Bowl"
+    },
+    "preschool": {
+      "fingerPainting": "Colorful Finger Painting"
+    },
+    "perler": {
+      "pixelArt": "Pixel Art Characters"
+    },
+    "threeDPen": {
+      "sculptures": "3D Pen Letter Art"
+    },
+    "miniature": {
+      "dollhouse": "Miniature Dollhouse Room"
+    },
+    "science": {
+      "experiment": "Colorful Science Experiment"
+    },
+    "tips": {
+      "organization": "Craft Organization Tips"
+    }
   },
   "common": {
     "loading": "Loading...",
@@ -201,7 +243,15 @@
     "back": "Back",
     "backToHome": "Back to Home",
     "search": "Search",
-    "explore": "Explore"
+    "explore": "Explore",
+    "viewAll": "View All",
+    "viewDetails": "View Details",
+    "tryAgain": "Try Again",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    }
   },
   "materials": {
     "origamiPaper": "Origami Paper",

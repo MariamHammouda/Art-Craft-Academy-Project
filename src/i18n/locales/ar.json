@@ -175,6 +175,11 @@
   "pictures": {
     "title": "معرض الصور",
     "subtitle": "استكشف مجموعتنا من صور الحرف الملهمة",
+    "latest": "أحدث الصور",
+    "latestDescription": "اكتشف أحدث المشاريع الإبداعية من مجتمعنا",
+    "noPictures": "لا توجد صور متاحة",
+    "comingSoon": "صور جديدة قريباً!",
+    "exploreMore": "استكشف المزيد من الصور",
     "categories": {
       "origamiPaperCrafts": "الأوريجامي والحرف الورقية",
       "drawing": "الرسم",
@@ -203,7 +208,44 @@
     },
     "viewGallery": "عرض المعرض",
     "backToPictures": "العودة للصور",
-    "noImages": "لا توجد صور متاحة في هذه الفئة بعد"
+    "noImages": "لا توجد صور متاحة في هذه الفئة بعد",
+    "origami": {
+      "colorfulCranes": "مجموعة طيور الكركي الملونة",
+      "paperFlowers": "زهور ورقية رقيقة",
+      "butterfly": "حديقة فراشات الأوريجامي"
+    },
+    "drawing": {
+      "portraitSketch": "تقنيات رسم البورتريه",
+      "landscapeArt": "مجموعة رسومات المناظر الطبيعية"
+    },
+    "recycling": {
+      "bottleGarden": "حديقة الزجاجات البلاستيكية"
+    },
+    "beads": {
+      "jewelrySet": "طقم مجوهرات يدوي",
+      "bracelet": "مجموعة أساور الصداقة"
+    },
+    "clay": {
+      "potteryBowl": "وعاء فخاري سيراميكي"
+    },
+    "preschool": {
+      "fingerPainting": "الرسم بالأصابع الملون"
+    },
+    "perler": {
+      "pixelArt": "شخصيات فن البكسل"
+    },
+    "threeDPen": {
+      "sculptures": "فن الحروف بالقلم ثلاثي الأبعاد"
+    },
+    "miniature": {
+      "dollhouse": "غرفة بيت الدمى المصغر"
+    },
+    "science": {
+      "experiment": "تجربة علمية ملونة"
+    },
+    "tips": {
+      "organization": "نصائح تنظيم أدوات الحرف"
+    }
   },
   "common": {
     "search": "بحث",
@@ -219,7 +261,15 @@
     "confirm": "تأكيد",
     "back": "رجوع",
     "backToHome": "العودة للرئيسية",
-    "explore": "استكشف"
+    "explore": "استكشف",
+    "viewAll": "عرض الكل",
+    "viewDetails": "عرض التفاصيل",
+    "tryAgain": "حاول مرة أخرى",
+    "difficulty": {
+      "beginner": "مبتدئ",
+      "intermediate": "متوسط",
+      "advanced": "متقدم"
+    }
   },
   "materials": {
     "origamiPaper": "ورق الأوريجامي",

@@ -7,6 +7,8 @@ import HeroSection from './components/HeroSection/HeroSection.jsx'
 import CategoriesBar from "./components/Categories/CategoriesBar.jsx"
 import { VideosByCategory } from "./components/Videos/VideosByCategory.jsx"
 import LatestVideos from './components/Videos/LatestVideos.jsx'
+import LatestPicturesSlider from './components/Pictures/LatestPicturesSlider.jsx'
+import PictureDetailPage from './components/Pictures/PictureDetailPage.jsx'
 import FeaturedStories from './components/Stories/FeaturedStories.jsx'
 import ShortsStories from './components/Stories/ShortsStories.jsx'
 import CategoryPage from './components/CategoryPage/CategoryPage.jsx'
@@ -45,6 +47,9 @@ function App() {
               <ErrorBoundary fallbackMessage="Unable to load latest videos. Please try refreshing the page.">
                 <LatestVideos />
               </ErrorBoundary>
+              <ErrorBoundary fallbackMessage="Unable to load latest pictures. Please try refreshing the page.">
+                <LatestPicturesSlider />
+              </ErrorBoundary>
               <CategoriesBar />
               <ErrorBoundary fallbackMessage="Unable to load video categories. Please try refreshing the page.">
                 <VideosByCategory />
@@ -55,6 +60,7 @@ function App() {
           <Route path="/video/:videoId" element={<VideoDetailPage />} />
           <Route path="/pictures" element={<PicturesPage />} />
           <Route path="/pictures/category/:categoryId" element={<PictureCategoryPage />} />
+          <Route path="/pictures/detail/:id" element={<PictureDetailPage />} />
           <Route path="/pictures/drawing/:drawingId" element={<DrawingDetailPage />} />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/shop" element={<ShopPage />} />
