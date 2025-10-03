@@ -20,7 +20,7 @@ export const categoriesData = [
   {
     id: 1,
     titleKey: "categories.origamiWorld",
-    color: "#FDE68A", // yellow
+    color: "#FFEB00", // yellow
     icon: origami,
     bannerImage: origamiCategory, // Using dedicated category image
     descriptionKey: "categories.descriptions.origamiWorld",
@@ -28,7 +28,7 @@ export const categoriesData = [
   {
     id: 2,
     titleKey: "categories.drawing",
-    color: "#93C5FD", // blue
+    color: "#0065F8", // blue
     icon: drawing,
     bannerImage: drawingCategory, // Using dedicated category image
     descriptionKey: "categories.descriptions.drawing",
@@ -36,7 +36,7 @@ export const categoriesData = [
   {
     id: 3,
     titleKey: "categories.recyclingArt",
-    color: "#BBF7D0", // mint green
+    color: "#08CB00", //  green
     icon: recycleing,
     bannerImage: recycleing,
     descriptionKey: "categories.descriptions.recyclingArt",
@@ -44,7 +44,7 @@ export const categoriesData = [
   {
     id: 4,
     titleKey: "categories.beadsJewelry",
-    color: "#F9A8D4", // pink
+    color: "#FF2DD1", // pink
     icon: beads,
     bannerImage: beadsCategory, // Using dedicated category image
     descriptionKey: "categories.descriptions.beadsJewelry",
@@ -52,7 +52,7 @@ export const categoriesData = [
   {
     id: 5,
     titleKey: "categories.clay",
-    color: "#A7F3D0", // green
+    color: "#FFAF00", // orange
     icon: clay,
     bannerImage: clay,
     descriptionKey: "categories.descriptions.clay",
@@ -60,7 +60,7 @@ export const categoriesData = [
   {
     id: 6,
     titleKey: "categories.preschoolCrafts",
-    color: "#FBCFE8", // light pink
+    color: "#FFEB00", // yellow
     icon: preschool,
     bannerImage: preschool,
     descriptionKey: "categories.descriptions.preschoolCrafts",
@@ -68,7 +68,7 @@ export const categoriesData = [
   {
     id: 7,
     titleKey: "categories.perlerBeads",
-    color: "#DDD6FE", // light purple
+    color: "#FF204E", //  purple
     icon: perlerBeads,
     bannerImage: perlerBeadsCategory,
     descriptionKey: "categories.descriptions.perlerBeads",
@@ -76,7 +76,7 @@ export const categoriesData = [
   {
     id: 8,
     titleKey: "categories.threeDPenFun",
-    color: "#FEF3C7", // light yellow
+    color: "#08CB00", // light yellow
     icon: threeDPenFun,
     bannerImage: threeDPenCategory,
     descriptionKey: "categories.descriptions.threeDPenFun",
@@ -84,7 +84,7 @@ export const categoriesData = [
   {
     id: 9,
     titleKey: "categories.scienceDiy",
-    color: "#f56263", // red
+    color: "#FF2DD1", // red
     icon: science,
     bannerImage: science,
     descriptionKey: "categories.descriptions.scienceDiy",
