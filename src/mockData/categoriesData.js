@@ -68,7 +68,7 @@ export const categoriesData = [
   {
     id: 7,
     titleKey: "categories.perlerBeads",
-    color: "#FF204E", //  purple
+    color: "#0065F8", //  purple
     icon: perlerBeads,
     bannerImage: perlerBeadsCategory,
     descriptionKey: "categories.descriptions.perlerBeads",

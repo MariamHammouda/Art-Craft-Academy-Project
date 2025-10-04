@@ -19,6 +19,7 @@ import ShopPage from './components/Pages/ShopPage.jsx'
 import PicturesPage from './components/Pages/PicturesPage.jsx'
 import PictureCategoryPage from './components/Pages/PictureCategoryPage.jsx'
 import DrawingDetailPage from './components/Pages/DrawingDetailPage.jsx'
+import PrivacyPolicyPage from './components/Pages/PrivacyPolicyPage.jsx'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import QuotaManager from './components/Debug/QuotaManager.jsx'
@@ -65,6 +66,7 @@ function App() {
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         </Routes>
         <Footer />
         <QuotaManager />

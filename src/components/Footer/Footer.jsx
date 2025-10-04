@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { FaFacebookF, FaInstagram, FaYoutube, FaTiktok, FaEnvelope, FaPhone } from "react-icons/fa6";
+import { Logoimg } from '../Logo/Artlogo.jsx';
 
 const Footer = () => {
   const { t } = useTranslation();
   
   return (
     <footer className="mt-16 text-white" style={{ backgroundColor: "#59ACBE" }}>
-      <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-4">
         {/* Contact */}
         <div>
           <h3 className="text-xl font-semibold mb-4">{t('about.contact')}</h3>
@@ -54,13 +55,23 @@ const Footer = () => {
             </a>
           </div>
         </div>
+
+        {/* Logo */}
+        <div className="flex flex-col items-center md:items-end">
+          <div className="mb-4 transform scale-125">
+            <Logoimg />
+          </div>
+          <p className="text-white/90 text-sm text-center md:text-right">
+            {t('common.welcome')}
+          </p>
+        </div>
       </div>
 
       <div className="border-t border-white/15">
         <div className="max-w-7xl mx-auto px-6 py-4 text-sm text-white/80 flex flex-wrap items-center justify-between gap-2">
           <p>{t('footer.copyright')}</p>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:underline">{t('footer.privacyPolicy')}</a>
+            <Link to="/privacy-policy" className="hover:underline">{t('footer.privacyPolicy')}</Link>
             <a href="#" className="hover:underline">{t('footer.termsOfService')}</a>
           </div>
         </div>

@@ -15,7 +15,7 @@ const CategoryCard = ({ titleKey, icon, color, id, bannerImage }) => {
       4: 'bg-[#F0308F] hover:bg-[#bf2672]', // Beads - Pink
       5: 'bg-[#FFA500] hover:bg-[#E6940A]', // Clay - orange
       6: 'bg-[#FFD93D] hover:bg-[#917c24]', // Preschool - Green
-      7: 'bg-[#f5494a] hover:bg-[#d63d3e]', // Perler Beads - red
+      7: 'bg-[#63C8FF] hover:bg-[#51a2cf]', // Perler Beads - red
       8: 'bg-[#32CD32] hover:bg-[#28B428]', // 3D Pen - green
       9: 'bg-[#F0308F] hover:bg-[#bf2672]'  // Science - Pink
     };
