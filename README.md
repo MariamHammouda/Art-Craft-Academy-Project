@@ -171,28 +171,10 @@ The project is deployed on **Netlify** with:
 - [ ] Community features
 - [ ] Mobile app development
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Team
-
-- **Developer** - Full-stack development and architecture
-- **Designer** - UI/UX design and user experience
-- **Content Creator** - Educational content and tutorials
 
 ## 📞 Contact
 
 - **Website:** [www.artandcraftacademy.com](http://www.artandcraftacademy.com)
-- **Email:** contact@artandcraftacademy.com
 - **GitHub:** [Project Repository](https://github.com/yourusername/art-craft-academy-project)
 
 ---
