@@ -172,13 +172,6 @@ The project is deployed on **Netlify** with:
 - [ ] Mobile app development
 
 
-## 📞 Contact
-
-- **Website:** [www.artandcraftacademy.com](http://www.artandcraftacademy.com)
-- **GitHub:** [Project Repository](https://github.com/yourusername/art-craft-academy-project)
-
----
-
 <div align="center">
   <strong>🎨 Made with ❤️ for the creative community</strong>
 </div>
